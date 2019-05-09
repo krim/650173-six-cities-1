@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Apartment from '../apartment/apartment.jsx';
+
+import ApartmentList from '../apartment-list/apartment-list.jsx';
 
 const App = (props) => {
   const {apartments} = props;
@@ -105,13 +106,7 @@ const App = (props) => {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-              { apartments.map((apartment) => {
-                return <Apartment
-                  apartment={apartment}
-                  apartmentNameClick={() => {}}
-                  key={apartment.name}
-                />;
-              })}
+              <ApartmentList apartments={apartments}/>
             </div>
           </section>
           <div className="cities__right-section">

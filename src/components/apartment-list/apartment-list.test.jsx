@@ -1,17 +1,17 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import App from './app';
 import apartment from '../../__fixtures__/apartment';
+import ApartmentList from './apartment-list';
 
 const apartments = [apartment];
 
-describe(`App`, () => {
+describe(`ApartmentList`, () => {
   it(`renders component correctly`, () => {
     const tree = renderer.
-      create(<App
-        apartments={apartments}
-      />).
-      toJSON();
+    create(<ApartmentList
+      apartments={apartments}
+    />).
+    toJSON();
 
     expect(tree).toMatchSnapshot();
   });
