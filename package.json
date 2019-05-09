@@ -30,8 +30,10 @@
     "node": "10"
   },
   "dependencies": {
+    "html-react-parser": "0.7.0",
     "prop-types": "15.7.2",
     "react": "16.8.6",
-    "react-dom": "16.8.6"
+    "react-dom": "16.8.6",
+    "react-range-proptypes": "1.0.0"
   }
 }
