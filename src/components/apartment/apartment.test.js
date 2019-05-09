@@ -9,9 +9,9 @@ describe(`Apartment`, () => {
     const tree = renderer.
       create(<Apartment
         apartment={apartment}
-        apartmentNameClick={() => {}}
-        apartmentMouserEnter={() => {}}
-        apartmentMouserOver={() => {}}
+        onClick={() => {}}
+        mouseOver={() => {}}
+        mouseOut={() => {}}
       />).
       toJSON();
 

@@ -9,26 +9,26 @@ configure({adapter: new Adapter()});
 
 describe(`Apartment`, () => {
   it(`correctly renders after relaunch and handles events`, () => {
-    const apartmentNameClickHandler = jest.fn();
-    const apartmentMouserEnterHandler = jest.fn();
-    const apartmentMouserOverHandler = jest.fn();
+    const onClickHandler = jest.fn();
+    const mouseOverHandler = jest.fn();
+    const mouseOutHandler = jest.fn();
     const app = shallow(<Apartment
       apartment={apartment}
-      apartmentNameClick={apartmentNameClickHandler}
-      apartmentMouserEnter={apartmentMouserEnterHandler}
-      apartmentMouserOver={apartmentMouserOverHandler}
+      onClick={onClickHandler}
+      mouseOver={mouseOverHandler}
+      mouseOut={mouseOutHandler}
     />);
 
     const apartmentName = app.find(`.place-card__name a`);
     apartmentName.simulate(`click`, {preventDefault() {}});
-    expect(apartmentNameClickHandler).toHaveBeenCalledTimes(1);
+    expect(onClickHandler).toHaveBeenCalledTimes(1);
 
     const apartmentCard = app.find(`.cities__place-card`);
 
     apartmentCard.simulate(`mouseover`);
-    expect(apartmentMouserEnterHandler).toHaveBeenCalledTimes(1);
+    expect(mouseOverHandler).toHaveBeenCalledTimes(1);
 
     apartmentCard.simulate(`mouseout`);
-    expect(apartmentMouserOverHandler).toHaveBeenCalledTimes(1);
+    expect(mouseOutHandler).toHaveBeenCalledTimes(1);
   });
 });

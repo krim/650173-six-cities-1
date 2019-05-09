@@ -18,15 +18,15 @@ class ApartmentList extends PureComponent {
     return apartments.map((apartment) => {
       return <Apartment
         apartment={apartment}
-        apartmentNameClick={() => {}}
-        apartmentMouserEnter={
+        onClick={() => {}}
+        mouseOver={
           () => {
             this.setState({
               activeApartment: apartment
             });
           }
         }
-        apartmentMouserOver={
+        mouseOut={
           () => {
             this.setState({
               activeApartment: undefined

@@ -7,15 +7,15 @@ class Apartment extends PureComponent {
   render() {
     const {
       apartment,
-      apartmentNameClick,
-      apartmentMouserEnter,
-      apartmentMouserOver
+      onClick,
+      mouseOver,
+      mouseOut
     } = this.props;
 
     return (
       <article
-        onMouseOver={apartmentMouserEnter}
-        onMouseOut={apartmentMouserOver}
+        onMouseOver={mouseOver}
+        onMouseOut={mouseOut}
         className="cities__place-card place-card"
         key={apartment.name}
       >
@@ -47,7 +47,7 @@ class Apartment extends PureComponent {
             </div>
           </div>
           <h2 className="place-card__name">
-            <a href="#" onClick={apartmentNameClick}>{ apartment.name }</a>
+            <a href="#" onClick={onClick}>{ apartment.name }</a>
           </h2>
           <p className="place-card__type">{apartment.type}</p>
         </div>
@@ -79,9 +79,9 @@ Apartment.propTypes = {
     priceText: PropTypes.string.isRequired,
     premium: PropTypes.bool.isRequired
   }),
-  apartmentNameClick: PropTypes.func.isRequired,
-  apartmentMouserEnter: PropTypes.func.isRequired,
-  apartmentMouserOver: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired,
+  mouseOver: PropTypes.func.isRequired,
+  mouseOut: PropTypes.func.isRequired
 };
 
 export default Apartment;
