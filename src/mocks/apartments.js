@@ -7,7 +7,8 @@ export default [
     price: 120,
     currency: `euro`,
     priceText: `night`,
-    premium: true
+    premium: true,
+    location: [52.3909553943508, 4.85309666406198]
   },
   {
     title: `Wood and stone place`,
@@ -17,7 +18,8 @@ export default [
     price: 80,
     currency: `euro`,
     priceText: `night`,
-    premium: false
+    premium: false,
+    location: [52.369553943508, 4.85309666406198]
   },
   {
     title: `Canal View Prinsengracht`,
@@ -27,7 +29,8 @@ export default [
     price: 132,
     currency: `euro`,
     priceText: `night`,
-    premium: false
+    premium: false,
+    location: [52.3909553943508, 4.929309666406198]
   },
   {
     title: `Nice, cozy, warm big bed apartment`,
@@ -37,6 +40,7 @@ export default [
     price: 180,
     currency: `euro`,
     priceText: `night`,
-    premium: true
+    premium: true,
+    location: [52.3809553943508, 4.939309666406198]
   }
 ];
