@@ -36,13 +36,9 @@ class Map extends PureComponent {
   }
 
   _initializeMap() {
-    this.map = this.mapSettings.builder.map(`map`, {
-      center: this.mapSettings.center,
-      zoom: this.mapSettings.zoom,
-      zoomControl: this.mapSettings.zoomControl,
-      marker: this.mapSettings.marker
-    });
-    this.map.setView(this.mapSettings.center, this.mapSettings.zoom);
+    const {center, zoom, zoomControl, marker} = this.mapSettings;
+    this.map = this.mapSettings.builder.map(`map`, {center, zoom, zoomControl, marker});
+    this.map.setView(center, zoom);
     this.mapSettings
       .builder
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
