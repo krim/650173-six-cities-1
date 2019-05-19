@@ -9,7 +9,9 @@ const init = () => {
   ReactDOM.render(
       <App
         apartments={apartments}
-        mapBuilder={leaflet}
+        mapSettings={
+          {builder: leaflet, zoom: 12, center: [52.38333, 4.9], zoomControl: false, marker: true}
+        }
       />,
       document.querySelector(`#root`)
   );

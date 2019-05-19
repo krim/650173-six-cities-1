@@ -5,7 +5,7 @@ import ApartmentList from '../apartment-list/apartment-list.jsx';
 import Map from '../map/map.jsx';
 
 const App = (props) => {
-  const {apartments, mapBuilder} = props;
+  const {apartments, mapSettings} = props;
 
   return <div>
     <div style={{display: `none`}}>
@@ -111,7 +111,10 @@ const App = (props) => {
             </div>
           </section>
           <div className="cities__right-section">
-            <Map apartments={apartments} mapBuilder={mapBuilder}/>
+            <Map
+              apartments={apartments}
+              mapSettings={mapSettings}
+            />
           </div>
         </div>
       </div>
@@ -121,7 +124,13 @@ const App = (props) => {
 
 App.propTypes = {
   apartments: PropTypes.arrayOf(PropTypes.object).isRequired,
-  mapBuilder: PropTypes.object.isRequired
+  mapSettings: PropTypes.shape({
+    builder: PropTypes.object.isRequired,
+    zoom: PropTypes.number.isRequired,
+    center: PropTypes.arrayOf(PropTypes.number).isRequired,
+    zoomControl: PropTypes.bool.isRequired,
+    marker: PropTypes.bool.isRequired
+  })
 };
 
 export default App;

@@ -6,17 +6,16 @@ class Map extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.apartments = this.props.apartments;
-    this.mapBuilder = this.props.mapBuilder;
-    this.mapPin = this.mapBuilder.icon({
+    this.mapSettings = this.props.mapSettings;
+    this.mapPin = this.mapSettings.builder.icon({
       iconUrl: `img/marker.svg`,
       iconSize: [30, 30]
     });
   }
 
   componentDidMount() {
-    const map = this._initializeMap();
-    this._addMarkers(map);
+    this._initializeMap();
+    this._addMarkers();
   }
 
   render() {
@@ -25,34 +24,31 @@ class Map extends PureComponent {
     );
   }
 
-  _addMarkers(map) {
-    this.apartments.forEach((apartment) => this._addMarker(map, apartment.location));
+  _addMarkers() {
+    this.props.apartments.forEach((apartment) => this._addMarker(apartment.location));
   }
 
-  _addMarker(map, location) {
-    this.mapBuilder
+  _addMarker(location) {
+    this.mapSettings
+      .builder
       .marker(location, {icon: this.mapPin})
-      .addTo(map);
+      .addTo(this.map);
   }
 
   _initializeMap() {
-    const zoom = 12;
-    const defaultCoordinates = [52.38333, 4.9];
-    const map = this.mapBuilder.map(`map`, {
-      center: defaultCoordinates,
-      zoom: 12,
-      zoomControl: false,
-      marker: true
+    this.map = this.mapSettings.builder.map(`map`, {
+      center: this.mapSettings.center,
+      zoom: this.mapSettings.zoom,
+      zoomControl: this.mapSettings.zoomControl,
+      marker: this.mapSettings.marker
     });
-    map.setView(defaultCoordinates, zoom);
-    this
-      .mapBuilder
+    this.map.setView(this.mapSettings.center, this.mapSettings.zoom);
+    this.mapSettings
+      .builder
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
-      .addTo(map);
-
-    return map;
+      .addTo(this.map);
   }
 }
 
@@ -70,7 +66,13 @@ Map.propTypes = {
         location: PropTypes.arrayOf(PropTypes.number).isRequired
       })
   ),
-  mapBuilder: PropTypes.object.isRequired
+  mapSettings: PropTypes.shape({
+    builder: PropTypes.object.isRequired,
+    zoom: PropTypes.number.isRequired,
+    center: PropTypes.arrayOf(PropTypes.number).isRequired,
+    zoomControl: PropTypes.bool.isRequired,
+    marker: PropTypes.bool.isRequired
+  })
 };
 
 export default Map;

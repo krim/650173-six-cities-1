@@ -12,7 +12,9 @@ describe(`App`, () => {
     const tree = renderer.
       create(<App
         apartments={apartments}
-        mapBuilder={mapBuilder}
+        mapSettings={
+          {builder: mapBuilder, zoom: 12, center: [52.38333, 4.9], zoomControl: false, marker: true}
+        }
       />).
       toJSON();
 
