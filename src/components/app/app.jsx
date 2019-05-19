@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ApartmentList from '../apartment-list/apartment-list.jsx';
+import Map from '../map/map.jsx';
 
 const App = (props) => {
-  const {apartments} = props;
+  const {apartments, mapSettings} = props;
 
   return <div>
     <div style={{display: `none`}}>
@@ -110,7 +111,10 @@ const App = (props) => {
             </div>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <Map
+              apartments={apartments}
+              mapSettings={mapSettings}
+            />
           </div>
         </div>
       </div>
@@ -119,7 +123,14 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  apartments: PropTypes.arrayOf(PropTypes.object).isRequired
+  apartments: PropTypes.arrayOf(PropTypes.object).isRequired,
+  mapSettings: PropTypes.shape({
+    builder: PropTypes.object.isRequired,
+    zoom: PropTypes.number.isRequired,
+    center: PropTypes.arrayOf(PropTypes.number).isRequired,
+    zoomControl: PropTypes.bool.isRequired,
+    marker: PropTypes.bool.isRequired
+  })
 };
 
 export default App;

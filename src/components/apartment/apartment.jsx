@@ -77,7 +77,8 @@ Apartment.propTypes = {
     price: PropTypes.number.isRequired,
     currency: PropTypes.oneOf([`euro`, `usd`]).isRequired,
     priceText: PropTypes.string.isRequired,
-    premium: PropTypes.bool.isRequired
+    premium: PropTypes.bool.isRequired,
+    location: PropTypes.arrayOf(PropTypes.number).isRequired
   }),
   onClick: PropTypes.func.isRequired,
   mouseOver: PropTypes.func.isRequired,

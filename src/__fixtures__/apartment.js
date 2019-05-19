@@ -6,5 +6,6 @@ export default {
   price: 120,
   currency: `euro`,
   priceText: `night`,
-  premium: true
+  premium: true,
+  location: [52.3909553943508, 4.85309666406198]
 };
