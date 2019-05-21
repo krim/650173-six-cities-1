@@ -2,7 +2,8 @@ import apartments from './mocks/apartments';
 
 const initialState = {
   town: {},
-  apartments: []
+  apartments: [],
+  townApartments: []
 };
 
 const ActionCreator = {

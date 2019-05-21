@@ -93,8 +93,9 @@ class App extends Component {
     );
   }
 
-  componentWillMount() {
-    loadApartments();
+  componentDidMount() {
+    this.props.loadApartments();
+    this.props.switchTown(this.props.apartments[0].town);
   }
 }
 
@@ -106,7 +107,9 @@ App.propTypes = {
     coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
     zoomControl: PropTypes.bool.isRequired,
     marker: PropTypes.bool.isRequired
-  })
+  }),
+  loadApartments: PropTypes.func.isRequired,
+  switchTown: PropTypes.func.isRequired
 };
 
 export {App};

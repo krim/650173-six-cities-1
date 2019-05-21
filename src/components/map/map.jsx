@@ -25,6 +25,7 @@ class Map extends PureComponent {
   }
 
   _addMarkers() {
+    console.log(this.props.apartments);
     this.props.apartments.forEach((apartment) => this._addMarker(apartment.coordinates));
   }
 
