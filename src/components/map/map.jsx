@@ -15,7 +15,12 @@ class Map extends PureComponent {
 
   componentDidMount() {
     this._initializeMap();
-    this._addMarkers();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.apartments !== this.props.apartments) {
+      this._addMarkers();
+    }
   }
 
   render() {
@@ -25,7 +30,6 @@ class Map extends PureComponent {
   }
 
   _addMarkers() {
-    console.log(this.props.apartments);
     this.props.apartments.forEach((apartment) => this._addMarker(apartment.coordinates));
   }
 

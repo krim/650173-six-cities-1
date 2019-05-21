@@ -11,22 +11,23 @@ class TownList extends PureComponent {
   }
 
   render() {
-    const {apartments} = this.props;
+    const {towns} = this.props;
 
     return (
       <div className="cities tabs">
         <section className="locations container">
           <ul className="locations__list tabs__list">
             {
-              apartments.map((apartment) => {
-
+              towns.map((town) => {
+                return (
+                  <li className="locations__item" key={town.title}>
+                    <a className="locations__item-link tabs__item" href="#">
+                      <span>{town.title}</span>
+                    </a>
+                  </li>
+                );
               })
             }
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="#">
-                <span></span>
-              </a>
-            </li>
           </ul>
         </section>
       </div>
@@ -35,7 +36,7 @@ class TownList extends PureComponent {
 }
 
 TownList.propTypes = {
-  apartments: PropTypes.arrayOf(PropTypes.object).isRequired
+  towns: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 export default TownList;

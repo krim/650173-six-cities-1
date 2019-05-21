@@ -55,7 +55,7 @@ class App extends Component {
         </header>
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          <TownList apartments={apartments} />
+          <TownList towns={this._towns} />
           <div className="cities__places-wrapper">
             <div className="cities__places-container container">
               <section className="cities__places places">
@@ -95,7 +95,20 @@ class App extends Component {
 
   componentDidMount() {
     this.props.loadApartments();
-    this.props.switchTown(this.props.apartments[0].town);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.apartments !== this.props.apartments) {
+      this.props.switchTown(this.props.apartments[0].town);
+    }
+  }
+
+  get _towns() {
+    return this.props.apartments
+      .map(({town}) => town)
+      .filter((town, index, towns) => {
+        return towns.findIndex((value) => value.title === town.title) === index;
+      });
   }
 }
 
