@@ -7,13 +7,13 @@ const initialState = {
 
 const ActionCreator = {
   switchTown: (town) => ({
-    type: `SWITH_TOWN`,
+    type: `SWITCH_TOWN`,
     payload: town
   }),
-  getApartments: () => {
+  loadApartments: () => {
     // fetch apartments via API will be here
     return {
-      type: `GET_APARTMENTS`,
+      type: `LOAD_APARTMENTS`,
       payload: apartments
     };
   },
@@ -25,7 +25,7 @@ const reducer = (state = initialState, action) => {
       town: action.payload
     });
 
-    case `GET_APARTMENTS`: return Object.assign({}, state, {
+    case `LOAD_APARTMENTS`: return Object.assign({}, state, {
       apartments: action.payload
     });
   }

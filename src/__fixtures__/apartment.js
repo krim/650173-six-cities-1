@@ -7,5 +7,9 @@ export default {
   currency: `euro`,
   priceText: `night`,
   premium: true,
-  location: [52.3909553943508, 4.85309666406198]
+  town: {
+    title: `Amsterdam`,
+    coordinates: [52.38333, 4.9]
+  },
+  coordinates: [52.3909553943508, 4.929309666406198]
 };

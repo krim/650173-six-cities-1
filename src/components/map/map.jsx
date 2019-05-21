@@ -25,20 +25,20 @@ class Map extends PureComponent {
   }
 
   _addMarkers() {
-    this.props.apartments.forEach((apartment) => this._addMarker(apartment.location));
+    this.props.apartments.forEach((apartment) => this._addMarker(apartment.coordinates));
   }
 
-  _addMarker(location) {
+  _addMarker(coordinates) {
     this.mapSettings
       .builder
-      .marker(location, {icon: this.mapPin})
+      .marker(coordinates, {icon: this.mapPin})
       .addTo(this.map);
   }
 
   _initializeMap() {
-    const {center, zoom, zoomControl, marker} = this.mapSettings;
-    this.map = this.mapSettings.builder.map(`map`, {center, zoom, zoomControl, marker});
-    this.map.setView(center, zoom);
+    const {coordinates, zoom, zoomControl, marker} = this.mapSettings;
+    this.map = this.mapSettings.builder.map(`map`, {coordinates, zoom, zoomControl, marker});
+    this.map.setView(coordinates, zoom);
     this.mapSettings
       .builder
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -59,13 +59,13 @@ Map.propTypes = {
         currency: PropTypes.oneOf([`euro`, `usd`]).isRequired,
         priceText: PropTypes.string.isRequired,
         premium: PropTypes.bool.isRequired,
-        location: PropTypes.arrayOf(PropTypes.number).isRequired
+        coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
       })
   ),
   mapSettings: PropTypes.shape({
     builder: PropTypes.object.isRequired,
     zoom: PropTypes.number.isRequired,
-    center: PropTypes.arrayOf(PropTypes.number).isRequired,
+    coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
     zoomControl: PropTypes.bool.isRequired,
     marker: PropTypes.bool.isRequired
   })

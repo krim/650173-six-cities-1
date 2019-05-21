@@ -9,14 +9,19 @@ import apartments from './mocks/apartments';
 import {reducer} from "./reducer";
 
 const init = () => {
-  const store = createStore(reducer);
+  /* eslint-disable no-underscore-dangle */
+  const store = createStore(
+      reducer,
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
+  /* eslint-enable */
 
   ReactDOM.render(
       <Provider store={store}>
         <App
           apartments={apartments}
           mapSettings={
-            {builder: leaflet, zoom: 12, center: [52.38333, 4.9], zoomControl: false, marker: true}
+            {builder: leaflet, zoom: 12, coordinates: [52.38333, 4.9], zoomControl: false, marker: true}
           }
         />
       </Provider>,
