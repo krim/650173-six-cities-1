@@ -30,6 +30,10 @@ class Map extends PureComponent {
   }
 
   _addMarkers() {
+    if (this.mapLayer) {
+      this.mapLayer.clearLayers();
+    }
+    this.mapLayer = this.mapSettings.builder.layerGroup().addTo(this.map);
     this.props.apartments.forEach((apartment) => this._addMarker(apartment.coordinates));
   }
 
@@ -37,7 +41,7 @@ class Map extends PureComponent {
     this.mapSettings
       .builder
       .marker(coordinates, {icon: this.mapPin})
-      .addTo(this.map);
+      .addTo(this.mapLayer);
   }
 
   _initializeMap() {

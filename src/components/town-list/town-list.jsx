@@ -1,15 +1,11 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../reducer';
+
+import Town from '../town/town.jsx';
 
 class TownList extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activeApartment: undefined
-    };
-  }
-
   render() {
     const {towns} = this.props;
 
@@ -19,13 +15,12 @@ class TownList extends PureComponent {
           <ul className="locations__list tabs__list">
             {
               towns.map((town) => {
-                return (
-                  <li className="locations__item" key={town.title}>
-                    <a className="locations__item-link tabs__item" href="#">
-                      <span>{town.title}</span>
-                    </a>
-                  </li>
-                );
+                return <Town
+                  key={town.title}
+                  town={town}
+                  onClick={() => this.props.switchTown(town)}
+                  active={this.props.activeTown.title === town.title}
+                />;
               })
             }
           </ul>
@@ -36,7 +31,22 @@ class TownList extends PureComponent {
 }
 
 TownList.propTypes = {
-  towns: PropTypes.arrayOf(PropTypes.object).isRequired
+  towns: PropTypes.arrayOf(PropTypes.object).isRequired,
+  activeTown: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
+  }),
+  switchTown: PropTypes.func.isRequired
 };
 
-export default TownList;
+const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+  activeTown: state.town
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  switchTown: (town) => dispatch(ActionCreator.switchTown(town))
+});
+
+export {TownList};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TownList);

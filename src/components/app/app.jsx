@@ -9,7 +9,7 @@ import TownList from '../town-list/town-list.jsx';
 
 class App extends Component {
   render() {
-    const {apartments, mapSettings} = this.props;
+    const {mapSettings} = this.props;
 
     return (
       <div>
@@ -60,7 +60,7 @@ class App extends Component {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">312 places to stay in Amsterdam</b>
+                <b className="places__found">{this._apartments.length} places to stay in {this.props.town.title}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex="0">
@@ -77,12 +77,12 @@ class App extends Component {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <ApartmentList apartments={apartments}/>
+                  <ApartmentList apartments={this._apartments}/>
                 </div>
               </section>
               <div className="cities__right-section">
                 <Map
-                  apartments={apartments}
+                  apartments={this._apartments}
                   mapSettings={mapSettings}
                 />
               </div>
@@ -110,6 +110,14 @@ class App extends Component {
         return towns.findIndex((value) => value.title === town.title) === index;
       });
   }
+
+  get _apartments() {
+    if (this.props.town) {
+      return this.props.apartments.filter((apartment) => apartment.town.title === this.props.town.title);
+    } else {
+      return [];
+    }
+  }
 }
 
 App.propTypes = {
@@ -120,6 +128,10 @@ App.propTypes = {
     coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
     zoomControl: PropTypes.bool.isRequired,
     marker: PropTypes.bool.isRequired
+  }),
+  town: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
   }),
   loadApartments: PropTypes.func.isRequired,
   switchTown: PropTypes.func.isRequired

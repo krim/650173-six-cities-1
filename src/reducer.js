@@ -6,16 +6,25 @@ const initialState = {
   townApartments: []
 };
 
+const ActionType = {
+  SWITCH_TOWN: `SWITCH_TOWN`,
+  LOAD_APARTMENTS: `LOAD_APARTMENTS`
+};
+
+const Apartments = {
+  load: () => apartments
+};
+
 const ActionCreator = {
   switchTown: (town) => ({
-    type: `SWITCH_TOWN`,
+    type: ActionType.SWITCH_TOWN,
     payload: town
   }),
-  loadApartments: () => {
+  loadApartments: (loader = Apartments) => {
     // fetch apartments via API will be here
     return {
-      type: `LOAD_APARTMENTS`,
-      payload: apartments
+      type: ActionType.LOAD_APARTMENTS,
+      payload: loader.load()
     };
   },
 };
@@ -36,5 +45,6 @@ const reducer = (state = initialState, action) => {
 
 export {
   ActionCreator,
+  ActionType,
   reducer
 };
