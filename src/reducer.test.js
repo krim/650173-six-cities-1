@@ -13,7 +13,7 @@ const Apartments = {
 
 describe(`ActionCreator`, () => {
   describe(`switchTown`, () => {
-    it(`switches town`, () => {
+    it(`switches the town to the new one`, () => {
       expect(ActionCreator.switchTown({title: `Amsterdam`})).toEqual({
         type: ActionType.SWITCH_TOWN,
         payload: {title: `Amsterdam`}
