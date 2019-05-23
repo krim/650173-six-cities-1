@@ -10,9 +10,9 @@ export default [
     premium: true,
     town: {
       title: `Paris`,
-      coordinates: [52.38333, 4.9]
+      coordinates: [52.38360, 5.9]
     },
-    coordinates: [52.3909553943508, 4.85309666406198]
+    coordinates: [52.3836053943508, 5.9]
   },
   {
     title: `Wood and stone place`,

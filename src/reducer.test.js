@@ -21,9 +21,9 @@ describe(`ActionCreator`, () => {
     });
   });
 
-  describe(`loadApartments`, () => {
+  describe(`fetchApartments`, () => {
     it(`loads apartments`, () => {
-      expect(ActionCreator.loadApartments(Apartments)).toEqual({
+      expect(ActionCreator.fetchApartments(Apartments)).toEqual({
         type: ActionType.LOAD_APARTMENTS,
         payload: apartments
       });

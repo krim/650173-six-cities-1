@@ -8,8 +8,18 @@ import Map from '../map/map.jsx';
 import TownList from '../town-list/town-list.jsx';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.fetchApartments();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.apartments !== this.props.apartments) {
+      this.props.switchTown(this.props.apartments[0].town);
+    }
+  }
+
   render() {
-    const {mapSettings} = this.props;
+    const {mapSettings, town} = this.props;
 
     return (
       <div>
@@ -55,12 +65,12 @@ class App extends Component {
         </header>
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          <TownList towns={this._towns} />
+          { Object.keys(town).length > 0 && <TownList towns={this._towns}/> }
           <div className="cities__places-wrapper">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{this._apartments.length} places to stay in {this.props.town.title}</b>
+                <b className="places__found">{this._apartments.length} places to stay in {town.title}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex="0">
@@ -81,26 +91,18 @@ class App extends Component {
                 </div>
               </section>
               <div className="cities__right-section">
-                <Map
-                  apartments={this._apartments}
-                  mapSettings={mapSettings}
-                />
+                {
+                  Object.keys(town).length > 0 && <Map
+                    apartments={this._apartments}
+                    mapSettings={Object.assign({}, mapSettings, {centerCoordinates: town.coordinates})}
+                  />
+                }
               </div>
             </div>
           </div>
         </main>
       </div>
     );
-  }
-
-  componentDidMount() {
-    this.props.loadApartments();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.apartments !== this.props.apartments) {
-      this.props.switchTown(this.props.apartments[0].town);
-    }
   }
 
   get _towns() {
@@ -112,11 +114,13 @@ class App extends Component {
   }
 
   get _apartments() {
-    if (this.props.town) {
-      return this.props.apartments.filter((apartment) => apartment.town.title === this.props.town.title);
-    } else {
-      return [];
+    const {town, apartments} = this.props;
+
+    if (Object.keys(town).length > 0) {
+      return apartments.filter((apartment) => apartment.town.title === town.title);
     }
+
+    return [];
   }
 }
 
@@ -125,15 +129,14 @@ App.propTypes = {
   mapSettings: PropTypes.shape({
     builder: PropTypes.object.isRequired,
     zoom: PropTypes.number.isRequired,
-    coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
     zoomControl: PropTypes.bool.isRequired,
     marker: PropTypes.bool.isRequired
   }),
   town: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
+    title: PropTypes.string,
+    coordinates: PropTypes.arrayOf(PropTypes.number)
   }),
-  loadApartments: PropTypes.func.isRequired,
+  fetchApartments: PropTypes.func.isRequired,
   switchTown: PropTypes.func.isRequired
 };
 
@@ -145,7 +148,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadApartments: () => dispatch(ActionCreator.loadApartments()),
+  fetchApartments: () => dispatch(ActionCreator.fetchApartments()),
   switchTown: (town) => dispatch(ActionCreator.switchTown(town))
 });
 

@@ -24,9 +24,9 @@ describe(`App`, () => {
             apartments={apartments}
             town={apartment.town}
             mapSettings={
-              {builder: mapBuilder, zoom: 12, coordinates: [52.38333, 4.9], zoomControl: false, marker: true}
+              {builder: mapBuilder, zoom: 12, zoomControl: false, marker: true}
             }
-            loadApartments={jest.fn()}
+            fetchApartments={jest.fn()}
             switchTown={jest.fn()}
           />
         </Provider>

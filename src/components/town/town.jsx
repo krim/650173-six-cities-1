@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 class Town extends PureComponent {
   render() {
-    const {town, onClick} = this.props;
+    const {title, onClick} = this.props;
 
     return (
-      <li className="locations__item" key={town.title}>
+      <li className="locations__item">
         <a className={this._itemClasses} onClick={onClick} href="#">
-          <span>{town.title}</span>
+          <span>{title}</span>
         </a>
       </li>
     );
@@ -21,10 +21,7 @@ class Town extends PureComponent {
 }
 
 Town.propTypes = {
-  town: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
-  }),
+  title: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired
 };

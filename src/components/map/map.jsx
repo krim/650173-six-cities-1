@@ -15,12 +15,14 @@ class Map extends PureComponent {
 
   componentDidMount() {
     this._initializeMap();
+    this._setView();
+    this._addMarkers();
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.apartments !== this.props.apartments) {
-      this._addMarkers();
-    }
+  componentDidUpdate() {
+    this.mapSettings = this.props.mapSettings;
+    this._setView();
+    this._addMarkers();
   }
 
   render() {
@@ -44,10 +46,14 @@ class Map extends PureComponent {
       .addTo(this.mapLayer);
   }
 
+  _setView() {
+    const {centerCoordinates, zoom} = this.mapSettings;
+    this.map.setView(centerCoordinates, zoom);
+  }
+
   _initializeMap() {
-    const {coordinates, zoom, zoomControl, marker} = this.mapSettings;
-    this.map = this.mapSettings.builder.map(`map`, {coordinates, zoom, zoomControl, marker});
-    this.map.setView(coordinates, zoom);
+    const {centerCoordinates, zoom, zoomControl, marker} = this.mapSettings;
+    this.map = this.mapSettings.builder.map(`map`, {centerCoordinates, zoom, zoomControl, marker});
     this.mapSettings
       .builder
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -74,7 +80,7 @@ Map.propTypes = {
   mapSettings: PropTypes.shape({
     builder: PropTypes.object.isRequired,
     zoom: PropTypes.number.isRequired,
-    coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
+    centerCoordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
     zoomControl: PropTypes.bool.isRequired,
     marker: PropTypes.bool.isRequired
   })

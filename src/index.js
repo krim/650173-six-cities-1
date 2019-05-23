@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import leaflet from 'leaflet';
-import {createStore} from "redux";
-import {Provider} from "react-redux";
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
 
 import App from './components/app/app.jsx';
-import {reducer} from "./reducer";
+import {reducer} from './reducer';
+
+const Settings = {
+  ZOOM: 12
+};
 
 const init = () => {
   /* eslint-disable no-underscore-dangle */
@@ -14,12 +18,11 @@ const init = () => {
       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
   /* eslint-enable */
-
   ReactDOM.render(
       <Provider store={store}>
         <App
           mapSettings={
-            {builder: leaflet, zoom: 12, coordinates: [52.38333, 4.9], zoomControl: false, marker: true}
+            {builder: leaflet, zoom: Settings.ZOOM, zoomControl: false, marker: true}
           }
         />
       </Provider>,

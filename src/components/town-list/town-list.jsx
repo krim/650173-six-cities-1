@@ -17,7 +17,7 @@ class TownList extends PureComponent {
               towns.map((town) => {
                 return <Town
                   key={town.title}
-                  town={town}
+                  title={town.title}
                   onClick={() => this.props.switchTown(town)}
                   active={this.props.activeTown.title === town.title}
                 />;

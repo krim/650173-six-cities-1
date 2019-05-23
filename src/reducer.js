@@ -20,7 +20,7 @@ const ActionCreator = {
     type: ActionType.SWITCH_TOWN,
     payload: town
   }),
-  loadApartments: (loader = Apartments) => {
+  fetchApartments: (loader = Apartments) => {
     // fetch apartments via API will be here
     return {
       type: ActionType.LOAD_APARTMENTS,

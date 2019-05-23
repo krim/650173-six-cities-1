@@ -13,7 +13,7 @@ describe(`Map`, () => {
       create(<Map
         apartments={apartments}
         mapSettings={
-          {builder: mapBuilder, zoom: 12, coordinates: [52.38333, 4.9], zoomControl: false, marker: true}
+          {builder: mapBuilder, zoom: 12, centerCoordinates: [52.38333, 4.9], zoomControl: false, marker: true}
         }
       />).
       toJSON();

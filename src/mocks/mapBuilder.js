@@ -16,6 +16,11 @@ const mapBuilder = {
     return {
       addTo: jest.fn(),
     };
+  },
+  layerGroup() {
+    return {
+      addTo: jest.fn(),
+    };
   }
 };
 
