@@ -13,13 +13,16 @@ class App extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.apartments !== this.props.apartments) {
-      this.props.switchTown(this.props.apartments[0].town);
+    const {apartments, switchTown} = this.props;
+
+    if (prevProps.apartments !== apartments) {
+      switchTown(apartments[0].town);
     }
   }
 
   render() {
     const {mapSettings, town} = this.props;
+    const isTownExist = Object.keys(town).length > 0;
 
     return (
       <div>
@@ -65,12 +68,12 @@ class App extends Component {
         </header>
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          { Object.keys(town).length > 0 && <TownList towns={this._towns}/> }
+          { isTownExist && <TownList towns={this.towns()}/> }
           <div className="cities__places-wrapper">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{this._apartments.length} places to stay in {town.title}</b>
+                <b className="places__found">{this.apartments().length} places to stay in {town.title}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex="0">
@@ -87,14 +90,14 @@ class App extends Component {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <ApartmentList apartments={this._apartments}/>
+                  <ApartmentList apartments={this.apartments()}/>
                 </div>
               </section>
               <div className="cities__right-section">
                 {
-                  Object.keys(town).length > 0 && <Map
-                    apartments={this._apartments}
-                    mapSettings={Object.assign({}, mapSettings, {centerCoordinates: town.coordinates})}
+                  isTownExist && <Map
+                    apartments={this.apartments()}
+                    mapSettings={{...mapSettings, centerCoordinates: town.coordinates}}
                   />
                 }
               </div>
@@ -105,15 +108,16 @@ class App extends Component {
     );
   }
 
-  get _towns() {
-    return this.props.apartments
+  towns() {
+    const {apartments} = this.props;
+    return apartments
       .map(({town}) => town)
       .filter((town, index, towns) => {
         return towns.findIndex((value) => value.title === town.title) === index;
       });
   }
 
-  get _apartments() {
+  apartments() {
     const {town, apartments} = this.props;
 
     if (Object.keys(town).length > 0) {
@@ -142,10 +146,9 @@ App.propTypes = {
 
 export {App};
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  town: state.town,
-  apartments: state.apartments
-});
+const mapStateToProps = (state, ownProps) => {
+  return {...ownProps, town: state.town, apartments: state.apartments};
+};
 
 const mapDispatchToProps = (dispatch) => ({
   fetchApartments: () => dispatch(ActionCreator.fetchApartments()),

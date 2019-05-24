@@ -7,7 +7,7 @@ import Town from '../town/town.jsx';
 
 class TownList extends PureComponent {
   render() {
-    const {towns} = this.props;
+    const {towns, activeTown, switchTown} = this.props;
 
     return (
       <div className="cities tabs">
@@ -18,8 +18,8 @@ class TownList extends PureComponent {
                 return <Town
                   key={town.title}
                   title={town.title}
-                  onClick={() => this.props.switchTown(town)}
-                  active={this.props.activeTown.title === town.title}
+                  onClick={() => switchTown(town)}
+                  active={activeTown.title === town.title}
                 />;
               })
             }
@@ -39,9 +39,9 @@ TownList.propTypes = {
   switchTown: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  activeTown: state.town
-});
+const mapStateToProps = (state, ownProps) => {
+  return {...ownProps, activeTown: state.town};
+};
 
 const mapDispatchToProps = (dispatch) => ({
   switchTown: (town) => dispatch(ActionCreator.switchTown(town))

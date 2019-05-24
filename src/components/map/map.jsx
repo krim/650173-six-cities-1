@@ -3,18 +3,9 @@ import PropTypes from 'prop-types';
 import {range} from 'react-range-proptypes';
 
 class Map extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.mapSettings = this.props.mapSettings;
-    this.mapPin = this.mapSettings.builder.icon({
-      iconUrl: `img/marker.svg`,
-      iconSize: [30, 30]
-    });
-  }
-
   componentDidMount() {
     this._initializeMap();
+    this._initializePin();
     this._setView();
     this._addMarkers();
   }
@@ -35,8 +26,9 @@ class Map extends PureComponent {
     if (this.mapLayer) {
       this.mapLayer.clearLayers();
     }
+    const {apartments} = this.props;
     this.mapLayer = this.mapSettings.builder.layerGroup().addTo(this.map);
-    this.props.apartments.forEach((apartment) => this._addMarker(apartment.coordinates));
+    apartments.forEach((apartment) => this._addMarker(apartment.coordinates));
   }
 
   _addMarker(coordinates) {
@@ -52,6 +44,7 @@ class Map extends PureComponent {
   }
 
   _initializeMap() {
+    this.mapSettings = this.props.mapSettings;
     const {centerCoordinates, zoom, zoomControl, marker} = this.mapSettings;
     this.map = this.mapSettings.builder.map(`map`, {centerCoordinates, zoom, zoomControl, marker});
     this.mapSettings
@@ -60,6 +53,13 @@ class Map extends PureComponent {
         attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
       })
       .addTo(this.map);
+  }
+
+  _initializePin() {
+    this.mapPin = this.mapSettings.builder.icon({
+      iconUrl: `img/marker.svg`,
+      iconSize: [30, 30]
+    });
   }
 }
 

@@ -7,14 +7,14 @@ class Town extends PureComponent {
 
     return (
       <li className="locations__item">
-        <a className={this._itemClasses} onClick={onClick} href="#">
+        <a className={this._itemClasses()} onClick={onClick} href="#">
           <span>{title}</span>
         </a>
       </li>
     );
   }
 
-  get _itemClasses() {
+  _itemClasses() {
     const baseClasses = `locations__item-link tabs__item`;
     return this.props.active ? (baseClasses + ` tabs__item--active`) : baseClasses;
   }

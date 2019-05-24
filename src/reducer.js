@@ -31,13 +31,9 @@ const ActionCreator = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case `SWITCH_TOWN`: return Object.assign({}, state, {
-      town: action.payload
-    });
+    case `SWITCH_TOWN`: return {...state, town: action.payload};
 
-    case `LOAD_APARTMENTS`: return Object.assign({}, state, {
-      apartments: action.payload
-    });
+    case `LOAD_APARTMENTS`: return {...state, apartments: action.payload};
   }
 
   return state;
