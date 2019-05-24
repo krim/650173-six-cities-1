@@ -68,12 +68,12 @@ class App extends Component {
         </header>
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          { isTownExist && <TownList towns={this.towns()}/> }
+          { isTownExist && <TownList towns={this._getTowns()}/> }
           <div className="cities__places-wrapper">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{this.apartments().length} places to stay in {town.title}</b>
+                <b className="places__found">{this._getApartments().length} places to stay in {town.title}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex="0">
@@ -90,13 +90,13 @@ class App extends Component {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <ApartmentList apartments={this.apartments()}/>
+                  <ApartmentList apartments={this._getApartments()}/>
                 </div>
               </section>
               <div className="cities__right-section">
                 {
                   isTownExist && <Map
-                    apartments={this.apartments()}
+                    apartments={this._getApartments()}
                     mapSettings={{...mapSettings, centerCoordinates: town.coordinates}}
                   />
                 }
@@ -108,7 +108,7 @@ class App extends Component {
     );
   }
 
-  towns() {
+  _getTowns() {
     const {apartments} = this.props;
     return apartments
       .map(({town}) => town)
@@ -117,7 +117,7 @@ class App extends Component {
       });
   }
 
-  apartments() {
+  _getApartments() {
     const {town, apartments} = this.props;
 
     if (Object.keys(town).length > 0) {
@@ -146,8 +146,8 @@ App.propTypes = {
 
 export {App};
 
-const mapStateToProps = (state, ownProps) => {
-  return {...ownProps, town: state.town, apartments: state.apartments};
+const mapStateToProps = (state) => {
+  return {...{town: state.town, apartments: state.apartments}};
 };
 
 const mapDispatchToProps = (dispatch) => ({

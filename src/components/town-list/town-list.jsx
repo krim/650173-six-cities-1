@@ -39,8 +39,8 @@ TownList.propTypes = {
   switchTown: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {...ownProps, activeTown: state.town};
+const mapStateToProps = (state) => {
+  return {...{activeTown: state.town}};
 };
 
 const mapDispatchToProps = (dispatch) => ({
