@@ -147,7 +147,7 @@ App.propTypes = {
 export {App};
 
 const mapStateToProps = (state) => {
-  return {...{town: state.town, apartments: state.apartments}};
+  return {town: state.town, apartments: state.apartments};
 };
 
 const mapDispatchToProps = (dispatch) => ({

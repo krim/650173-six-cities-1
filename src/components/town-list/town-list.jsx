@@ -40,7 +40,7 @@ TownList.propTypes = {
 };
 
 const mapStateToProps = (state) => {
-  return {...{activeTown: state.town}};
+  return {activeTown: state.town};
 };
 
 const mapDispatchToProps = (dispatch) => ({
