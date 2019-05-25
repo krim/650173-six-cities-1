@@ -163,5 +163,4 @@ const mapDispatchToProps = (dispatch) => ({
   switchTown: (town) => dispatch(ActionCreator.switchTown(town))
 });
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(App);
