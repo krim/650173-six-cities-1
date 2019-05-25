@@ -17,7 +17,6 @@ class Apartment extends PureComponent {
         onMouseOver={mouseOver}
         onMouseOut={mouseOut}
         className="cities__place-card place-card"
-        key={apartment.name}
       >
         { apartment.premium && <div className="place-card__mark"><span>Premium</span></div> }
         <div className="cities__image-wrapper place-card__image-wrapper">

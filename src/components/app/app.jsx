@@ -7,6 +7,11 @@ import ApartmentList from '../apartment-list/apartment-list.jsx';
 import Map from '../map/map.jsx';
 import TownList from '../town-list/town-list.jsx';
 
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
+
+const TownListWrapped = withActiveItem(TownList);
+const ApartmentListWrapped = withActiveItem(ApartmentList);
+
 class App extends Component {
   componentDidMount() {
     this.props.fetchApartments();
@@ -21,8 +26,9 @@ class App extends Component {
   }
 
   render() {
-    const {mapSettings, town} = this.props;
+    const {mapSettings, town, switchTown} = this.props;
     const isTownExist = Object.keys(town).length > 0;
+    const townApartments = this._getApartments();
 
     return (
       <div>
@@ -68,12 +74,19 @@ class App extends Component {
         </header>
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
-          { isTownExist && <TownList towns={this._getTowns()}/> }
+          {
+            isTownExist &&
+            <TownListWrapped
+              towns={this._getTowns()}
+              activeItem={town}
+              switchTown={switchTown}
+            />
+          }
           <div className="cities__places-wrapper">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{this._getApartments().length} places to stay in {town.title}</b>
+                <b className="places__found">{townApartments.length} places to stay in {town.title}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex="0">
@@ -90,13 +103,13 @@ class App extends Component {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <ApartmentList apartments={this._getApartments()}/>
+                  { isTownExist && <ApartmentListWrapped apartments={townApartments}/> }
                 </div>
               </section>
               <div className="cities__right-section">
                 {
                   isTownExist && <Map
-                    apartments={this._getApartments()}
+                    apartments={townApartments}
                     mapSettings={{...mapSettings, centerCoordinates: town.coordinates}}
                   />
                 }

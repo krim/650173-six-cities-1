@@ -13,13 +13,11 @@ describe(`ApartmentList`, () => {
       apartments={[apartment]}
     />);
 
-    expect(apartmentList.state(`activeApartment`)).toEqual(undefined);
-
     const apartmentCard = apartmentList.find(`.cities__place-card`);
     apartmentCard.simulate(`mouseover`);
-    expect(apartmentList.state(`activeApartment`)).toEqual(apartment);
+    expect(apartmentList.state(`activeItem`)).toEqual(apartment);
 
     apartmentCard.simulate(`mouseout`);
-    expect(apartmentList.state(`activeApartment`)).toEqual(undefined);
+    expect(apartmentList.state(`activeItem`)).toEqual(undefined);
   });
 });
