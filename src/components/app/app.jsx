@@ -3,14 +3,9 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import {ActionCreator} from '../../reducer';
-import ApartmentList from '../apartment-list/apartment-list.jsx';
 import Map from '../map/map.jsx';
+import ApartmentList from '../apartment-list/apartment-list.jsx';
 import TownList from '../town-list/town-list.jsx';
-
-import withActiveItem from '../../hocs/with-active-item/with-active-item';
-
-const TownListWrapped = withActiveItem(TownList);
-const ApartmentListWrapped = withActiveItem(ApartmentList);
 
 class App extends Component {
   componentDidMount() {
@@ -76,7 +71,7 @@ class App extends Component {
           <h1 className="visually-hidden">Cities</h1>
           {
             isTownExist &&
-            <TownListWrapped
+            <TownList
               towns={this._getTowns()}
               activeItem={town}
               switchTown={switchTown}
@@ -103,7 +98,7 @@ class App extends Component {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  { isTownExist && <ApartmentListWrapped apartments={townApartments}/> }
+                  { isTownExist && <ApartmentList apartments={townApartments}/> }
                 </div>
               </section>
               <div className="cities__right-section">

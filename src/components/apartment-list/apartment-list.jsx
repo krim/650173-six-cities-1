@@ -1,30 +1,23 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {range} from 'react-range-proptypes';
 
 import Apartment from '../apartment/apartment.jsx';
-import {range} from 'react-range-proptypes';
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 
 class ApartmentList extends PureComponent {
   render() {
-    const {apartments} = this.props;
+    const {apartments, mouseOver, mouseOut} = this.props;
 
     return apartments.map((apartment) => {
       return <Apartment
         apartment={apartment}
         onClick={() => {}}
-        mouseOver={this._mouseOver(apartment)}
-        mouseOut={this._mouseOut()}
+        mouseOver={() => mouseOver(apartment)}
+        mouseOut={() => mouseOut()}
         key={apartment.title}
       />;
     });
-  }
-
-  _mouseOver(apartment) {
-    return () => this.setState({activeItem: apartment});
-  }
-
-  _mouseOut() {
-    return () => this.setState({activeItem: undefined});
   }
 }
 
@@ -41,6 +34,9 @@ ApartmentList.propTypes = {
     premium: PropTypes.bool.isRequired,
     coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
   }),
+  mouseOver: PropTypes.func.isRequired,
+  mouseOut: PropTypes.func.isRequired
 };
 
-export default ApartmentList;
+export {ApartmentList};
+export default withActiveItem(ApartmentList);

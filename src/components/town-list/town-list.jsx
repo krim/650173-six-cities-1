@@ -2,10 +2,11 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import Town from '../town/town.jsx';
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 
 class TownList extends PureComponent {
   render() {
-    const {towns, activeItem} = this.props;
+    const {towns, activeItem, onClick} = this.props;
 
     return (
       <div className="cities tabs">
@@ -16,8 +17,8 @@ class TownList extends PureComponent {
                 return <Town
                   key={town.title}
                   title={town.title}
-                  onClick={this._onClick(town)}
-                  active={activeItem && activeItem.title === town.title}
+                  onClick={() => onClick(town)}
+                  active={activeItem.title === town.title}
                 />;
               })
             }
@@ -25,14 +26,6 @@ class TownList extends PureComponent {
         </section>
       </div>
     );
-  }
-
-  _onClick(town) {
-    return () => {
-      const {switchTown} = this.props;
-      switchTown(town);
-      this.setState({activeItem: town});
-    };
   }
 }
 
@@ -42,7 +35,8 @@ TownList.propTypes = {
     title: PropTypes.string.isRequired,
     coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
   }),
-  switchTown: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired
 };
 
-export default TownList;
+export {TownList};
+export default withActiveItem(TownList);

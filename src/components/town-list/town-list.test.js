@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import apartment from '../../__fixtures__/apartment';
-import TownList from './town-list';
+import {TownList} from './town-list';
 
 const towns = [apartment.town];
 
@@ -11,7 +11,7 @@ describe(`TownList`, () => {
     create(<TownList
       towns={towns}
       activeItem={apartment.town}
-      switchTown={jest.fn()}
+      onClick={jest.fn()}
     />).
     toJSON();
 
