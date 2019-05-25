@@ -1,38 +1,20 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {range} from 'react-range-proptypes';
 
 import Apartment from '../apartment/apartment.jsx';
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 
 class ApartmentList extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      activeApartment: undefined
-    };
-  }
-
   render() {
-    const {apartments} = this.props;
+    const {apartments, mouseOver, mouseOut} = this.props;
 
     return apartments.map((apartment) => {
       return <Apartment
         apartment={apartment}
         onClick={() => {}}
-        mouseOver={
-          () => {
-            this.setState({
-              activeApartment: apartment
-            });
-          }
-        }
-        mouseOut={
-          () => {
-            this.setState({
-              activeApartment: undefined
-            });
-          }
-        }
+        mouseOver={() => mouseOver(apartment)}
+        mouseOut={() => mouseOut()}
         key={apartment.title}
       />;
     });
@@ -40,7 +22,21 @@ class ApartmentList extends PureComponent {
 }
 
 ApartmentList.propTypes = {
-  apartments: PropTypes.arrayOf(PropTypes.object).isRequired
+  apartments: PropTypes.arrayOf(PropTypes.object).isRequired,
+  activeItem: PropTypes.shape({
+    title: PropTypes.string.isRequired,
+    type: PropTypes.oneOf([`Apartment`, `Private room`]).isRequired,
+    image: PropTypes.string.isRequired,
+    rating: range(0, 100).isRequired,
+    price: PropTypes.number.isRequired,
+    currency: PropTypes.oneOf([`euro`, `usd`]).isRequired,
+    priceText: PropTypes.string.isRequired,
+    premium: PropTypes.bool.isRequired,
+    coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
+  }),
+  mouseOver: PropTypes.func.isRequired,
+  mouseOut: PropTypes.func.isRequired
 };
 
-export default ApartmentList;
+export {ApartmentList};
+export default withActiveItem(ApartmentList);

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import apartment from '../../__fixtures__/apartment';
-import ApartmentList from './apartment-list';
+import {ApartmentList} from './apartment-list';
 
 const apartments = [apartment];
 
@@ -10,6 +10,8 @@ describe(`ApartmentList`, () => {
     const tree = renderer.
     create(<ApartmentList
       apartments={apartments}
+      mouseOver={jest.fn()}
+      mouseOut={jest.fn()}
     />).
     toJSON();
 

@@ -1,13 +1,12 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
-import {ActionCreator} from '../../reducer';
 
 import Town from '../town/town.jsx';
+import withActiveItem from '../../hocs/with-active-item/with-active-item';
 
 class TownList extends PureComponent {
   render() {
-    const {towns, activeTown, switchTown} = this.props;
+    const {towns, activeItem, onClick} = this.props;
 
     return (
       <div className="cities tabs">
@@ -18,8 +17,8 @@ class TownList extends PureComponent {
                 return <Town
                   key={town.title}
                   title={town.title}
-                  onClick={() => switchTown(town)}
-                  active={activeTown.title === town.title}
+                  onClick={() => onClick(town)}
+                  active={activeItem.title === town.title}
                 />;
               })
             }
@@ -32,21 +31,12 @@ class TownList extends PureComponent {
 
 TownList.propTypes = {
   towns: PropTypes.arrayOf(PropTypes.object).isRequired,
-  activeTown: PropTypes.shape({
+  activeItem: PropTypes.shape({
     title: PropTypes.string.isRequired,
     coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
   }),
-  switchTown: PropTypes.func.isRequired
+  onClick: PropTypes.func.isRequired
 };
-
-const mapStateToProps = (state) => {
-  return {activeTown: state.town};
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  switchTown: (town) => dispatch(ActionCreator.switchTown(town))
-});
 
 export {TownList};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TownList);
+export default withActiveItem(TownList);

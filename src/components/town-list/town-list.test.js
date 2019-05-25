@@ -10,8 +10,8 @@ describe(`TownList`, () => {
     const tree = renderer.
     create(<TownList
       towns={towns}
-      activeTown={apartment.town}
-      switchTown={jest.fn()}
+      activeItem={apartment.town}
+      onClick={jest.fn()}
     />).
     toJSON();
 
