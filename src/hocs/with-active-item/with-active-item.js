@@ -38,13 +38,13 @@ const withActiveItem = (WrappedComponent) => {
     }
 
     _onClick(item) {
-      this.props.switchTown(item);
+      this.props.switchCity(item);
       this.setState({activeItem: item});
     }
   }
 
   WithActiveItem.propTypes = {
-    switchTown: PropTypes.func
+    switchCity: PropTypes.func
   };
 
   return WithActiveItem;

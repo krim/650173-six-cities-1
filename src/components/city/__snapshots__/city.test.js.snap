@@ -16,7 +16,7 @@ exports[`Town renders component correctly 1`] = `
 </li>
 `;
 
-exports[`Town renders component correctly with active town 1`] = `
+exports[`Town renders component correctly with active city 1`] = `
 <li
   className="locations__item"
 >

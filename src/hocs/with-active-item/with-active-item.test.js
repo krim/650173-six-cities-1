@@ -1,20 +1,20 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import apartment from '../../__fixtures__/apartment';
-import TownList from '../../components/town-list/town-list.jsx';
+import CityList from '../../components/city-list/city-list.jsx';
 import ApartmentList from '../../components/apartment-list/apartment-list';
 
-const town = apartment.town;
-const towns = [apartment.town];
+const city = apartment.city;
+const cities = [apartment.city];
 const apartments = [apartment];
 
 describe(`withActiveItem`, () => {
-  describe(`TownList`, () => {
+  describe(`CityList`, () => {
     it(`renders component correctly`, () => {
-      const tree = renderer.create(<TownList
-        towns={towns}
-        activeItem={town}
-        switchTown={jest.fn()}
+      const tree = renderer.create(<CityList
+        cities={cities}
+        activeItem={city}
+        switchCity={jest.fn()}
       />).toJSON();
 
       expect(tree).toMatchSnapshot();
@@ -32,3 +32,4 @@ describe(`withActiveItem`, () => {
     });
   });
 });
+

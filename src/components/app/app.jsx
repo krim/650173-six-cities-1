@@ -2,31 +2,33 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {ActionCreator} from '../../reducer';
+import {Operation} from '../../reducer/data/data';
 import Map from '../map/map.jsx';
 import ApartmentList from '../apartment-list/apartment-list.jsx';
-import TownList from '../town-list/town-list.jsx';
+import CityList from '../city-list/city-list.jsx';
+import {getCities, getCity, getCityApartments} from '../../reducer/data/selectors';
 
 class App extends Component {
-  componentDidMount() {
-    this.props.fetchApartments();
-  }
-
   componentDidUpdate(prevProps) {
-    const {apartments, switchTown} = this.props;
+    const {city, cities, switchCity} = this.props;
 
-    if (prevProps.apartments !== apartments) {
-      switchTown(apartments[0].town);
+    if (prevProps.city.name !== city.name) {
+      return switchCity(city);
     }
+
+    if (cities.length > 0 && Object.keys(city).length === 0) {
+      return switchCity(cities[0]);
+    }
+
+    return true;
   }
 
   render() {
-    const {mapSettings, town, switchTown} = this.props;
-    const isTownExist = Object.keys(town).length > 0;
-    const townApartments = this._getApartments();
+    const {mapSettings, apartments, city, cities, switchCity} = this.props;
+    const isCityExist = Object.keys(city).length > 0;
 
     return (
-      <div>
+      <React.Fragment>
         <div style={{display: `none`}}>
           <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="icon-arrow-select" viewBox="0 0 7 4">
@@ -70,18 +72,18 @@ class App extends Component {
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           {
-            isTownExist &&
-            <TownList
-              towns={this._getTowns()}
-              activeItem={town}
-              switchTown={switchTown}
+            isCityExist &&
+            <CityList
+              cities={cities}
+              activeItem={city}
+              switchCity={switchCity}
             />
           }
           <div className="cities__places-wrapper">
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{townApartments.length} places to stay in {town.title}</b>
+                <b className="places__found">{apartments.length} places to stay in {city.name}</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex="0">
@@ -98,41 +100,24 @@ class App extends Component {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  { isTownExist && <ApartmentList apartments={townApartments}/> }
+                  { isCityExist && <ApartmentList apartments={apartments}/> }
                 </div>
               </section>
               <div className="cities__right-section">
                 {
-                  isTownExist && <Map
-                    apartments={townApartments}
-                    mapSettings={{...mapSettings, centerCoordinates: town.coordinates}}
+                  isCityExist && <Map
+                    apartments={apartments}
+                    mapSettings={
+                      {...mapSettings, location: city.location}
+                    }
                   />
                 }
               </div>
             </div>
           </div>
         </main>
-      </div>
+      </React.Fragment>
     );
-  }
-
-  _getTowns() {
-    const {apartments} = this.props;
-    return apartments
-      .map(({town}) => town)
-      .filter((town, index, towns) => {
-        return towns.findIndex((value) => value.title === town.title) === index;
-      });
-  }
-
-  _getApartments() {
-    const {town, apartments} = this.props;
-
-    if (Object.keys(town).length > 0) {
-      return apartments.filter((apartment) => apartment.town.title === town.title);
-    }
-
-    return [];
   }
 }
 
@@ -140,27 +125,35 @@ App.propTypes = {
   apartments: PropTypes.arrayOf(PropTypes.object).isRequired,
   mapSettings: PropTypes.shape({
     builder: PropTypes.object.isRequired,
-    zoom: PropTypes.number.isRequired,
     zoomControl: PropTypes.bool.isRequired,
     marker: PropTypes.bool.isRequired
   }),
-  town: PropTypes.shape({
-    title: PropTypes.string,
-    coordinates: PropTypes.arrayOf(PropTypes.number)
+  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
+  city: PropTypes.shape({
+    name: PropTypes.string,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    })
   }),
-  fetchApartments: PropTypes.func.isRequired,
-  switchTown: PropTypes.func.isRequired
+  loadApartments: PropTypes.func.isRequired,
+  switchCity: PropTypes.func.isRequired
 };
 
 export {App};
 
 const mapStateToProps = (state) => {
-  return {town: state.town, apartments: state.apartments};
+  return {
+    cities: getCities(state),
+    city: getCity(state),
+    apartments: getCityApartments(state)
+  };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchApartments: () => dispatch(ActionCreator.fetchApartments()),
-  switchTown: (town) => dispatch(ActionCreator.switchTown(town))
+  loadApartments: () => dispatch(Operation.loadApartments()),
+  switchCity: (city) => dispatch(Operation.switchCity(city))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,28 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import leaflet from 'leaflet';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
+import thunk from 'redux-thunk';
+import {compose} from 'recompose';
 
 import App from './components/app/app.jsx';
-import {reducer} from './reducer';
-
-const Settings = {
-  ZOOM: 12
-};
+import reducer from './reducer';
+import {createAPI} from './api';
+import {Operation} from './reducer/data/data';
 
 const init = () => {
+  const api = createAPI((...args) => store.dispatch(...args));
+
   /* eslint-disable no-underscore-dangle */
   const store = createStore(
       reducer,
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+      compose(
+          applyMiddleware(thunk.withExtraArgument(api)),
+          window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+      )
   );
   /* eslint-enable */
+
+  store.dispatch(Operation.loadApartments());
+
   ReactDOM.render(
       <Provider store={store}>
         <App
           mapSettings={
-            {builder: leaflet, zoom: Settings.ZOOM, zoomControl: false, marker: true}
+            {builder: leaflet, zoomControl: false, marker: true}
           }
         />
       </Provider>,

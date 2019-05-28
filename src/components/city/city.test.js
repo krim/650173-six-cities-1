@@ -1,14 +1,14 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Town from './town.jsx';
+import Town from './city.jsx';
 import apartment from './../../__fixtures__/apartment';
 
 describe(`Town`, () => {
   it(`renders component correctly`, () => {
     const tree = renderer.
     create(<Town
-      title={apartment.town.title}
+      name={apartment.city.name}
       active={false}
       onClick={jest.fn()}
     />).
@@ -17,10 +17,10 @@ describe(`Town`, () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it(`renders component correctly with active town`, () => {
+  it(`renders component correctly with active city`, () => {
     const tree = renderer.
     create(<Town
-      title={apartment.town.title}
+      name={apartment.city.name}
       active={true}
       onClick={jest.fn()}
     />).

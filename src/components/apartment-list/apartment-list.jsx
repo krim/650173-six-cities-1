@@ -15,7 +15,7 @@ class ApartmentList extends PureComponent {
         onClick={() => {}}
         setActive={() => setActive(apartment)}
         disableActive={() => disableActive()}
-        key={apartment.title}
+        key={`apartment-` + apartment.id}
       />;
     });
   }
@@ -24,15 +24,28 @@ class ApartmentList extends PureComponent {
 ApartmentList.propTypes = {
   apartments: PropTypes.arrayOf(PropTypes.object).isRequired,
   activeItem: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    type: PropTypes.oneOf([`Apartment`, `Private room`]).isRequired,
-    image: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    previewImage: PropTypes.string.isRequired,
     rating: range(0, 100).isRequired,
     price: PropTypes.number.isRequired,
-    currency: PropTypes.oneOf([`euro`, `usd`]).isRequired,
-    priceText: PropTypes.string.isRequired,
-    premium: PropTypes.bool.isRequired,
-    coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
+    description: PropTypes.string.isRequired,
+    bedrooms: PropTypes.number.isRequired,
+    maxAdults: PropTypes.number.isRequired,
+    isFavorite: PropTypes.bool.isRequired,
+    isPremium: PropTypes.bool.isRequired,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired
+    }),
+    host: PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      isPro: PropTypes.bool.isRequired,
+      avatarUrl: PropTypes.string.isRequired
+    }),
   }),
   setActive: PropTypes.func.isRequired,
   disableActive: PropTypes.func.isRequired

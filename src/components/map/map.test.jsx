@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 
 import Map from './map';
 import apartment from '../../__fixtures__/apartment';
-import mapBuilder from '../../mocks/mapBuilder';
+import mapBuilder from '../../mocks/map-builder';
 
 const apartments = [apartment];
 
@@ -13,7 +13,12 @@ describe(`Map`, () => {
       create(<Map
         apartments={apartments}
         mapSettings={
-          {builder: mapBuilder, zoom: 12, centerCoordinates: [52.38333, 4.9], zoomControl: false, marker: true}
+          {
+            builder: mapBuilder,
+            location: {latitude: 52.38333, longitude: 4.9, zoom: 12},
+            zoomControl: false,
+            marker: true
+          }
         }
       />).
       toJSON();

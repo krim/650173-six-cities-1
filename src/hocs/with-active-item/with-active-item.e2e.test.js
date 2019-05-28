@@ -3,27 +3,27 @@ import {mount, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
 import apartment from '../../__fixtures__/apartment';
-import TownList from '../../components/town-list/town-list.jsx';
+import CityList from '../../components/city-list/city-list.jsx';
 import ApartmentList from '../../components/apartment-list/apartment-list';
 
 configure({adapter: new Adapter()});
 
-const town = apartment.town;
-const town2 = {...town, title: `Paris`};
-const towns = [town, town2];
+const city = apartment.city;
+const city2 = {...city, name: `Paris`};
+const cities = [city, city2];
 
 describe(`withActiveItem`, () => {
-  describe(`TownList`, () => {
+  describe(`CityList`, () => {
     it(`renders component correctly and handles events`, () => {
-      const townList = mount(<TownList towns={towns} activeItem={town} switchTown={jest.fn()}/>);
+      const cityList = mount(<CityList cities={cities} activeItem={city} switchCity={jest.fn()}/>);
 
-      expect(townList.state(`activeItem`)).toEqual(town);
+      expect(cityList.state(`activeItem`)).toEqual(city);
 
-      const townItems = townList.find(`a.tabs__item`);
-      expect(townItems).toHaveLength(2);
+      const cityItems = cityList.find(`a.tabs__item`);
+      expect(cityItems).toHaveLength(2);
 
-      townItems.last().simulate(`click`);
-      expect(townList.state(`activeItem`)).toEqual(town2);
+      cityItems.last().simulate(`click`);
+      expect(cityList.state(`activeItem`)).toEqual(city2);
     });
   });
 
