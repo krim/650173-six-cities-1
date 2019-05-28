@@ -31,6 +31,7 @@
     "node": "10"
   },
   "dependencies": {
+    "axios": "0.18.0",
     "html-react-parser": "0.7.0",
     "leaflet": "1.5.1",
     "prop-types": "15.7.2",
@@ -38,6 +39,7 @@
     "react-dom": "16.8.6",
     "react-range-proptypes": "1.0.0",
     "react-redux": "7.0.3",
-    "redux": "4.0.1"
+    "redux": "4.0.1",
+    "redux-thunk": "2.3.0"
   }
 }
