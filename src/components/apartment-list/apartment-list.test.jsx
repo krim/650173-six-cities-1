@@ -10,8 +10,8 @@ describe(`ApartmentList`, () => {
     const tree = renderer.
     create(<ApartmentList
       apartments={apartments}
-      mouseOver={jest.fn()}
-      mouseOut={jest.fn()}
+      setActive={jest.fn()}
+      disableActive={jest.fn()}
     />).
     toJSON();
 

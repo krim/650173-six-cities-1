@@ -8,14 +8,14 @@ class Apartment extends PureComponent {
     const {
       apartment,
       onClick,
-      mouseOver,
-      mouseOut
+      setActive,
+      disableActive
     } = this.props;
 
     return (
       <article
-        onMouseOver={mouseOver}
-        onMouseOut={mouseOut}
+        onMouseOver={setActive}
+        onMouseOut={disableActive}
         className="cities__place-card place-card"
       >
         { apartment.premium && <div className="place-card__mark"><span>Premium</span></div> }
@@ -80,8 +80,8 @@ Apartment.propTypes = {
     coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
   }),
   onClick: PropTypes.func.isRequired,
-  mouseOver: PropTypes.func.isRequired,
-  mouseOut: PropTypes.func.isRequired
+  setActive: PropTypes.func.isRequired,
+  disableActive: PropTypes.func.isRequired
 };
 
 export default Apartment;

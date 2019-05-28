@@ -7,14 +7,14 @@ import withActiveItem from '../../hocs/with-active-item/with-active-item';
 
 class ApartmentList extends PureComponent {
   render() {
-    const {apartments, mouseOver, mouseOut} = this.props;
+    const {apartments, setActive, disableActive} = this.props;
 
     return apartments.map((apartment) => {
       return <Apartment
         apartment={apartment}
         onClick={() => {}}
-        mouseOver={() => mouseOver(apartment)}
-        mouseOut={() => mouseOut()}
+        setActive={() => setActive(apartment)}
+        disableActive={() => disableActive()}
         key={apartment.title}
       />;
     });
@@ -34,8 +34,8 @@ ApartmentList.propTypes = {
     premium: PropTypes.bool.isRequired,
     coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
   }),
-  mouseOver: PropTypes.func.isRequired,
-  mouseOut: PropTypes.func.isRequired
+  setActive: PropTypes.func.isRequired,
+  disableActive: PropTypes.func.isRequired
 };
 
 export {ApartmentList};
