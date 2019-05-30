@@ -5,14 +5,15 @@ import {Provider} from 'react-redux';
 
 import {App} from './app';
 import apartment from '../../__fixtures__/apartment';
-import mapBuilder from '../../mocks/mapBuilder';
+import mapBuilder from '../../mocks/map-builder';
 
 const apartments = [apartment];
+const city = apartment.city;
 const middlewares = [];
 const mockStore = configureMockStore(middlewares);
 const initialState = {
   apartments,
-  town: apartment.town
+  city
 };
 const store = mockStore(initialState);
 
@@ -22,12 +23,13 @@ describe(`App`, () => {
         <Provider store={store}>
           <App
             apartments={apartments}
-            town={apartment.town}
+            city={city}
+            cities={[city]}
             mapSettings={
-              {builder: mapBuilder, zoom: 12, zoomControl: false, marker: true}
+              {builder: mapBuilder, zoomControl: false, marker: true}
             }
-            fetchApartments={jest.fn()}
-            switchTown={jest.fn()}
+            loadApartments={jest.fn()}
+            switchCity={jest.fn()}
           />
         </Provider>
     ).toJSON();

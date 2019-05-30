@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Town renders component correctly 1`] = `
+exports[`City renders component correctly 1`] = `
 <li
   className="locations__item"
 >
@@ -16,7 +16,7 @@ exports[`Town renders component correctly 1`] = `
 </li>
 `;
 
-exports[`Town renders component correctly with active town 1`] = `
+exports[`City renders component correctly with active city 1`] = `
 <li
   className="locations__item"
 >

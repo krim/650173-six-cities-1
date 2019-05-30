@@ -6,8 +6,8 @@ const withActiveItem = (WrappedComponent) => {
     constructor(props) {
       super(props);
 
-      this._mouseOut = this._mouseOut.bind(this);
-      this._mouseOver = this._mouseOver.bind(this);
+      this._disableActive = this._disableActive.bind(this);
+      this._setActive = this._setActive.bind(this);
       this._onClick = this._onClick.bind(this);
       this.state = {
         activeItem: undefined
@@ -22,29 +22,29 @@ const withActiveItem = (WrappedComponent) => {
       return (
         <WrappedComponent
           {...this.props}
-          mouseOver={this._mouseOver}
-          mouseOut={this._mouseOut}
+          setActive={this._setActive}
+          disableActive={this._disableActive}
           onClick={this._onClick}
         />
       );
     }
 
-    _mouseOver(item) {
+    _setActive(item) {
       this.setState({activeItem: item});
     }
 
-    _mouseOut() {
+    _disableActive() {
       this.setState({activeItem: undefined});
     }
 
     _onClick(item) {
-      this.props.switchTown(item);
+      this.props.switchCity(item);
       this.setState({activeItem: item});
     }
   }
 
   WithActiveItem.propTypes = {
-    switchTown: PropTypes.func
+    switchCity: PropTypes.func
   };
 
   return WithActiveItem;

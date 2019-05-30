@@ -1,14 +1,14 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-class Town extends PureComponent {
+class City extends PureComponent {
   render() {
-    const {title, onClick} = this.props;
+    const {name, onClick} = this.props;
 
     return (
       <li className="locations__item">
         <a className={this._getItemClasses()} onClick={onClick} href="#">
-          <span>{title}</span>
+          <span>{name}</span>
         </a>
       </li>
     );
@@ -20,11 +20,11 @@ class Town extends PureComponent {
   }
 }
 
-Town.propTypes = {
-  title: PropTypes.string.isRequired,
+City.propTypes = {
+  name: PropTypes.string.isRequired,
   active: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired
 };
 
-export default Town;
+export default City;
 

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App renders component correctly 1`] = `
-<div>
+Array [
   <div
     style={
       Object {
@@ -41,7 +41,7 @@ exports[`App renders component correctly 1`] = `
         />
       </symbol>
     </svg>
-  </div>
+  </div>,
   <header
     className="header"
   >
@@ -93,7 +93,7 @@ exports[`App renders component correctly 1`] = `
         </nav>
       </div>
     </div>
-  </header>
+  </header>,
   <main
     className="page__main page__main--index"
   >
@@ -227,7 +227,7 @@ exports[`App renders component correctly 1`] = `
                     alt="Place image"
                     className="place-card__image"
                     height="200"
-                    src="img/apartment-01.jpg"
+                    src="https://es31-server.appspot.com/six-cities/static/hotel/1.jpg"
                     width="260"
                   />
                 </a>
@@ -245,13 +245,13 @@ exports[`App renders component correctly 1`] = `
                       className="place-card__price-value"
                     >
                       €
-                      120
+                      393
                     </b>
                     <span
                       className="place-card__price-text"
                     >
                       / 
-                      night
+                      I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!
                     </span>
                   </div>
                   <button
@@ -283,7 +283,7 @@ exports[`App renders component correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "93%",
+                          "width": "54%",
                         }
                       }
                     />
@@ -305,7 +305,7 @@ exports[`App renders component correctly 1`] = `
                 <p
                   className="place-card__type"
                 >
-                  Apartment
+                  hotel
                 </p>
               </div>
             </article>
@@ -321,6 +321,6 @@ exports[`App renders component correctly 1`] = `
         </div>
       </div>
     </div>
-  </main>
-</div>
+  </main>,
+]
 `;

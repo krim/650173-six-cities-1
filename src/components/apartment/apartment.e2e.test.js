@@ -15,8 +15,8 @@ describe(`Apartment`, () => {
     const app = shallow(<Apartment
       apartment={apartment}
       onClick={onClickHandler}
-      mouseOver={mouseOverHandler}
-      mouseOut={mouseOutHandler}
+      setActive={mouseOverHandler}
+      disableActive={mouseOutHandler}
     />);
 
     const apartmentName = app.find(`.place-card__name a`);
