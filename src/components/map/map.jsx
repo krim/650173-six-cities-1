@@ -34,19 +34,19 @@ class Map extends PureComponent {
   _addMarker(location) {
     this.mapSettings
       .builder
-      .marker(this._latLng(location), {icon: this.mapPin})
+      .marker(this._coordinates(location), {icon: this.mapPin})
       .addTo(this.mapLayer);
   }
 
   _setView() {
     const {location, zoom} = this.mapSettings;
-    this.map.setView(this._latLng(location), zoom);
+    this.map.setView(this._coordinates(location), zoom);
   }
 
   _initializeMap() {
     this.mapSettings = this.props.mapSettings;
     const {location, zoomControl, marker} = this.mapSettings;
-    const mapAttributes = {location: this._latLng(location), zoom: location.zoom, zoomControl, marker};
+    const mapAttributes = {location: this._coordinates(location), zoom: location.zoom, zoomControl, marker};
     this.map = this.mapSettings.builder.map(`map`, mapAttributes);
     this.mapSettings
       .builder
@@ -56,7 +56,7 @@ class Map extends PureComponent {
       .addTo(this.map);
   }
 
-  _latLng(location) {
+  _coordinates(location) {
     return [location.latitude, location.longitude];
   }
 

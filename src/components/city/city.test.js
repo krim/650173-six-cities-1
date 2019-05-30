@@ -1,13 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Town from './city.jsx';
+import City from './city.jsx';
 import apartment from './../../__fixtures__/apartment';
 
-describe(`Town`, () => {
+describe(`City`, () => {
   it(`renders component correctly`, () => {
     const tree = renderer.
-    create(<Town
+    create(<City
       name={apartment.city.name}
       active={false}
       onClick={jest.fn()}
@@ -19,7 +19,7 @@ describe(`Town`, () => {
 
   it(`renders component correctly with active city`, () => {
     const tree = renderer.
-    create(<Town
+    create(<City
       name={apartment.city.name}
       active={true}
       onClick={jest.fn()}

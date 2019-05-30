@@ -1,4 +1,4 @@
-import keysToCamelCase from '../../lib/keys-to-camel-case';
+import camelcaseKeys from 'camelcase-keys';
 
 const initialState = {
   apartments: [],
@@ -28,9 +28,10 @@ const Operation = {
   loadApartments: () => (dispatch, _getState, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        const data = keysToCamelCase(response.data);
+        const data = camelcaseKeys(response.data);
         dispatch(ActionCreator.loadApartments(data));
-      });
+      }).
+      catch((_error) => {});
   },
 };
 

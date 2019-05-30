@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import leaflet from 'leaflet';
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
-import {compose} from 'recompose';
 
 import App from './components/app/app.jsx';
 import reducer from './reducer';

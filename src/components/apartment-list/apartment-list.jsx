@@ -14,8 +14,8 @@ class ApartmentList extends PureComponent {
         apartment={apartment}
         onClick={() => {}}
         setActive={() => setActive(apartment)}
-        disableActive={() => disableActive()}
-        key={`apartment-` + apartment.id}
+        disableActive={disableActive}
+        key={`apartment-${apartment.id}`}
       />;
     });
   }

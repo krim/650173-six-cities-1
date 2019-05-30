@@ -33,13 +33,13 @@
   },
   "dependencies": {
     "axios": "0.18.0",
+    "camelcase-keys": "5.2.0",
     "leaflet": "1.5.1",
     "prop-types": "15.7.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-range-proptypes": "1.0.0",
     "react-redux": "7.0.3",
-    "recompose": "0.30.0",
     "redux": "4.0.1",
     "redux-thunk": "2.3.0",
     "reselect": "4.0.0"
