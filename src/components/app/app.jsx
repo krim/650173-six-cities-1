@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import {Operation} from '../../reducer/data/data';
-import Map from '../map/map.jsx';
-import ApartmentList from '../apartment-list/apartment-list.jsx';
-import CityList from '../city-list/city-list.jsx';
-import {getCities, getCity, getCityApartments} from '../../reducer/data/selectors';
+import Header from '../header/header.jsx';
+import MainPage from '../main-page/main-page.jsx';
+import SignIn from '../sing-in/sing-in.jsx';
+import {
+  getCities,
+  getCity,
+  getCityApartments,
+  getAuthorizationRequired
+} from '../../reducer/data/selectors';
+
 
 class App extends Component {
   componentDidUpdate(prevProps) {
@@ -23,7 +29,14 @@ class App extends Component {
   }
 
   render() {
-    const {mapSettings, apartments, city, cities, switchCity} = this.props;
+    const {
+      mapSettings,
+      apartments,
+      city,
+      cities,
+      switchCity,
+      isAuthorizationRequired
+    } = this.props;
     const isCityExist = Object.keys(city).length > 0;
 
     return (
@@ -46,68 +59,17 @@ class App extends Component {
             </symbol>
           </svg>
         </div>
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <a className="header__logo-link header__logo-link--active">
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-                </a>
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <Header/>
         {
+          isAuthorizationRequired && <SignIn/> ||
           isCityExist &&
-          <main className="page__main page__main--index">
-            <h1 className="visually-hidden">Cities</h1>
-            <CityList cities={cities} activeItem={city} switchCity={switchCity}/>
-            <div className="cities__places-wrapper">
-              <div className="cities__places-container container">
-                <section className="cities__places places">
-                  <h2 className="visually-hidden">Places</h2>
-                  <b className="places__found">{apartments.length} places to stay in {city.name}</b>
-                  <form className="places__sorting" action="#" method="get">
-                    <span className="places__sorting-caption">Sort by</span>
-                    <span className="places__sorting-type" tabIndex="0">
-                    Popular
-                      <svg className="places__sorting-arrow" width="7" height="4">
-                        <use xlinkHref="#icon-arrow-select"></use>
-                      </svg>
-                    </span>
-                    <ul className="places__options places__options--custom places__options--opened">
-                      <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                      <li className="places__option" tabIndex="0">Price: low to high</li>
-                      <li className="places__option" tabIndex="0">Price: high to low</li>
-                      <li className="places__option" tabIndex="0">Top rated first</li>
-                    </ul>
-                  </form>
-                  <div className="cities__places-list places__list tabs__content">
-                    <ApartmentList apartments={apartments}/>
-                  </div>
-                </section>
-                <div className="cities__right-section">
-                  <Map
-                    apartments={apartments}
-                    mapSettings={
-                      {...mapSettings, location: city.location}
-                    }
-                  />
-                </div>
-              </div>
-            </div>
-          </main>
+            <MainPage
+              cities={cities}
+              city={city}
+              apartments={apartments}
+              switchCity={switchCity}
+              mapSettings={mapSettings}
+            />
         }
       </React.Fragment>
     );
@@ -131,7 +93,8 @@ App.propTypes = {
     })
   }),
   loadApartments: PropTypes.func.isRequired,
-  switchCity: PropTypes.func.isRequired
+  switchCity: PropTypes.func.isRequired,
+  isAuthorizationRequired: PropTypes.bool
 };
 
 export {App};
@@ -139,6 +102,7 @@ export {App};
 const mapStateToProps = (state) => {
   return {
     cities: getCities(state),
+    isAuthorizationRequired: getAuthorizationRequired(state),
     city: getCity(state),
     apartments: getCityApartments(state)
   };
