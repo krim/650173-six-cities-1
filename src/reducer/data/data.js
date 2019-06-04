@@ -32,7 +32,7 @@ const Operation = {
         dispatch(ActionCreator.loadApartments(data));
       }).
       catch((_error) => {});
-  },
+  }
 };
 
 const reducer = (state = initialState, action) => {
