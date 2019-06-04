@@ -15,6 +15,12 @@ import {
   getUser,
   getAuthorizationRequired
 } from '../../reducer/user/selectors';
+import {
+  apartmentProps,
+  mapSettingsProps,
+  userProps,
+  cityProps
+} from '../../props';
 
 class App extends Component {
   componentDidUpdate(prevProps) {
@@ -68,7 +74,7 @@ class App extends Component {
         </div>
         <Header user={user}/>
         {
-          isCityExist &&
+          isCityExist && apartments.length > 0 &&
             <MainPage
               cities={cities}
               city={city}
@@ -83,28 +89,11 @@ class App extends Component {
 }
 
 App.propTypes = {
-  apartments: PropTypes.arrayOf(PropTypes.object).isRequired,
-  mapSettings: PropTypes.shape({
-    builder: PropTypes.object.isRequired,
-    zoomControl: PropTypes.bool.isRequired,
-    marker: PropTypes.bool.isRequired
-  }),
-  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
-  city: PropTypes.shape({
-    name: PropTypes.string,
-    location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired
-    })
-  }),
-  user: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    email: PropTypes.string,
-    avatarUrl: PropTypes.string,
-    isPro: PropTypes.bool
-  }),
+  apartments: PropTypes.arrayOf(apartmentProps).isRequired,
+  mapSettings: mapSettingsProps,
+  cities: PropTypes.arrayOf(cityProps).isRequired,
+  city: cityProps,
+  user: userProps,
   loadApartments: PropTypes.func.isRequired,
   switchCity: PropTypes.func.isRequired,
   isAuthorizationRequired: PropTypes.bool

@@ -1,7 +1,9 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {Operation} from '../../reducer/user/user';
 import {connect} from 'react-redux';
+
+import {Operation} from '../../reducer/user/user';
+import {userProps} from '../../props';
 
 class Header extends PureComponent {
   render() {
@@ -44,13 +46,7 @@ class Header extends PureComponent {
 export {Header};
 
 Header.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    email: PropTypes.string,
-    avatarUrl: PropTypes.string,
-    isPro: PropTypes.bool
-  }),
+  user: userProps,
   requireAuthorization: PropTypes.func.isRequired
 };
 

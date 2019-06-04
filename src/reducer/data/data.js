@@ -28,7 +28,7 @@ const Operation = {
   loadApartments: () => (dispatch, _getState, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        const data = camelcaseKeys(response.data);
+        const data = camelcaseKeys(response.data, {deep: true});
         dispatch(ActionCreator.loadApartments(data));
       }).
       catch((_error) => {});

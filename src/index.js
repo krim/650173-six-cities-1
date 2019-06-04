@@ -4,6 +4,7 @@ import leaflet from 'leaflet';
 import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
+import {BrowserRouter} from 'react-router-dom';
 
 import App from './components/app/app.jsx';
 import reducer from './reducer';
@@ -27,11 +28,13 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <App
-          mapSettings={
-            {builder: leaflet, zoomControl: false, marker: true}
-          }
-        />
+        <BrowserRouter>
+          <App
+            mapSettings={
+              {builder: leaflet, zoomControl: false, marker: true}
+            }
+          />
+        </BrowserRouter>
       </Provider>,
       document.querySelector(`#root`)
   );

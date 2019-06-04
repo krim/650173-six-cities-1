@@ -1,6 +1,6 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {range} from 'react-range-proptypes';
+import {apartmentProps} from '../../props';
 
 import Apartment from '../apartment/apartment.jsx';
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
@@ -22,31 +22,8 @@ class ApartmentList extends PureComponent {
 }
 
 ApartmentList.propTypes = {
-  apartments: PropTypes.arrayOf(PropTypes.object).isRequired,
-  activeItem: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    title: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    previewImage: PropTypes.string.isRequired,
-    rating: range(0, 100).isRequired,
-    price: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-    bedrooms: PropTypes.number.isRequired,
-    maxAdults: PropTypes.number.isRequired,
-    isFavorite: PropTypes.bool.isRequired,
-    isPremium: PropTypes.bool.isRequired,
-    location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired
-    }),
-    host: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      isPro: PropTypes.bool.isRequired,
-      avatarUrl: PropTypes.string.isRequired
-    }),
-  }),
+  apartments: PropTypes.arrayOf(apartmentProps).isRequired,
+  activeItem: apartmentProps,
   setActive: PropTypes.func.isRequired,
   disableActive: PropTypes.func.isRequired
 };
