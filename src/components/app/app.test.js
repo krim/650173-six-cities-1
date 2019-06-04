@@ -9,11 +9,13 @@ import mapBuilder from '../../mocks/map-builder';
 
 const apartments = [apartment];
 const city = apartment.city;
+const user = {id: 1, email: `Oliver.conner@gmail.com`};
 const middlewares = [];
 const mockStore = configureMockStore(middlewares);
 const initialState = {
   apartments,
-  city
+  city,
+  user
 };
 const store = mockStore(initialState);
 
@@ -25,6 +27,7 @@ describe(`App`, () => {
             apartments={apartments}
             city={city}
             cities={[city]}
+            user={user}
             mapSettings={
               {builder: mapBuilder, zoomControl: false, marker: true}
             }

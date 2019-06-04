@@ -9,10 +9,12 @@ import SignIn from '../sing-in/sing-in.jsx';
 import {
   getCities,
   getCity,
-  getCityApartments,
-  getAuthorizationRequired
+  getCityApartments
 } from '../../reducer/data/selectors';
-
+import {
+  getUser,
+  getAuthorizationRequired
+} from '../../reducer/user/selectors';
 
 class App extends Component {
   componentDidUpdate(prevProps) {
@@ -34,10 +36,15 @@ class App extends Component {
       apartments,
       city,
       cities,
+      user,
       switchCity,
       isAuthorizationRequired
     } = this.props;
     const isCityExist = Object.keys(city).length > 0;
+
+    if (isAuthorizationRequired) {
+      return <SignIn/>;
+    }
 
     return (
       <React.Fragment>
@@ -59,9 +66,8 @@ class App extends Component {
             </symbol>
           </svg>
         </div>
-        <Header/>
+        <Header user={user}/>
         {
-          isAuthorizationRequired && <SignIn/> ||
           isCityExist &&
             <MainPage
               cities={cities}
@@ -92,6 +98,13 @@ App.propTypes = {
       zoom: PropTypes.number.isRequired
     })
   }),
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    avatarUrl: PropTypes.string,
+    isPro: PropTypes.bool
+  }),
   loadApartments: PropTypes.func.isRequired,
   switchCity: PropTypes.func.isRequired,
   isAuthorizationRequired: PropTypes.bool
@@ -101,6 +114,7 @@ export {App};
 
 const mapStateToProps = (state) => {
   return {
+    user: getUser(state),
     cities: getCities(state),
     isAuthorizationRequired: getAuthorizationRequired(state),
     city: getCity(state),

@@ -8,8 +8,6 @@ export const getApartments = (state) => state[NAME_SPACE].apartments;
 
 export const getCity = (state) => state[NAME_SPACE].city;
 
-export const getAuthorizationRequired = (state) => state[NAME_SPACE].isAuthorizationRequired;
-
 export const getCities = createSelector(
     getApartments,
     (apartments) => apartments

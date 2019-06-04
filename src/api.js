@@ -1,9 +1,22 @@
 import axios from 'axios';
+import {Operation} from './reducer/data/data';
 
-export const createAPI = () => {
-  return axios.create({
+export const createAPI = (dispatch) => {
+  const api = axios.create({
     baseURL: `https://es31-server.appspot.com/six-cities`,
     timeout: 5000,
     withCredentials: true
   });
+
+  const onSuccess = (response) => response;
+  const onFail = (err) => {
+    if (err.response.status === 403) {
+      dispatch(Operation.requireAuthorization(true));
+    }
+    return err;
+  };
+
+  api.interceptors.response.use(onSuccess, onFail);
+
+  return api;
 };

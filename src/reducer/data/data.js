@@ -2,8 +2,7 @@ import camelcaseKeys from 'camelcase-keys';
 
 const initialState = {
   apartments: [],
-  city: {},
-  isAuthorizationRequired: true
+  city: {}
 };
 
 const ActionType = {
@@ -19,10 +18,6 @@ const ActionCreator = {
   loadApartments: (apartments) => ({
     type: ActionType.LOAD_APARTMENTS,
     payload: apartments
-  }),
-  requireAuthorization: (isAuthorizationRequired) => ({
-    type: ActionType.LOAD_APARTMENTS,
-    payload: isAuthorizationRequired
   })
 };
 
@@ -37,10 +32,7 @@ const Operation = {
         dispatch(ActionCreator.loadApartments(data));
       }).
       catch((_error) => {});
-  },
-  requireAuthorization: (isAuthorizationRequired) => (dispatch) => {
-    dispatch(ActionCreator.requireAuthorization(isAuthorizationRequired));
-  },
+  }
 };
 
 const reducer = (state = initialState, action) => {
