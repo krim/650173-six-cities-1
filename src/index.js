@@ -8,12 +8,10 @@ import {BrowserRouter} from 'react-router-dom';
 
 import App from './components/app/app.jsx';
 import reducer from './reducer';
-import {createAPI} from './api';
+import api from './api';
 import {Operation} from './reducer/data/data';
 
 const init = () => {
-  const api = createAPI((...args) => store.dispatch(...args));
-
   /* eslint-disable no-underscore-dangle */
   const store = createStore(
       reducer,

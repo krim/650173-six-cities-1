@@ -95,11 +95,8 @@ SignIn.propTypes = {
 
 export {SignIn};
 
-const mapStateToProps = () => {
-  return {};
-};
-const mapDispatchToProps = (dispatch) => ({
-  authorize: (data) => dispatch(Operation.authorize(data))
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  authorize: (data) => dispatch(Operation.authorize(data, ownProps))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn);

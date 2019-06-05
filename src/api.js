@@ -1,22 +1,21 @@
 import axios from 'axios';
-import {Operation} from './reducer/data/data';
 
-export const createAPI = (dispatch) => {
-  const api = axios.create({
-    baseURL: `https://es31-server.appspot.com/six-cities`,
-    timeout: 5000,
-    withCredentials: true
-  });
+const BASE_URL = `https://es31-server.appspot.com/six-cities`;
 
-  const onSuccess = (response) => response;
-  const onFail = (err) => {
-    if (err.response.status === 403) {
-      dispatch(Operation.requireAuthorization(true));
-    }
-    return err;
-  };
+const api = axios.create({
+  baseURL: BASE_URL,
+  timeout: 5000,
+  withCredentials: true
+});
 
-  api.interceptors.response.use(onSuccess, onFail);
-
-  return api;
+const onSuccess = (response) => response;
+const onFail = (err) => {
+  if (err.response.status === 403) {
+    history.pushState(null, null, `/login`);
+  }
+  return err;
 };
+
+api.interceptors.response.use(onSuccess, onFail);
+
+export default api;

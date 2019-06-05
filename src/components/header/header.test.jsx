@@ -1,15 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import {MemoryRouter as Router} from 'react-router-dom';
 
-import {Header} from './header.jsx';
+import Header from './header.jsx';
 
 describe(`MainPage`, () => {
   it(`renders component correctly`, () => {
     const tree = renderer.create(
-        <Header
-          user={{}}
-          requireAuthorization={jest.fn()}
-        />
+        <Router>
+          <Header user={{}} />
+        </Router>
     ).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -19,10 +19,9 @@ describe(`MainPage`, () => {
     it(`renders component correctly`, () => {
       const user = {id: 1, email: `Oliver.conner@gmail.com`};
       const tree = renderer.create(
-          <Header
-            user={user}
-            requireAuthorization={jest.fn()}
-          />
+          <Router>
+            <Header user={user} />
+          </Router>
       ).toJSON();
 
       expect(tree).toMatchSnapshot();
