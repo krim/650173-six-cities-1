@@ -4,6 +4,7 @@ import CityList from '../city-list/city-list.jsx';
 
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import {cityProps, apartmentProps, mapSettingsProps} from '../../props';
 
 class MainPage extends PureComponent {
   render() {
@@ -55,21 +56,10 @@ class MainPage extends PureComponent {
 }
 
 MainPage.propTypes = {
-  apartments: PropTypes.arrayOf(PropTypes.object).isRequired,
-  mapSettings: PropTypes.shape({
-    builder: PropTypes.object.isRequired,
-    zoomControl: PropTypes.bool.isRequired,
-    marker: PropTypes.bool.isRequired
-  }),
-  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
-  city: PropTypes.shape({
-    name: PropTypes.string,
-    location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired
-    })
-  }),
+  apartments: PropTypes.arrayOf(apartmentProps).isRequired,
+  mapSettings: mapSettingsProps,
+  cities: PropTypes.arrayOf(cityProps).isRequired,
+  city: cityProps,
   switchCity: PropTypes.func.isRequired
 };
 

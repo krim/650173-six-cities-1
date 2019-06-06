@@ -35,7 +35,7 @@ class SignIn extends PureComponent {
 
   render() {
     const {email, password} = this.state;
-    const submitButtonEnabled = email.length > 0 && password.length > 0;
+    const isSubmitButtonEnabled = email.length > 0 && password.length > 0;
 
     return (
       <React.Fragment>
@@ -43,7 +43,7 @@ class SignIn extends PureComponent {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" onSubmit={this.handleSubmit} onChange={this.handleFormChange} method="post">
+              <form className="login__form form" onSubmit={this.handleSubmit} method="post">
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
                   <input
@@ -70,7 +70,7 @@ class SignIn extends PureComponent {
                 </div>
                 <button
                   className='login__submit form__submit button'
-                  disabled={!submitButtonEnabled}
+                  disabled={!isSubmitButtonEnabled}
                   type="submit"
                 >Sign in</button>
               </form>
@@ -95,11 +95,8 @@ SignIn.propTypes = {
 
 export {SignIn};
 
-const mapStateToProps = () => {
-  return {};
-};
-const mapDispatchToProps = (dispatch) => ({
-  authorize: (data) => dispatch(Operation.authorize(data))
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  authorize: (data) => dispatch(Operation.authorize(data, ownProps))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn);

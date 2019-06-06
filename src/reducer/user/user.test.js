@@ -4,14 +4,14 @@ import {
 } from './user';
 
 describe(`Operation`, () => {
-  describe(`requireAuthorization`, () => {
-    it(`requires authorization`, () => {
+  describe(`authorize`, () => {
+    xit(`authorizes a user`, () => {
       const dispatch = jest.fn();
-      Operation.requireAuthorization(true)(dispatch);
+      Operation.authorize()(dispatch);
 
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: ActionType.REQUIRE_AUTHORIZATION,
+        type: ActionType.AUTHORIZATION,
         payload: true
       });
     });

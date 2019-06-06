@@ -1,9 +1,10 @@
 import axios from 'axios';
-import {Operation} from './reducer/data/data';
 
-export const createAPI = (dispatch) => {
+const BASE_URL = `https://es31-server.appspot.com/six-cities`;
+
+export const createAPI = (history) => {
   const api = axios.create({
-    baseURL: `https://es31-server.appspot.com/six-cities`,
+    baseURL: BASE_URL,
     timeout: 5000,
     withCredentials: true
   });
@@ -11,7 +12,7 @@ export const createAPI = (dispatch) => {
   const onSuccess = (response) => response;
   const onFail = (err) => {
     if (err.response.status === 403) {
-      dispatch(Operation.requireAuthorization(true));
+      history.push(`/login`);
     }
     return err;
   };

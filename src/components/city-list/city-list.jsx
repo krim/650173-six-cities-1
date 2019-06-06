@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import City from '../city/city.jsx';
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
+import {cityProps} from '../../props';
 
 class CityList extends PureComponent {
   render() {
@@ -30,15 +31,8 @@ class CityList extends PureComponent {
 }
 
 CityList.propTypes = {
-  cities: PropTypes.arrayOf(PropTypes.object).isRequired,
-  activeItem: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    location: PropTypes.shape({
-      latitude: PropTypes.number.isRequired,
-      longitude: PropTypes.number.isRequired,
-      zoom: PropTypes.number.isRequired
-    })
-  }),
+  cities: PropTypes.arrayOf(cityProps).isRequired,
+  activeItem: cityProps,
   onClick: PropTypes.func.isRequired
 };
 

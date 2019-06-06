@@ -24,8 +24,8 @@ describe(`Operation`, () => {
 
   describe(`loadApartments`, () => {
     it(`loads apartments`, () => {
+      const api = createAPI({push: jest.fn()});
       const dispatch = jest.fn();
-      const api = createAPI(dispatch);
       const apiMock = new MockAdapter(api);
       const apartmentsLoader = Operation.loadApartments();
 
