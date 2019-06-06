@@ -23,11 +23,11 @@ class Header extends PureComponent {
                   <li className="header__nav-item user">
                     {
                       Object.keys(user).length > 0 ?
-                        <a className="header__nav-link header__nav-link--profile" href="#">
+                        <Link className="header__nav-link header__nav-link--profile" to="/favorites">
                           <div className="header__avatar-wrapper user__avatar-wrapper">
                           </div>
                           <span className="header__user-name user__name">{user.email}</span>
-                        </a> :
+                        </Link> :
                         <Link className="header__nav-link header__nav-link--profile" to="/login">
                           <div className="header__avatar-wrapper user__avatar-wrapper">
                           </div>

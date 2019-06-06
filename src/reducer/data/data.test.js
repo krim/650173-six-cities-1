@@ -3,7 +3,7 @@ import {
   Operation
 } from './data';
 import MockAdapter from 'axios-mock-adapter';
-import api from '../../api';
+import {createAPI} from '../../api';
 import apartment from '../../__fixtures__/apartment';
 
 const apartments = [apartment];
@@ -24,6 +24,7 @@ describe(`Operation`, () => {
 
   describe(`loadApartments`, () => {
     it(`loads apartments`, () => {
+      const api = createAPI({push: jest.fn()});
       const dispatch = jest.fn();
       const apiMock = new MockAdapter(api);
       const apartmentsLoader = Operation.loadApartments();

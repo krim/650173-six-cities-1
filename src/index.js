@@ -4,14 +4,18 @@ import leaflet from 'leaflet';
 import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
-import {BrowserRouter} from 'react-router-dom';
+import {Router} from 'react-router-dom';
+import {createBrowserHistory} from 'history';
 
 import App from './components/app/app.jsx';
 import reducer from './reducer';
-import api from './api';
+import {createAPI} from './api';
 import {Operation} from './reducer/data/data';
 
 const init = () => {
+  const history = createBrowserHistory();
+  const api = createAPI(history);
+
   /* eslint-disable no-underscore-dangle */
   const store = createStore(
       reducer,
@@ -26,13 +30,13 @@ const init = () => {
 
   ReactDOM.render(
       <Provider store={store}>
-        <BrowserRouter>
+        <Router history={history}>
           <App
             mapSettings={
               {builder: leaflet, zoomControl: false, marker: true}
             }
           />
-        </BrowserRouter>
+        </Router>
       </Provider>,
       document.querySelector(`#root`)
   );

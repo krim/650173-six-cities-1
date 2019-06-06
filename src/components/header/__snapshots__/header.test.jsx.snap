@@ -96,7 +96,8 @@ exports[`MainPage when user is provided renders component correctly 1`] = `
           >
             <a
               className="header__nav-link header__nav-link--profile"
-              href="#"
+              href="/favorites"
+              onClick={[Function]}
             >
               <div
                 className="header__avatar-wrapper user__avatar-wrapper"
