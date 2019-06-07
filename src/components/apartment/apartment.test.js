@@ -10,8 +10,8 @@ describe(`Apartment`, () => {
       create(<Apartment
         apartment={apartment}
         onClick={() => {}}
-        setActive={() => {}}
-        disableActive={() => {}}
+        onMouseOver={() => {}}
+        onMouseOut={() => {}}
       />).
       toJSON();
 

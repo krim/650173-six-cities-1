@@ -59,8 +59,8 @@ class FavoriteList extends PureComponent {
           key={`apartment-${apartment.id}`}
           apartment={apartment}
           onClick={() => {}}
-          setActive={() => {}}
-          disableActive={() => {}}
+          onMouseOut={() => {}}
+          onMouseOver={() => {}}
         />
       );
     });
