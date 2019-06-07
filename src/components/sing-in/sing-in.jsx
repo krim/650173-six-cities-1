@@ -8,7 +8,7 @@ class SignIn extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
 
@@ -18,7 +18,7 @@ class SignIn extends PureComponent {
     };
   }
 
-  handleSubmit(event) {
+  handleFormSubmit(event) {
     event.preventDefault();
     const {email, password} = this.state;
 
@@ -43,7 +43,7 @@ class SignIn extends PureComponent {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" onSubmit={this.handleSubmit} method="post">
+              <form className="login__form form" onSubmit={this.handleFormSubmit} method="post">
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
                   <input

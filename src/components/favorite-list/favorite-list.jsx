@@ -6,6 +6,7 @@ import {Operation} from '../../reducer/favorite/favorite';
 import {getFavorites} from '../../reducer/favorite/selectors';
 import {apartmentProps} from '../../props';
 import Apartment from '../apartment/apartment.jsx';
+import FavoriteEmptyList from '../favorite-empty-list/favorite-empty-list.jsx';
 
 class FavoriteList extends PureComponent {
   componentDidMount() {
@@ -16,7 +17,7 @@ class FavoriteList extends PureComponent {
     const {favorites} = this.props;
 
     if (favorites.length === 0) {
-      return this._renderFavoritesEmpty();
+      return <FavoriteEmptyList />;
     }
 
     return (
@@ -58,28 +59,11 @@ class FavoriteList extends PureComponent {
           key={`apartment-${apartment.id}`}
           apartment={apartment}
           onClick={() => {}}
-          setActive={() => {}}
-          disableActive={() => {}}
+          onMouseOut={() => {}}
+          onMouseOver={() => {}}
         />
       );
     });
-  }
-
-  _renderFavoritesEmpty() {
-    return (
-      <main className="page__main page__main--favorites page__main--favorites-empty">
-        <div className="page__favorites-container container">
-          <section className="favorites favorites--empty">
-            <h1 className="visually-hidden">Favorites (empty)</h1>
-            <div className="favorites__status-wrapper">
-              <b className="favorites__status">Nothing yet saved.</b>
-              <p className="favorites__status-description">Save properties to narrow down search or plan yor future
-                trips.</p>
-            </div>
-          </section>
-        </div>
-      </main>
-    );
   }
 }
 
