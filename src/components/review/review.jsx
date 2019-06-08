@@ -42,8 +42,7 @@ class Review extends PureComponent {
 
   _getFormatedDateTime() {
     const date = this._getReviewDate();
-    const options = {year: `numeric`, month: `2-digit`, day: `2-digit`};
-    return new Date(date).toLocaleString(`se-SE`, options);
+    return new Date(date).toISOString().substr(0, 10);
   }
 
   _getFormatedDate() {
