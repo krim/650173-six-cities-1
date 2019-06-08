@@ -1,6 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
+import {apartmentProps, cityProps} from '../../props';
+
 const withActiveItem = (WrappedComponent) => {
   class WithActiveItem extends PureComponent {
     constructor(props) {
@@ -44,7 +46,11 @@ const withActiveItem = (WrappedComponent) => {
   }
 
   WithActiveItem.propTypes = {
-    switchCity: PropTypes.func
+    switchCity: PropTypes.func,
+    activeItem: PropTypes.oneOfType([
+      apartmentProps,
+      cityProps
+    ])
   };
 
   return WithActiveItem;
