@@ -49,7 +49,7 @@ class App extends Component {
         />;
     };
 
-    return <>
+    return <React.Fragment>
       <div style={{display: `none`}}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4">
@@ -73,10 +73,12 @@ class App extends Component {
         <Route path="/" exact component={Main}/>
         <Route path="/login" component={SignIn} />
         <Route path="/favorites" component={FavoriteList} />
-        <Route path="/offer/:id" component={ApartmentPage} />
+        <Route path="/offer/:id" render={(props) => {
+          return <ApartmentPage {...props} mapSettings={mapSettings} />;
+        }} />
         <Redirect to="/" />
       </Switch>
-    </>;
+    </React.Fragment>;
   }
 }
 
@@ -89,8 +91,6 @@ App.propTypes = {
   loadApartments: PropTypes.func.isRequired,
   switchCity: PropTypes.func.isRequired
 };
-
-export {App};
 
 const mapStateToProps = (state) => {
   return {
@@ -106,4 +106,5 @@ const mapDispatchToProps = (dispatch) => ({
   switchCity: (city) => dispatch(Operation.switchCity(city))
 });
 
+export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);

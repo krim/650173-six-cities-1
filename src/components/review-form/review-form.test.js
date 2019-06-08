@@ -1,13 +1,13 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import ReviewList from './review-list';
+import ReviewForm from './review-form';
 
-describe(`ReviewList`, () => {
+describe(`ReviewForm`, () => {
   it(`renders component correctly`, () => {
-    const tree = renderer.create(
-        <ReviewList />
-    ).toJSON();
+    const tree = renderer.
+      create(<ReviewForm />).
+      toJSON();
 
     expect(tree).toMatchSnapshot();
   });
