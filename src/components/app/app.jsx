@@ -90,8 +90,6 @@ App.propTypes = {
   switchCity: PropTypes.func.isRequired
 };
 
-export {App};
-
 const mapStateToProps = (state) => {
   return {
     user: getUser(state),
@@ -106,4 +104,5 @@ const mapDispatchToProps = (dispatch) => ({
   switchCity: (city) => dispatch(Operation.switchCity(city))
 });
 
+export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);

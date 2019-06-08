@@ -93,10 +93,9 @@ SignIn.propTypes = {
   authorize: PropTypes.func.isRequired
 };
 
-export {SignIn};
-
 const mapDispatchToProps = (dispatch, ownProps) => ({
   authorize: (data) => dispatch(Operation.authorize(data, ownProps))
 });
 
+export {SignIn};
 export default connect(null, mapDispatchToProps)(SignIn);

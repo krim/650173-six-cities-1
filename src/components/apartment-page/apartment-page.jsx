@@ -156,8 +156,6 @@ ApartmentPage.propTypes = {
   setApartmentId: PropTypes.func.isRequired
 };
 
-export {ApartmentPage};
-
 const mapStateToProps = (state) => {
   return {
     apartment: getApartmentById(state),
@@ -169,4 +167,5 @@ const mapDispatchToProps = (dispatch) => ({
   setApartmentId: (id) => dispatch(Operation.setApartmentId(id))
 });
 
+export {ApartmentPage};
 export default connect(mapStateToProps, mapDispatchToProps)(ApartmentPage);

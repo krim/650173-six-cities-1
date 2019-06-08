@@ -40,8 +40,6 @@ ReviewList.propTypes = {
   loadReviews: PropTypes.func.isRequired
 };
 
-export {ReviewList};
-
 const mapStateToProps = (state) => {
   return {
     reviews: getReviews(state),
@@ -53,4 +51,5 @@ const mapDispatchToProps = (dispatch) => ({
   loadReviews: (id) => dispatch(Operation.loadReviews(id))
 });
 
+export {ReviewList};
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewList);
