@@ -46,8 +46,7 @@ exports[`Apartment renders component correctly 1`] = `
         <span
           className="place-card__price-text"
         >
-          / 
-          I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!
+          / night
         </span>
       </div>
       <button
@@ -96,7 +95,9 @@ exports[`Apartment renders component correctly 1`] = `
       <a
         href="#"
         onClick={[Function]}
-      />
+      >
+        Waterfront with extraordinary view
+      </a>
     </h2>
     <p
       className="place-card__type"
