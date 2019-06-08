@@ -45,6 +45,7 @@ class MainPage extends PureComponent {
                   mapSettings={
                     {...mapSettings, location: city.location}
                   }
+                  pageType={`cities`}
                 />
               </div>
             </div>

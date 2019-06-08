@@ -73,7 +73,9 @@ class App extends Component {
         <Route path="/" exact component={Main}/>
         <Route path="/login" component={SignIn} />
         <Route path="/favorites" component={FavoriteList} />
-        <Route path="/offer/:id" component={ApartmentPage} />
+        <Route path="/offer/:id" render={(props) => {
+          return <ApartmentPage {...props} mapSettings={mapSettings} />;
+        }} />
         <Redirect to="/" />
       </Switch>
     </React.Fragment>;

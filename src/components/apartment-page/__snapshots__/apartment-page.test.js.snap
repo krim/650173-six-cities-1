@@ -67,78 +67,6 @@ exports[`ApartmentPage renders component correctly 1`] = `
             src="https://es31-server.appspot.com/six-cities/static/hotel/15.jpg"
           />
         </div>
-        <div
-          className="property__image-wrapper"
-        >
-          <img
-            alt="Photo studio"
-            className="property__image"
-            src="https://es31-server.appspot.com/six-cities/static/hotel/2.jpg"
-          />
-        </div>
-        <div
-          className="property__image-wrapper"
-        >
-          <img
-            alt="Photo studio"
-            className="property__image"
-            src="https://es31-server.appspot.com/six-cities/static/hotel/8.jpg"
-          />
-        </div>
-        <div
-          className="property__image-wrapper"
-        >
-          <img
-            alt="Photo studio"
-            className="property__image"
-            src="https://es31-server.appspot.com/six-cities/static/hotel/5.jpg"
-          />
-        </div>
-        <div
-          className="property__image-wrapper"
-        >
-          <img
-            alt="Photo studio"
-            className="property__image"
-            src="https://es31-server.appspot.com/six-cities/static/hotel/6.jpg"
-          />
-        </div>
-        <div
-          className="property__image-wrapper"
-        >
-          <img
-            alt="Photo studio"
-            className="property__image"
-            src="https://es31-server.appspot.com/six-cities/static/hotel/1.jpg"
-          />
-        </div>
-        <div
-          className="property__image-wrapper"
-        >
-          <img
-            alt="Photo studio"
-            className="property__image"
-            src="https://es31-server.appspot.com/six-cities/static/hotel/7.jpg"
-          />
-        </div>
-        <div
-          className="property__image-wrapper"
-        >
-          <img
-            alt="Photo studio"
-            className="property__image"
-            src="https://es31-server.appspot.com/six-cities/static/hotel/19.jpg"
-          />
-        </div>
-        <div
-          className="property__image-wrapper"
-        >
-          <img
-            alt="Photo studio"
-            className="property__image"
-            src="https://es31-server.appspot.com/six-cities/static/hotel/14.jpg"
-          />
-        </div>
       </div>
     </div>
     <div
@@ -344,7 +272,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
                     alt="Reviews avatar"
                     className="reviews__avatar user__avatar"
                     height="54"
-                    src="https://es31-server.appspot.com/six-cities/static/avatar/4"
+                    src="https://es31-server.appspot.com/six-cities/static/avatar/4.jpg"
                     width="54"
                   />
                 </div>
@@ -556,6 +484,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
     </div>
     <section
       className="property__map map"
+      id="map"
     />
   </section>
   <div

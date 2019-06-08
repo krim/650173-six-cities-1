@@ -8,6 +8,8 @@ import {ApartmentPage} from './apartment-page';
 import apartment from '../../__fixtures__/apartment';
 import review from '../../__fixtures__/review';
 import NameSpace from '../../reducer/name-spaces';
+import mapBuilder from '../../mocks/map-builder';
+
 import {Operation} from '../../reducer/data/data';
 
 jest.mock(`../../reducer/data/data`);
@@ -36,6 +38,9 @@ describe(`ApartmentPage`, () => {
             apartment={apartment}
             nearApartments={apartments}
             setApartmentId={jest.fn()}
+            mapSettings={
+              {builder: mapBuilder, zoomControl: false, marker: true, location: apartment.city.location}
+            }
           />
         </Provider>
     ).toJSON();

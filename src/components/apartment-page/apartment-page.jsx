@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import getRating from '../../libs/get-rating';
-import {apartmentProps} from '../../props';
+import {apartmentProps, mapSettingsProps} from '../../props';
 import {Operation} from '../../reducer/data/data';
 import {getApartmentById, getNearApartmentsById} from '../../reducer/data/selectors';
 import ReviewList from '../review-list/review-list.jsx';
 import ApartmentList from '../apartment-list/apartment-list.jsx';
+import Map from '../map/map.jsx';
+
+const MAX_IMAGES_COUNT = 6;
+const MAX_NEAR_APARTMENTS_COUNT = 2;
 
 class ApartmentPage extends PureComponent {
   constructor(props) {
@@ -25,12 +29,14 @@ class ApartmentPage extends PureComponent {
   }
 
   render() {
-    const {apartment, nearApartments} = this.props;
+    const {apartment, nearApartments, mapSettings} = this.props;
     const isApartmentExist = apartment && Object.keys(apartment).length > 0;
 
     if (!isApartmentExist) {
       return <></>;
     }
+
+    const {host} = apartment;
 
     return (
       <main className="page__main page__main--property">
@@ -38,7 +44,7 @@ class ApartmentPage extends PureComponent {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                apartment.images.map((image, index) => {
+                apartment.images.slice(0, MAX_IMAGES_COUNT).map((image, index) => {
                   return (
                     <div key={`image-${index}`} className="property__image-wrapper">
                       <img className="property__image" src={image} alt="Photo studio" />
@@ -106,16 +112,16 @@ class ApartmentPage extends PureComponent {
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
                     <img
                       className="property__avatar user__avatar"
-                      src="img/avatar-angelina.jpg"
+                      src={host.avatarUrl}
                       width="74"
                       height="74"
                       alt="Host avatar"
                     />
                   </div>
                   <span className="property__user-name">
-                    { apartment.host.name }
+                    { host.name }
                   </span>
-                  { apartment.host.isPro && <span className="property__user-status">Pro</span> }
+                  { host.isPro && <span className="property__user-status">Pro</span> }
                 </div>
                 <div className="property__description">
                   <p className="property__text">
@@ -126,7 +132,16 @@ class ApartmentPage extends PureComponent {
               <ReviewList />
             </div>
           </div>
-          <section className="property__map map"></section>
+          {
+            nearApartments.length > 0 &&
+              <Map
+                apartments={nearApartments.slice(0, MAX_NEAR_APARTMENTS_COUNT).concat(apartment)}
+                mapSettings={
+                  {...mapSettings, location: apartment.city.location}
+                }
+                pageType={`property`}
+              />
+          }
         </section>
         <div className="container">
           <section className="near-places places">
@@ -151,6 +166,7 @@ ApartmentPage.propTypes = {
       id: PropTypes.string.isRequired
     })
   }),
+  mapSettings: mapSettingsProps,
   apartment: apartmentProps,
   nearApartments: PropTypes.arrayOf(apartmentProps),
   setApartmentId: PropTypes.func.isRequired

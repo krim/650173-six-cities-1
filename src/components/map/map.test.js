@@ -20,6 +20,7 @@ describe(`Map`, () => {
             marker: true
           }
         }
+        pageType={`cities`}
       />).
       toJSON();
 

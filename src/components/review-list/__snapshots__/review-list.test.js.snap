@@ -30,7 +30,7 @@ exports[`ReviewList renders component correctly 1`] = `
             alt="Reviews avatar"
             className="reviews__avatar user__avatar"
             height="54"
-            src="https://es31-server.appspot.com/six-cities/static/avatar/4"
+            src="https://es31-server.appspot.com/six-cities/static/avatar/4.jpg"
             width="54"
           />
         </div>

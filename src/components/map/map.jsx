@@ -18,8 +18,10 @@ class Map extends PureComponent {
   }
 
   render() {
+    const {pageType} = this.props;
+
     return (
-      <section className="cities__map map" id="map"></section>
+      <section className={`${pageType}__map map`} id="map"></section>
     );
   }
 
@@ -80,7 +82,8 @@ Map.propTypes = {
     }),
     zoomControl: PropTypes.bool.isRequired,
     marker: PropTypes.bool.isRequired
-  })
+  }),
+  pageType: PropTypes.string.isRequired
 };
 
 export default Map;
