@@ -4,7 +4,7 @@ import {
 } from './user';
 import MockAdapter from 'axios-mock-adapter';
 import camelcaseKeys from 'camelcase-keys';
-import {createAPI} from '../../api';
+import api from '../../api';
 
 const userResponse = {
   "id": 1,
@@ -17,7 +17,6 @@ const userResponse = {
 describe(`Operation`, () => {
   describe(`authorize`, () => {
     it(`authorizes a user`, () => {
-      const api = createAPI({push: jest.fn()});
       const apiMock = new MockAdapter(api);
       const dispatch = jest.fn();
       const history = {push: jest.fn()};

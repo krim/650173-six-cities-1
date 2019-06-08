@@ -8,6 +8,7 @@ import Header from '../header/header.jsx';
 import MainPage from '../main-page/main-page.jsx';
 import SignIn from '../sing-in/sing-in.jsx';
 import FavoriteList from '../favorite-list/favorite-list.jsx';
+import ApartmentPage from '../apartment-page/apartment-page.jsx';
 import {getCities, getCity, getCityApartments} from '../../reducer/data/selectors';
 import {getUser} from '../../reducer/user/selectors';
 import {apartmentProps, mapSettingsProps, userProps, cityProps} from '../../props';
@@ -72,6 +73,7 @@ class App extends Component {
         <Route path="/" exact component={Main}/>
         <Route path="/login" component={SignIn} />
         <Route path="/favorites" component={FavoriteList} />
+        <Route path="/offer/:id" component={ApartmentPage} />
         <Redirect to="/" />
       </Switch>
     </>;

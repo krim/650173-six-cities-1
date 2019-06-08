@@ -5,17 +5,14 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import thunk from 'redux-thunk';
 import {Router} from 'react-router-dom';
-import {createBrowserHistory} from 'history';
+import history from './history';
 
 import App from './components/app/app.jsx';
 import reducer from './reducer';
-import {createAPI} from './api';
+import api from './api';
 import {Operation} from './reducer/data/data';
 
 const init = () => {
-  const history = createBrowserHistory();
-  const api = createAPI(history);
-
   /* eslint-disable no-underscore-dangle */
   const store = createStore(
       reducer,

@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import {apartmentProps} from '../../props';
+import getRating from '../../libs/get-rating';
 
 class Apartment extends PureComponent {
   render() {
@@ -30,7 +31,7 @@ class Apartment extends PureComponent {
           <div className="place-card__price-wrapper">
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{apartment.price}</b>
-              <span className="place-card__price-text">&#47;&nbsp;{apartment.description}</span>
+              <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
             <button className="place-card__bookmark-button button" type="button">
               <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -41,21 +42,17 @@ class Apartment extends PureComponent {
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
-              <span style={{width: this._rating(apartment.rating)}}></span>
+              <span style={{width: getRating(apartment.rating)}}></span>
               <span className="visually-hidden">Rating</span>
             </div>
           </div>
           <h2 className="place-card__name">
-            <a href="#" onClick={onClick}>{ apartment.name }</a>
+            <a href="#" onClick={onClick}>{ apartment.title }</a>
           </h2>
           <p className="place-card__type">{apartment.type}</p>
         </div>
       </article>
     );
-  }
-
-  _rating(rating) {
-    return `${100 * rating / 5}%`;
   }
 }
 

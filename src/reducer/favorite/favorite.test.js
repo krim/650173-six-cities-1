@@ -3,7 +3,7 @@ import {
   Operation
 } from './favorite';
 import MockAdapter from 'axios-mock-adapter';
-import {createAPI} from '../../api';
+import api from '../../api';
 import apartment from '../../__fixtures__/apartment';
 
 const favorites = [apartment];
@@ -11,7 +11,6 @@ const favorites = [apartment];
 describe(`Operation`, () => {
   describe(`loadFavorites`, () => {
     it(`loads favorites`, () => {
-      const api = createAPI({push: jest.fn()});
       const dispatch = jest.fn();
       const apiMock = new MockAdapter(api);
       const favoritesLoader = Operation.loadFavorites();

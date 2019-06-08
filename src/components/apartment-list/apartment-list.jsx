@@ -1,7 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {apartmentProps} from '../../props';
 
+import {apartmentProps} from '../../props';
+import history from '../../history';
 import Apartment from '../apartment/apartment.jsx';
 import withActiveItem from '../../hocs/with-active-item/with-active-item';
 
@@ -12,7 +13,10 @@ class ApartmentList extends PureComponent {
     return apartments.map((apartment) => {
       return <Apartment
         apartment={apartment}
-        onClick={() => {}}
+        onClick={(event) => {
+          event.preventDefault();
+          history.push(`/offer/${apartment.id}`);
+        }}
         onMouseOver={() => onMouseOver(apartment)}
         onMouseOut={onMouseOut}
         key={`apartment-${apartment.id}`}
