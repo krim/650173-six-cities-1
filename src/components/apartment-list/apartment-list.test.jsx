@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+
 import apartment from '../../__fixtures__/apartment';
 import {ApartmentList} from './apartment-list';
 

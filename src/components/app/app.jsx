@@ -49,7 +49,7 @@ class App extends Component {
         />;
     };
 
-    return <>
+    return <React.Fragment>
       <div style={{display: `none`}}>
         <svg xmlns="http://www.w3.org/2000/svg">
           <symbol id="icon-arrow-select" viewBox="0 0 7 4">
@@ -76,7 +76,7 @@ class App extends Component {
         <Route path="/offer/:id" component={ApartmentPage} />
         <Redirect to="/" />
       </Switch>
-    </>;
+    </React.Fragment>;
   }
 }
 

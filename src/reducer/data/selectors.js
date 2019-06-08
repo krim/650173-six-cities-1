@@ -6,6 +6,7 @@ const MAX_CITIES_COUNT = 6;
 const MAX_NEAR_APARTMENTS_COUNT = 3;
 
 export const getApartments = (state) => state[NAME_SPACE].apartments;
+export const getReviews = (state) => state[NAME_SPACE].reviews;
 export const getCity = (state) => state[NAME_SPACE].city;
 export const getApartmentId = (state) => state[NAME_SPACE].apartmentId;
 

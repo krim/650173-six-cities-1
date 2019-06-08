@@ -344,14 +344,14 @@ exports[`ApartmentPage renders component correctly 1`] = `
                     alt="Reviews avatar"
                     className="reviews__avatar user__avatar"
                     height="54"
-                    src="img/avatar-max.jpg"
+                    src="https://es31-server.appspot.com/six-cities/static/avatar/4"
                     width="54"
                   />
                 </div>
                 <span
                   className="reviews__user-name"
                 >
-                  Max
+                  Zak
                 </span>
               </div>
               <div
@@ -366,7 +366,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "200%",
+                          "width": "60%",
                         }
                       }
                     />
@@ -380,13 +380,13 @@ exports[`ApartmentPage renders component correctly 1`] = `
                 <p
                   className="reviews__text"
                 >
-                  A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                  The room was spacious and clean. The pool looked nothing like the photos and desparately needs a clean. The sauna and spa were closed for lunar new year holiday.
                 </p>
                 <time
                   className="reviews__time"
-                  dateTime="2019-04-24"
+                  dateTime="2019-05-21"
                 >
-                  April 2019
+                  May 2019
                 </time>
               </div>
             </li>

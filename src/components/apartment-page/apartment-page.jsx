@@ -169,6 +169,4 @@ const mapDispatchToProps = (dispatch) => ({
   setApartmentId: (id) => dispatch(Operation.setApartmentId(id))
 });
 
-
 export default connect(mapStateToProps, mapDispatchToProps)(ApartmentPage);
-
