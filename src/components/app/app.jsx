@@ -28,7 +28,8 @@ class App extends Component {
     }
 
     if (shouldSwitchToDefaultCity) {
-      switchCity(cities[0]);
+      const randomCity = cities[Math.floor(Math.random() * cities.length)];
+      switchCity(randomCity);
     }
   }
 
@@ -42,6 +43,7 @@ class App extends Component {
       switchCity
     } = this.props;
     const isCityExist = Object.keys(city).length > 0;
+    const isUserExist = Object.keys(user).length > 0;
 
     const Main = () => {
       return isCityExist && apartments.length > 0 &&
@@ -77,7 +79,7 @@ class App extends Component {
       <Switch>
         <Route path="/" exact component={Main}/>
         <Route path="/login" render={() => {
-          if (Object.keys(this.props.user).length > 0) {
+          if (isUserExist) {
             return <Redirect to="/" />;
           }
 
