@@ -119,7 +119,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
             <span
               style={
                 Object {
-                  "width": "54%",
+                  "width": "60%",
                 }
               }
             />
@@ -578,7 +578,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
                 <span
                   style={
                     Object {
-                      "width": "54%",
+                      "width": "60%",
                     }
                   }
                 />

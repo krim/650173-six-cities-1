@@ -1,2 +1,2 @@
-const getRating = (rating) => `${100 * rating / 5}%`;
+const getRating = (rating) => `${100 * Math.round(rating) / 5}%`;
 export default getRating;

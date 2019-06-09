@@ -117,7 +117,7 @@ exports[`FavoriteList renders component correctly 1`] = `
                     <span
                       style={
                         Object {
-                          "width": "54%",
+                          "width": "60%",
                         }
                       }
                     />
