@@ -35,6 +35,7 @@ describe(`App`, () => {
               }
               loadApartments={jest.fn()}
               switchCity={jest.fn()}
+              checkAuthorization={jest.fn()}
             />
           </Provider>
         </Router>

@@ -11,9 +11,12 @@ const api = axios.create({
 
 const onSuccess = (response) => response;
 const onFail = (err) => {
-  if (err.response.status === 403) {
+  const response = err.response;
+
+  if (response.status === 403 && response.config.url !== `${BASE_URL}/login`) {
     history.push(`/login`);
   }
+
   return err;
 };
 
