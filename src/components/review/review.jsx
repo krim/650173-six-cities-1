@@ -61,4 +61,3 @@ Review.propTypes = {
 };
 
 export default Review;
-
