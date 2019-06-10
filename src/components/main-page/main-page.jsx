@@ -36,7 +36,7 @@ class MainPage extends PureComponent {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  <ApartmentList apartments={apartments}/>
+                  <ApartmentList apartments={apartments} />
                 </div>
               </section>
               <div className="cities__right-section">

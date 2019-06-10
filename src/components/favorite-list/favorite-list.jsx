@@ -61,6 +61,7 @@ class FavoriteList extends PureComponent {
           onClick={() => {}}
           onMouseOut={() => {}}
           onMouseOver={() => {}}
+          onBookmarkClick={() => {}}
         />
       );
     });

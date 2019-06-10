@@ -10,7 +10,8 @@ class Apartment extends PureComponent {
       apartment,
       onClick,
       onMouseOver,
-      onMouseOut
+      onMouseOut,
+      onBookmarkClick
     } = this.props;
 
     return (
@@ -33,7 +34,10 @@ class Apartment extends PureComponent {
               <b className="place-card__price-value">&euro;{apartment.price}</b>
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
-            <button className="place-card__bookmark-button button" type="button">
+            <button
+              className={`place-card__bookmark-button button${this._getBookmarkClass(apartment.isFavorite)}`}
+              type="button"
+              onClick={onBookmarkClick}>
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>
               </svg>
@@ -54,13 +58,18 @@ class Apartment extends PureComponent {
       </article>
     );
   }
+
+  _getBookmarkClass(isFavorite) {
+    return isFavorite ? ` place-card__bookmark-button--active` : ``;
+  }
 }
 
 Apartment.propTypes = {
   apartment: apartmentProps,
   onClick: PropTypes.func.isRequired,
   onMouseOver: PropTypes.func.isRequired,
-  onMouseOut: PropTypes.func.isRequired
+  onMouseOut: PropTypes.func.isRequired,
+  onBookmarkClick: PropTypes.func.isRequired
 };
 
 export default Apartment;

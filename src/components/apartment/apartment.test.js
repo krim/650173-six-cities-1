@@ -12,6 +12,7 @@ describe(`Apartment`, () => {
         onClick={() => {}}
         onMouseOver={() => {}}
         onMouseOut={() => {}}
+        onBookmarkClick={() => {}}
       />).
       toJSON();
 
