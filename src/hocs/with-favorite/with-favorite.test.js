@@ -1,10 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import configureMockStore from 'redux-mock-store';
+import {Provider} from 'react-redux';
 
 import apartment from '../../__fixtures__/apartment';
 import ApartmentList from '../../components/apartment-list/apartment-list';
-import {Provider} from 'react-redux';
 
 const apartments = [apartment];
 const middlewares = [];

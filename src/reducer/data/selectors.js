@@ -8,7 +8,6 @@ export const getApartments = (state) => state[NAME_SPACE].apartments;
 export const getReviews = (state) => state[NAME_SPACE].reviews;
 export const getCity = (state) => state[NAME_SPACE].city;
 export const getApartmentId = (_, props) => parseInt(props.id, 10);
-export const getCurrentApartment = (state) => state[NAME_SPACE].apartment;
 
 export const getApartmentById = createSelector(
     getApartments,
@@ -16,12 +15,12 @@ export const getApartmentById = createSelector(
     (apartments, id) => apartments.find((apartment) => apartment.id === id)
 );
 
-export const getNearApartmentsById = createSelector(
+export const getNearApartments = createSelector(
     getApartments,
-    getCurrentApartment,
+    getApartmentId,
     getCity,
-    (apartments, сurrentApartment, city) => apartments.filter((apartment) => {
-      return apartment.city.name === city.name && apartment.id !== сurrentApartment.id;
+    (apartments, apartmentId, city) => apartments.filter((apartment) => {
+      return apartment.city.name === city.name && apartment.id !== apartmentId;
     })
 );
 

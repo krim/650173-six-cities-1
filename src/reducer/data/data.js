@@ -21,10 +21,6 @@ const ActionCreator = {
     type: ActionType.SWITCH_CITY,
     payload: city
   }),
-  setApartment: (apartment) => ({
-    type: ActionType.SET_APARTMENT,
-    payload: apartment
-  }),
   loadApartments: (apartments) => ({
     type: ActionType.LOAD_APARTMENTS,
     payload: apartments
@@ -46,9 +42,6 @@ const ActionCreator = {
 const Operation = {
   switchCity: (city) => (dispatch) => {
     dispatch(ActionCreator.switchCity(city));
-  },
-  setApartment: (apartment) => (dispatch) => {
-    dispatch(ActionCreator.setApartment(apartment));
   },
   loadApartments: () => (dispatch, _getState, api) => {
     return api.get(`/hotels`)

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import getRating from '../../libs/get-rating';
 import {apartmentProps, mapSettingsProps} from '../../props';
-import {getNearApartmentsById} from '../../reducer/data/selectors';
+import {getNearApartments} from '../../reducer/data/selectors';
 import ReviewList from '../review-list/review-list.jsx';
 import ApartmentList from '../apartment-list/apartment-list.jsx';
 import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
@@ -151,15 +151,16 @@ ApartmentPage.propTypes = {
   onBookmarkClick: PropTypes.func
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, props) => {
   return {
-    nearApartments: getNearApartmentsById(state)
+    nearApartments: getNearApartments(state, props.apartment.id)
   };
 };
 
+const ApartmentPageWithState = connect(mapStateToProps, null)(ApartmentPage);
+
 export {ApartmentPage};
+export {ApartmentPageWithState};
 export default withApartment(
-    withFavorite(
-        connect(mapStateToProps, null)(ApartmentPage)
-    )
+    withFavorite(ApartmentPageWithState)
 );
