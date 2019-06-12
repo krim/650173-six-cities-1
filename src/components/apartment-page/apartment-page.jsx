@@ -4,10 +4,12 @@ import {connect} from 'react-redux';
 
 import getRating from '../../libs/get-rating';
 import {apartmentProps, mapSettingsProps} from '../../props';
-import {Operation} from '../../reducer/data/data';
-import {getApartmentById, getNearApartmentsById} from '../../reducer/data/selectors';
+import {getNearApartmentsById} from '../../reducer/data/selectors';
 import ReviewList from '../review-list/review-list.jsx';
 import ApartmentList from '../apartment-list/apartment-list.jsx';
+import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
+import withFavorite from '../../hocs/with-favorite/with-favorite';
+import withApartment from '../../hocs/with-apartment/with-apartment';
 import Map from '../map/map.jsx';
 
 const MAX_IMAGES_COUNT = 6;
@@ -18,23 +20,8 @@ class ApartmentPage extends PureComponent {
     super(props);
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
-      this.props.setApartmentId(this._getApartmentId());
-    }
-  }
-
-  componentDidMount() {
-    this.props.setApartmentId(this._getApartmentId());
-  }
-
   render() {
-    const {apartment, nearApartments, mapSettings} = this.props;
-    const isApartmentExist = apartment && Object.keys(apartment).length > 0;
-
-    if (!isApartmentExist) {
-      return <></>;
-    }
+    const {apartment, nearApartments, mapSettings, onBookmarkClick} = this.props;
 
     const {host} = apartment;
 
@@ -63,12 +50,13 @@ class ApartmentPage extends PureComponent {
                 <h1 className="property__name">
                   {apartment.title}
                 </h1>
-                <button className="property__bookmark-button button" type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <BookmarkButton
+                  className={`property`}
+                  height={`33`}
+                  width={`31`}
+                  isFavorite={apartment.isFavorite}
+                  onBookmarkClick={onBookmarkClick}
+                />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -129,7 +117,7 @@ class ApartmentPage extends PureComponent {
                   </p>
                 </div>
               </div>
-              <ReviewList />
+              <ReviewList apartmentId={apartment.id} />
             </div>
           </div>
           {
@@ -154,34 +142,24 @@ class ApartmentPage extends PureComponent {
       </main>
     );
   }
-
-  _getApartmentId() {
-    return parseInt(this.props.match.params.id, 10);
-  }
 }
 
 ApartmentPage.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string.isRequired
-    })
-  }),
   mapSettings: mapSettingsProps,
   apartment: apartmentProps,
   nearApartments: PropTypes.arrayOf(apartmentProps),
-  setApartmentId: PropTypes.func.isRequired
+  onBookmarkClick: PropTypes.func
 };
 
 const mapStateToProps = (state) => {
   return {
-    apartment: getApartmentById(state),
     nearApartments: getNearApartmentsById(state)
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setApartmentId: (id) => dispatch(Operation.setApartmentId(id))
-});
-
 export {ApartmentPage};
-export default connect(mapStateToProps, mapDispatchToProps)(ApartmentPage);
+export default withApartment(
+    withFavorite(
+        connect(mapStateToProps, null)(ApartmentPage)
+    )
+);

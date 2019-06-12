@@ -1,8 +1,8 @@
 import React from 'react';
-import {shallow, configure} from 'enzyme';
+import {mount, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import Apartment from './apartment';
+import {Apartment} from './apartment';
 import apartment from './../../__fixtures__/apartment';
 
 configure({adapter: new Adapter()});
@@ -12,19 +12,24 @@ describe(`Apartment`, () => {
     const onClickHandler = jest.fn();
     const mouseOverHandler = jest.fn();
     const mouseOutHandler = jest.fn();
-    const app = shallow(<Apartment
+    const bookmarkClickHandler = jest.fn();
+    const app = mount(<Apartment
       apartment={apartment}
       onClick={onClickHandler}
       onMouseOver={mouseOverHandler}
       onMouseOut={mouseOutHandler}
+      onBookmarkClick={bookmarkClickHandler}
     />);
 
     const apartmentName = app.find(`.place-card__name a`);
     apartmentName.simulate(`click`, {preventDefault() {}});
     expect(onClickHandler).toHaveBeenCalledTimes(1);
 
-    const apartmentCard = app.find(`.cities__place-card`);
+    const bookmarkButton = app.find(`button.place-card__bookmark-button`);
+    bookmarkButton.simulate(`click`, {preventDefault() {}});
+    expect(bookmarkClickHandler).toHaveBeenCalledTimes(1);
 
+    const apartmentCard = app.find(`.cities__place-card`);
     apartmentCard.simulate(`mouseover`);
     expect(mouseOverHandler).toHaveBeenCalledTimes(1);
 

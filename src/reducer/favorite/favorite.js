@@ -12,7 +12,7 @@ const ActionCreator = {
   loadFavorites: (data) => ({
     type: ActionType.LOAD_FAVORITES,
     payload: data
-  }),
+  })
 };
 
 const Operation = {

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {Switch, Route, Redirect} from 'react-router-dom';
 
 import {Operation} from '../../reducer/data/data';
+import {Operation as UserOperation} from '../../reducer/user/user';
 import Header from '../header/header.jsx';
 import MainPage from '../main-page/main-page.jsx';
 import SignIn from '../sing-in/sing-in.jsx';
@@ -14,6 +15,10 @@ import {getUser} from '../../reducer/user/selectors';
 import {apartmentProps, mapSettingsProps, userProps, cityProps} from '../../props';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.checkAuthorization();
+  }
+
   componentDidUpdate(prevProps) {
     const {city, cities, switchCity} = this.props;
     const shouldSwitchToDefaultCity = cities.length > 0 && Object.keys(city).length === 0;
@@ -23,7 +28,8 @@ class App extends Component {
     }
 
     if (shouldSwitchToDefaultCity) {
-      switchCity(cities[0]);
+      const randomCity = cities[Math.floor(Math.random() * cities.length)];
+      switchCity(randomCity);
     }
   }
 
@@ -37,6 +43,7 @@ class App extends Component {
       switchCity
     } = this.props;
     const isCityExist = Object.keys(city).length > 0;
+    const isUserExist = Object.keys(user).length > 0;
 
     const Main = () => {
       return isCityExist && apartments.length > 0 &&
@@ -71,7 +78,13 @@ class App extends Component {
       <Header user={user}/>
       <Switch>
         <Route path="/" exact component={Main}/>
-        <Route path="/login" component={SignIn} />
+        <Route path="/login" render={() => {
+          if (isUserExist) {
+            return <Redirect to="/" />;
+          }
+
+          return <SignIn />;
+        }} />
         <Route path="/favorites" component={FavoriteList} />
         <Route path="/offer/:id" render={(props) => {
           return <ApartmentPage {...props} mapSettings={mapSettings} />;
@@ -89,7 +102,8 @@ App.propTypes = {
   city: cityProps,
   user: userProps,
   loadApartments: PropTypes.func.isRequired,
-  switchCity: PropTypes.func.isRequired
+  switchCity: PropTypes.func.isRequired,
+  checkAuthorization: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => {
@@ -102,6 +116,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
+  checkAuthorization: () => dispatch(UserOperation.checkAuthorization()),
   loadApartments: () => dispatch(Operation.loadApartments()),
   switchCity: (city) => dispatch(Operation.switchCity(city))
 });

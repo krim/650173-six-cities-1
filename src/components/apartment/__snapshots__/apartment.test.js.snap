@@ -51,6 +51,7 @@ exports[`Apartment renders component correctly 1`] = `
       </div>
       <button
         className="place-card__bookmark-button button"
+        onClick={[Function]}
         type="button"
       >
         <svg
@@ -78,7 +79,7 @@ exports[`Apartment renders component correctly 1`] = `
         <span
           style={
             Object {
-              "width": "54%",
+              "width": "60%",
             }
           }
         />

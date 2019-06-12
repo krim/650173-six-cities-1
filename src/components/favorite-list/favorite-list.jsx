@@ -61,6 +61,7 @@ class FavoriteList extends PureComponent {
           onClick={() => {}}
           onMouseOut={() => {}}
           onMouseOver={() => {}}
+          onBookmarkClick={() => {}}
         />
       );
     });
@@ -83,8 +84,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  loadFavorites: () => dispatch(Operation.loadFavorites())
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  loadFavorites: () => dispatch(Operation.loadFavorites(ownProps))
 });
 
 export {FavoriteList};

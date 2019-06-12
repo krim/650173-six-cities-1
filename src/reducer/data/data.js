@@ -2,7 +2,7 @@ import camelcaseKeys from 'camelcase-keys';
 
 const initialState = {
   apartments: [],
-  apartmentId: -1,
+  apartment: {},
   city: {},
   reviews: []
 };
@@ -11,7 +11,9 @@ const ActionType = {
   LOAD_APARTMENTS: `LOAD_APARTMENTS`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
   SWITCH_CITY: `SWITCH_CITY`,
-  SET_APARTMENT_ID: `SET_APARTMENT_ID`
+  SET_APARTMENT: `SET_APARTMENT`,
+  ADD_TO_FAVORITES: `ADD_TO_FAVORITES`,
+  REMOVE_FROM_FAVORITES: `REMOVE_FROM_FAVORITES`
 };
 
 const ActionCreator = {
@@ -19,9 +21,9 @@ const ActionCreator = {
     type: ActionType.SWITCH_CITY,
     payload: city
   }),
-  setApartmentId: (id) => ({
-    type: ActionType.SET_APARTMENT_ID,
-    payload: id
+  setApartment: (apartment) => ({
+    type: ActionType.SET_APARTMENT,
+    payload: apartment
   }),
   loadApartments: (apartments) => ({
     type: ActionType.LOAD_APARTMENTS,
@@ -30,15 +32,23 @@ const ActionCreator = {
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: reviews
-  })
+  }),
+  addToFavorites: (data) => ({
+    type: ActionType.ADD_TO_FAVORITES,
+    payload: data
+  }),
+  removeFromFavorites: (data) => ({
+    type: ActionType.REMOVE_FROM_FAVORITES,
+    payload: data
+  }),
 };
 
 const Operation = {
   switchCity: (city) => (dispatch) => {
     dispatch(ActionCreator.switchCity(city));
   },
-  setApartmentId: (id) => (dispatch) => {
-    dispatch(ActionCreator.setApartmentId(id));
+  setApartment: (apartment) => (dispatch) => {
+    dispatch(ActionCreator.setApartment(apartment));
   },
   loadApartments: () => (dispatch, _getState, api) => {
     return api.get(`/hotels`)
@@ -55,7 +65,24 @@ const Operation = {
         dispatch(ActionCreator.loadReviews(data));
       }).
       catch((_error) => {});
-  }
+  },
+  addToFavorites: (hotelId) => (dispatch, _getState, api) => {
+    return api.post(`/favorite/${hotelId}/1`)
+      .then((response) => {
+        const userData = camelcaseKeys(response.data, {deep: true});
+        dispatch(ActionCreator.addToFavorites(userData));
+      }).
+      catch((_error) => {});
+  },
+  removeFromFavorites: (hotelId) => (dispatch, _getState, api) => {
+    return api.post(`/favorite/${hotelId}/0`)
+      .then((response) => {
+        const userData = camelcaseKeys(response.data, {deep: true});
+        dispatch(ActionCreator.removeFromFavorites(userData));
+      }).
+      catch((_error) => {});
+  },
+
 };
 
 const reducer = (state = initialState, action) => {
@@ -63,7 +90,21 @@ const reducer = (state = initialState, action) => {
     case ActionType.SWITCH_CITY: return {...state, city: action.payload};
     case ActionType.LOAD_APARTMENTS: return {...state, apartments: action.payload};
     case ActionType.LOAD_REVIEWS: return {...state, reviews: action.payload};
-    case ActionType.SET_APARTMENT_ID: return {...state, apartmentId: action.payload};
+    case ActionType.SET_APARTMENT: return {...state, apartment: action.payload};
+    case ActionType.ADD_TO_FAVORITES:
+      return {
+        ...state,
+        apartments: state.apartments.map((apartment) => {
+          return apartment.id === action.payload.id ? action.payload : apartment;
+        })
+      };
+    case ActionType.REMOVE_FROM_FAVORITES:
+      return {
+        ...state,
+        apartments: state.apartments.map((apartment) => {
+          return apartment.id === action.payload.id ? action.payload : apartment;
+        })
+      };
   }
 
   return state;

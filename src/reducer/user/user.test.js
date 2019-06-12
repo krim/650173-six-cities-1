@@ -37,4 +37,25 @@ describe(`Operation`, () => {
         });
     });
   });
+
+  describe(`checkAuthorization`, () => {
+    it(`check user authorization status`, () => {
+      const apiMock = new MockAdapter(api);
+      const dispatch = jest.fn();
+      const authorize = Operation.checkAuthorization();
+
+      apiMock
+        .onGet(`/login`)
+        .reply(200, JSON.stringify(userResponse));
+
+      authorize(dispatch, jest.fn(), api)
+        .then(() => {
+          expect(dispatch).toHaveBeenCalledTimes(1);
+          expect(dispatch).toHaveBeenNthCalledWith(1, {
+            type: ActionType.AUTHORIZATION,
+            payload: camelcaseKeys(userResponse),
+          });
+        });
+    });
+  });
 });

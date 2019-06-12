@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Review from '../review/review.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 import {Operation} from '../../reducer/data/data';
-import {getApartmentId, getReviews} from '../../reducer/data/selectors';
+import {getReviews} from '../../reducer/data/selectors';
 import {connect} from "react-redux";
 
 class ReviewList extends PureComponent {
@@ -42,8 +42,7 @@ ReviewList.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    reviews: getReviews(state),
-    apartmentId: getApartmentId(state)
+    reviews: getReviews(state)
   };
 };
 

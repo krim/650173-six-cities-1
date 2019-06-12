@@ -95,7 +95,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
             type="button"
           >
             <svg
-              className="property__bookmark-icon"
+              className="place-card__bookmark-icon"
               height="33"
               width="31"
             >
@@ -119,7 +119,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
             <span
               style={
                 Object {
-                  "width": "54%",
+                  "width": "60%",
                 }
               }
             />
@@ -551,6 +551,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
               </div>
               <button
                 className="place-card__bookmark-button button"
+                onClick={[Function]}
                 type="button"
               >
                 <svg
@@ -578,7 +579,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
                 <span
                   style={
                     Object {
-                      "width": "54%",
+                      "width": "60%",
                     }
                   }
                 />

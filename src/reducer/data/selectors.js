@@ -7,7 +7,8 @@ const MAX_CITIES_COUNT = 6;
 export const getApartments = (state) => state[NAME_SPACE].apartments;
 export const getReviews = (state) => state[NAME_SPACE].reviews;
 export const getCity = (state) => state[NAME_SPACE].city;
-export const getApartmentId = (state) => state[NAME_SPACE].apartmentId;
+export const getApartmentId = (_, props) => parseInt(props.id, 10);
+export const getCurrentApartment = (state) => state[NAME_SPACE].apartment;
 
 export const getApartmentById = createSelector(
     getApartments,
@@ -17,10 +18,10 @@ export const getApartmentById = createSelector(
 
 export const getNearApartmentsById = createSelector(
     getApartments,
-    getApartmentId,
+    getCurrentApartment,
     getCity,
-    (apartments, apartmentId, city) => apartments.filter((apartment) => {
-      return apartment.city.name === city.name && apartment.id !== apartmentId;
+    (apartments, сurrentApartment, city) => apartments.filter((apartment) => {
+      return apartment.city.name === city.name && apartment.id !== сurrentApartment.id;
     })
 );
 
