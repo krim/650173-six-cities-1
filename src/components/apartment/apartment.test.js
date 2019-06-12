@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Apartment from './apartment';
+import {Apartment} from './apartment';
 import apartment from './../../__fixtures__/apartment';
 
 describe(`Apartment`, () => {

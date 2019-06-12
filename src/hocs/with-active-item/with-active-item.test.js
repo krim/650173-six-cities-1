@@ -1,9 +1,12 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+
 import apartment from '../../__fixtures__/apartment';
-import {CityList} from '../../components/city-list/city-list.jsx';
+import {CityList} from '../../components/city-list/city-list';
 import {ApartmentList} from '../../components/apartment-list/apartment-list';
-import withActiveItem from "./with-active-item";
+import withActiveItem from './with-active-item';
+
+jest.mock(`../../hocs/with-favorite/with-favorite`, () => (component) => component);
 
 const city = apartment.city;
 const cities = [apartment.city];

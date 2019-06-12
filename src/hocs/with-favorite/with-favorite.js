@@ -3,7 +3,8 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {Operation} from '../../reducer/favorite/favorite';
+import {Operation} from '../../reducer/data/data';
+import {apartmentProps} from '../../props';
 
 const withFavorite = (WrappedComponent) => {
   class WithFavorite extends PureComponent {
@@ -22,8 +23,8 @@ const withFavorite = (WrappedComponent) => {
       );
     }
 
-    _onBookmarkClick(apartment) {
-      const {addToFavorites, removeFromFavorites} = this.props;
+    _onBookmarkClick() {
+      const {addToFavorites, removeFromFavorites, apartment} = this.props;
 
       if (apartment.isFavorite) {
         removeFromFavorites(apartment.id);
@@ -34,6 +35,7 @@ const withFavorite = (WrappedComponent) => {
   }
 
   WithFavorite.propTypes = {
+    apartment: apartmentProps,
     addToFavorites: PropTypes.func,
     removeFromFavorites: PropTypes.func
   };

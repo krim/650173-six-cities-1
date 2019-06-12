@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookmarkButton renders component correctly 1`] = `
+<button
+  className="property__bookmark-button button place-card__bookmark-button--active"
+  onClick={[MockFunction]}
+  type="button"
+>
+  <svg
+    className="place-card__bookmark-icon"
+    height="20"
+    width="10"
+  >
+    <use
+      xlinkHref="#icon-bookmark"
+    />
+  </svg>
+  <span
+    className="visually-hidden"
+  >
+    To bookmarks
+  </span>
+</button>
+`;

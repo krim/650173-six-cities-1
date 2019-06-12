@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import {apartmentProps} from '../../props';
 import getRating from '../../libs/get-rating';
+import withFavorite from '../../hocs/with-favorite/with-favorite';
+import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 
 class Apartment extends PureComponent {
   render() {
@@ -34,15 +36,13 @@ class Apartment extends PureComponent {
               <b className="place-card__price-value">&euro;{apartment.price}</b>
               <span className="place-card__price-text">&#47;&nbsp;night</span>
             </div>
-            <button
-              className={`place-card__bookmark-button button${this._getBookmarkClass(apartment.isFavorite)}`}
-              type="button"
-              onClick={onBookmarkClick}>
-              <svg className="place-card__bookmark-icon" width="18" height="19">
-                <use xlinkHref="#icon-bookmark"></use>
-              </svg>
-              <span className="visually-hidden">To bookmarks</span>
-            </button>
+            <BookmarkButton
+              className={`place-card`}
+              height={`19`}
+              width={`18`}
+              isFavorite={apartment.isFavorite}
+              onBookmarkClick={onBookmarkClick}
+            />
           </div>
           <div className="place-card__rating rating">
             <div className="place-card__stars rating__stars">
@@ -58,19 +58,16 @@ class Apartment extends PureComponent {
       </article>
     );
   }
-
-  _getBookmarkClass(isFavorite) {
-    return isFavorite ? ` place-card__bookmark-button--active` : ``;
-  }
 }
 
 Apartment.propTypes = {
   apartment: apartmentProps,
-  onClick: PropTypes.func.isRequired,
-  onMouseOver: PropTypes.func.isRequired,
-  onMouseOut: PropTypes.func.isRequired,
-  onBookmarkClick: PropTypes.func.isRequired
+  onClick: PropTypes.func,
+  onMouseOver: PropTypes.func,
+  onMouseOut: PropTypes.func,
+  onBookmarkClick: PropTypes.func
 };
 
-export default Apartment;
+export {Apartment};
+export default withFavorite(Apartment);
 
