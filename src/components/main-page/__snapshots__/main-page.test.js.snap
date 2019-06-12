@@ -162,6 +162,7 @@ exports[`MainPage renders component correctly 1`] = `
                 </div>
                 <button
                   className="place-card__bookmark-button button"
+                  onClick={[Function]}
                   type="button"
                 >
                   <svg

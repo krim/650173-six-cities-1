@@ -1,8 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import apartment from '../../__fixtures__/apartment';
-import CityList from '../../components/city-list/city-list.jsx';
-import ApartmentList from '../../components/apartment-list/apartment-list';
+import {CityList} from '../../components/city-list/city-list.jsx';
+import {ApartmentList} from '../../components/apartment-list/apartment-list';
+import withActiveItem from "./with-active-item";
 
 const city = apartment.city;
 const cities = [apartment.city];
@@ -11,11 +12,14 @@ const apartments = [apartment];
 describe(`withActiveItem`, () => {
   describe(`CityList`, () => {
     it(`renders component correctly`, () => {
-      const tree = renderer.create(<CityList
-        cities={cities}
-        activeItem={city}
-        switchCity={jest.fn()}
-      />).toJSON();
+      const WrappedCityList = withActiveItem(CityList);
+      const tree = renderer.create(
+          <WrappedCityList
+            cities={cities}
+            activeItem={city}
+            switchCity={jest.fn()}
+          />
+      ).toJSON();
 
       expect(tree).toMatchSnapshot();
     });
@@ -23,10 +27,14 @@ describe(`withActiveItem`, () => {
 
   describe(`ApartmentList`, () => {
     it(`renders component correctly`, () => {
-      const tree = renderer.create(<ApartmentList
-        apartments={apartments}
-        activeItem={apartment}
-      />).toJSON();
+      const WrappedApartmentList = withActiveItem(ApartmentList);
+      const tree = renderer.create(
+          <WrappedApartmentList
+            apartments={apartments}
+            activeItem={apartment}
+            onBookmarkClick={jest.fn()}
+          />
+      ).toJSON();
 
       expect(tree).toMatchSnapshot();
     });
