@@ -447,8 +447,6 @@ exports[`withApartment ApartmentPage renders component correctly 1`] = `
       >
         <article
           className="cities__place-card place-card"
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
         >
           <div
             className="place-card__mark"
@@ -462,6 +460,7 @@ exports[`withApartment ApartmentPage renders component correctly 1`] = `
           >
             <a
               href="#"
+              onClick={[Function]}
             >
               <img
                 alt="Place image"

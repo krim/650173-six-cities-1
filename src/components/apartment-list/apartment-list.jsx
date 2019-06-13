@@ -8,7 +8,7 @@ import withActiveItem from '../../hocs/with-active-item/with-active-item';
 
 class ApartmentList extends PureComponent {
   render() {
-    const {apartments, onMouseOver, onMouseOut} = this.props;
+    const {apartments, onImageClick} = this.props;
 
     return apartments.map((apartment) => {
       return <Apartment
@@ -17,8 +17,7 @@ class ApartmentList extends PureComponent {
           event.preventDefault();
           history.push(`/offer/${apartment.id}`);
         }}
-        onMouseOver={() => onMouseOver(apartment)}
-        onMouseOut={onMouseOut}
+        onImageClick={() => onImageClick(apartment)}
         key={`apartment-${apartment.id}`}
       />;
     });
@@ -28,8 +27,7 @@ class ApartmentList extends PureComponent {
 ApartmentList.propTypes = {
   apartments: PropTypes.arrayOf(apartmentProps).isRequired,
   activeItem: apartmentProps,
-  onMouseOver: PropTypes.func.isRequired,
-  onMouseOut: PropTypes.func.isRequired
+  onImageClick: PropTypes.func.isRequired
 };
 
 export {ApartmentList};

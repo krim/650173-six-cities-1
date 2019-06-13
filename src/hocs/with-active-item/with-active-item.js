@@ -8,9 +8,8 @@ const withActiveItem = (WrappedComponent) => {
     constructor(props) {
       super(props);
 
-      this._onMouseOut = this._onMouseOut.bind(this);
-      this._onMouseOver = this._onMouseOver.bind(this);
       this._onClick = this._onClick.bind(this);
+      this._onImageClick = this._onImageClick.bind(this);
       this.state = {
         activeItem: undefined
       };
@@ -24,19 +23,14 @@ const withActiveItem = (WrappedComponent) => {
       return (
         <WrappedComponent
           {...this.props}
-          onMouseOver={this._onMouseOver}
-          onMouseOut={this._onMouseOut}
+          onImageClick={this._onImageClick}
           onClick={this._onClick}
         />
       );
     }
 
-    _onMouseOver(item) {
+    _onImageClick(item) {
       this.setState({activeItem: item});
-    }
-
-    _onMouseOut() {
-      this.setState({activeItem: undefined});
     }
 
     _onClick(item) {

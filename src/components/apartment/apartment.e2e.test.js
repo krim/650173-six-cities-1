@@ -10,14 +10,12 @@ configure({adapter: new Adapter()});
 describe(`Apartment`, () => {
   it(`correctly renders after relaunch and handles events`, () => {
     const onClickHandler = jest.fn();
-    const mouseOverHandler = jest.fn();
-    const mouseOutHandler = jest.fn();
+    const ImageClickHandler = jest.fn();
     const bookmarkClickHandler = jest.fn();
     const app = mount(<Apartment
       apartment={apartment}
       onClick={onClickHandler}
-      onMouseOver={mouseOverHandler}
-      onMouseOut={mouseOutHandler}
+      onImageClick={ImageClickHandler}
       onBookmarkClick={bookmarkClickHandler}
     />);
 
@@ -29,11 +27,8 @@ describe(`Apartment`, () => {
     bookmarkButton.simulate(`click`, {preventDefault() {}});
     expect(bookmarkClickHandler).toHaveBeenCalledTimes(1);
 
-    const apartmentCard = app.find(`.cities__place-card`);
-    apartmentCard.simulate(`mouseover`);
-    expect(mouseOverHandler).toHaveBeenCalledTimes(1);
-
-    apartmentCard.simulate(`mouseout`);
-    expect(mouseOutHandler).toHaveBeenCalledTimes(1);
+    const apartmentCard = app.find(`.cities__place-card > .cities__image-wrapper > a`);
+    apartmentCard.simulate(`click`);
+    expect(ImageClickHandler).toHaveBeenCalledTimes(1);
   });
 });

@@ -215,8 +215,6 @@ Array [
           >
             <article
               className="cities__place-card place-card"
-              onMouseOut={[Function]}
-              onMouseOver={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -230,6 +228,7 @@ Array [
               >
                 <a
                   href="#"
+                  onClick={[Function]}
                 >
                   <img
                     alt="Place image"
