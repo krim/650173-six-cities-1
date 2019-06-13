@@ -603,7 +603,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
             <p
               className="place-card__type"
             >
-              hotel
+              Hotel
             </p>
           </div>
         </article>

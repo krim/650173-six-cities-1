@@ -51,12 +51,21 @@ class Apartment extends PureComponent {
             </div>
           </div>
           <h2 className="place-card__name">
-            <a href="#" onClick={onClick}>{ apartment.title }</a>
+            <a href="#" onClick={onClick}>{apartment.title}</a>
           </h2>
-          <p className="place-card__type">{apartment.type}</p>
+          <p className="place-card__type">{this._getApartmentType(apartment.type)}</p>
         </div>
       </article>
     );
+  }
+
+  _getApartmentType(type) {
+    return {
+      apartment: `Apartment`,
+      room: `Private Room`,
+      house: `House`,
+      hotel: `Hotel`
+    }[type];
   }
 }
 

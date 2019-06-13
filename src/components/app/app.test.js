@@ -7,16 +7,19 @@ import {MemoryRouter as Router} from 'react-router-dom';
 import {App} from './app';
 import apartment from '../../__fixtures__/apartment';
 import mapBuilder from '../../mocks/map-builder';
+import NameSpace from '../../reducer/name-spaces';
 
 const apartments = [apartment];
 const city = apartment.city;
 const user = {id: 1, email: `Oliver.conner@gmail.com`};
 const middlewares = [];
 const mockStore = configureMockStore(middlewares);
-const initialState = {
+const initialState = {};
+initialState[NameSpace.USER] = {user};
+initialState[NameSpace.DATA] = {
   apartments,
   city,
-  user
+  activeSort: `Popular`
 };
 const store = mockStore(initialState);
 
