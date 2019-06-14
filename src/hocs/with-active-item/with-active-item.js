@@ -30,6 +30,7 @@ const withActiveItem = (WrappedComponent) => {
     }
 
     _onImageClick(item) {
+      this.props.setApartment(item);
       this.setState({activeItem: item});
     }
 
@@ -40,6 +41,7 @@ const withActiveItem = (WrappedComponent) => {
   }
 
   WithActiveItem.propTypes = {
+    setApartment: PropTypes.func,
     switchCity: PropTypes.func,
     activeItem: PropTypes.oneOfType([
       apartmentProps,

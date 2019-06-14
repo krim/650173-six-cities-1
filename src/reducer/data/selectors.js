@@ -5,6 +5,7 @@ const NAME_SPACE = NameSpace.DATA;
 const MAX_CITIES_COUNT = 6;
 
 export const getApartments = (state) => state[NAME_SPACE].apartments;
+export const getActiveApartment = (state) => state[NAME_SPACE].apartment;
 export const getReviews = (state) => state[NAME_SPACE].reviews;
 export const getCity = (state) => state[NAME_SPACE].city;
 export const getActiveSort = (state) => state[NAME_SPACE].activeSort;

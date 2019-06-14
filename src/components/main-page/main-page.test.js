@@ -25,6 +25,8 @@ describe(`MainPage`, () => {
         <Provider store={store}>
           <MainPage
             apartments={apartments}
+            activeApartment={{}}
+            setApartment={jest.fn()}
             city={city}
             cities={[city]}
             mapSettings={

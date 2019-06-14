@@ -17,7 +17,10 @@ class ApartmentList extends PureComponent {
           event.preventDefault();
           history.push(`/offer/${apartment.id}`);
         }}
-        onImageClick={() => onImageClick(apartment)}
+        onImageClick={(event) => {
+          event.preventDefault();
+          onImageClick(apartment);
+        }}
         key={`apartment-${apartment.id}`}
       />;
     });

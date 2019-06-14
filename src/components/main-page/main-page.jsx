@@ -9,7 +9,15 @@ import SortVariants from '../sort-variants/sort-variants.jsx';
 
 class MainPage extends PureComponent {
   render() {
-    const {cities, city, switchCity, apartments, mapSettings} = this.props;
+    const {
+      cities,
+      city,
+      switchCity,
+      setApartment,
+      apartments,
+      mapSettings,
+      activeApartment
+    } = this.props;
 
     return (
       <React.Fragment>
@@ -23,12 +31,13 @@ class MainPage extends PureComponent {
                 <b className="places__found">{apartments.length} places to stay in {city.name}</b>
                 <SortVariants />
                 <div className="cities__places-list places__list tabs__content">
-                  <ApartmentList apartments={apartments} />
+                  <ApartmentList apartments={apartments} setApartment={setApartment} />
                 </div>
               </section>
               <div className="cities__right-section">
                 <Map
                   apartments={apartments}
+                  activeApartment={activeApartment}
                   mapSettings={
                     {...mapSettings, location: city.location}
                   }
@@ -45,10 +54,15 @@ class MainPage extends PureComponent {
 
 MainPage.propTypes = {
   apartments: PropTypes.arrayOf(apartmentProps).isRequired,
+  activeApartment: PropTypes.oneOfType([
+    apartmentProps,
+    PropTypes.any
+  ]),
   mapSettings: mapSettingsProps,
   cities: PropTypes.arrayOf(cityProps).isRequired,
   city: cityProps,
-  switchCity: PropTypes.func.isRequired
+  switchCity: PropTypes.func.isRequired,
+  setApartment: PropTypes.func.isRequired
 };
 
 export default MainPage;

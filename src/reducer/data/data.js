@@ -19,6 +19,10 @@ const ActionType = {
 };
 
 const ActionCreator = {
+  setApartment: (apartment) => ({
+    type: ActionType.SET_APARTMENT,
+    payload: apartment
+  }),
   switchCity: (city) => ({
     type: ActionType.SWITCH_CITY,
     payload: city
@@ -46,6 +50,9 @@ const ActionCreator = {
 };
 
 const Operation = {
+  setApartment: (apartment) => (dispatch) => {
+    dispatch(ActionCreator.setApartment(apartment));
+  },
   switchCity: (city) => (dispatch) => {
     dispatch(ActionCreator.switchCity(city));
   },

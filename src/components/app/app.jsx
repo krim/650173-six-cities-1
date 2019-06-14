@@ -10,7 +10,7 @@ import MainPage from '../main-page/main-page.jsx';
 import SignIn from '../sing-in/sing-in.jsx';
 import FavoriteList from '../favorite-list/favorite-list.jsx';
 import ApartmentPage from '../apartment-page/apartment-page.jsx';
-import {getCities, getCity, getCityApartments} from '../../reducer/data/selectors';
+import {getCities, getCity, getCityApartments, getActiveApartment} from '../../reducer/data/selectors';
 import {getUser} from '../../reducer/user/selectors';
 import {apartmentProps, mapSettingsProps, userProps, cityProps} from '../../props';
 
@@ -40,7 +40,9 @@ class App extends Component {
       city,
       cities,
       user,
-      switchCity
+      switchCity,
+      setApartment,
+      activeApartment
     } = this.props;
     const isCityExist = Object.keys(city).length > 0;
     const isUserExist = Object.keys(user).length > 0;
@@ -52,6 +54,8 @@ class App extends Component {
           city={city}
           apartments={apartments}
           switchCity={switchCity}
+          setApartment={setApartment}
+          activeApartment={activeApartment}
           mapSettings={mapSettings}
         />;
     };
@@ -97,12 +101,17 @@ class App extends Component {
 
 App.propTypes = {
   apartments: PropTypes.arrayOf(apartmentProps).isRequired,
+  activeApartment: PropTypes.oneOfType([
+    apartmentProps,
+    PropTypes.any
+  ]),
   mapSettings: mapSettingsProps,
   cities: PropTypes.arrayOf(cityProps).isRequired,
   city: cityProps,
   user: userProps,
   loadApartments: PropTypes.func.isRequired,
   switchCity: PropTypes.func.isRequired,
+  setApartment: PropTypes.func.isRequired,
   checkAuthorization: PropTypes.func.isRequired
 };
 
@@ -111,14 +120,16 @@ const mapStateToProps = (state) => {
     user: getUser(state),
     cities: getCities(state),
     city: getCity(state),
-    apartments: getCityApartments(state)
+    apartments: getCityApartments(state),
+    activeApartment: getActiveApartment(state)
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   checkAuthorization: () => dispatch(UserOperation.checkAuthorization()),
   loadApartments: () => dispatch(Operation.loadApartments()),
-  switchCity: (city) => dispatch(Operation.switchCity(city))
+  switchCity: (city) => dispatch(Operation.switchCity(city)),
+  setApartment: (apartment) => dispatch(Operation.setApartment(apartment))
 });
 
 export {App};

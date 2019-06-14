@@ -6,7 +6,7 @@ import {apartmentProps} from '../../props';
 class Map extends PureComponent {
   componentDidMount() {
     this._initializeMap();
-    this._initializePin();
+    this._initializePinIcon();
     this._setView();
     this._addMarkers();
   }
@@ -29,15 +29,19 @@ class Map extends PureComponent {
     if (this.mapLayer) {
       this.mapLayer.clearLayers();
     }
-    const {apartments} = this.props;
+    const {apartments, activeApartment} = this.props;
     this.mapLayer = this.mapSettings.builder.layerGroup().addTo(this.map);
-    apartments.forEach((apartment) => this._addMarker(apartment.location));
+    apartments.forEach((apartment) => {
+      const isActive = Object.keys(activeApartment).length > 0 && activeApartment.id === apartment.id;
+      this._addMarker(apartment.location, isActive);
+    });
   }
 
-  _addMarker(location) {
+  _addMarker(location, isActive) {
+    const mapPinIcon = isActive ? this.mapPinIconActive : this.mapPinIcon;
     this.mapSettings
       .builder
-      .marker(this._getCoordinates(location), {icon: this.mapPin})
+      .marker(this._getCoordinates(location), {icon: mapPinIcon})
       .addTo(this.mapLayer);
   }
 
@@ -59,20 +63,27 @@ class Map extends PureComponent {
       .addTo(this.map);
   }
 
+  _initializePinIcon() {
+    this.mapPinIcon = this._getMapPinIcon(false);
+    this.mapPinIconActive = this._getMapPinIcon(true);
+  }
+
   _getCoordinates(location) {
     return [location.latitude, location.longitude];
   }
 
-  _initializePin() {
-    this.mapPin = this.mapSettings.builder.icon({
-      iconUrl: `img/marker.svg`,
-      iconSize: [30, 30]
-    });
+  _getMapPinIcon(isActive) {
+    const image = isActive ? `img/marker-active.svg` : `img/marker.svg`;
+    return this.mapSettings.builder.icon({iconUrl: image, iconSize: [30, 30]});
   }
 }
 
 Map.propTypes = {
   apartments: PropTypes.arrayOf(apartmentProps),
+  activeApartment: PropTypes.oneOfType([
+    apartmentProps,
+    PropTypes.any
+  ]),
   mapSettings: PropTypes.shape({
     builder: PropTypes.object.isRequired,
     location: PropTypes.shape({

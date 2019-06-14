@@ -30,6 +30,7 @@ describe(`App`, () => {
           <Provider store={store}>
             <App
               apartments={apartments}
+              activeApartment={{}}
               city={city}
               cities={[city]}
               user={user}
@@ -38,6 +39,7 @@ describe(`App`, () => {
               }
               loadApartments={jest.fn()}
               switchCity={jest.fn()}
+              setApartment={jest.fn()}
               checkAuthorization={jest.fn()}
             />
           </Provider>

@@ -8,9 +8,10 @@ import {getNearApartments} from '../../reducer/data/selectors';
 import ReviewList from '../review-list/review-list.jsx';
 import ApartmentList from '../apartment-list/apartment-list.jsx';
 import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
+import Map from '../map/map.jsx';
 import withFavorite from '../../hocs/with-favorite/with-favorite';
 import withApartment from '../../hocs/with-apartment/with-apartment';
-import Map from '../map/map.jsx';
+import {Operation} from '../../reducer/data/data';
 
 const MAX_IMAGES_COUNT = 6;
 const MAX_NEAR_APARTMENTS_COUNT = 2;
@@ -21,7 +22,13 @@ class ApartmentPage extends PureComponent {
   }
 
   render() {
-    const {apartment, nearApartments, mapSettings, onBookmarkClick} = this.props;
+    const {
+      apartment,
+      nearApartments,
+      mapSettings,
+      onBookmarkClick,
+      setApartment
+    } = this.props;
 
     const {host} = apartment;
 
@@ -124,6 +131,7 @@ class ApartmentPage extends PureComponent {
             nearApartments.length > 0 &&
               <Map
                 apartments={nearApartments.slice(0, MAX_NEAR_APARTMENTS_COUNT).concat(apartment)}
+                activeApartment={apartment}
                 mapSettings={
                   {...mapSettings, location: apartment.city.location}
                 }
@@ -135,7 +143,7 @@ class ApartmentPage extends PureComponent {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <ApartmentList apartments={nearApartments} />
+              <ApartmentList apartments={nearApartments} setApartment={setApartment} />
             </div>
           </section>
         </div>
@@ -148,16 +156,21 @@ ApartmentPage.propTypes = {
   mapSettings: mapSettingsProps,
   apartment: apartmentProps,
   nearApartments: PropTypes.arrayOf(apartmentProps),
-  onBookmarkClick: PropTypes.func
+  onBookmarkClick: PropTypes.func,
+  setApartment: PropTypes.func
 };
 
 const mapStateToProps = (state, props) => {
   return {
-    nearApartments: getNearApartments(state, props.apartment.id)
+    nearApartments: getNearApartments(state, props.match.params)
   };
 };
 
-const ApartmentPageWithState = connect(mapStateToProps, null)(ApartmentPage);
+const mapDispatchToProps = (dispatch) => ({
+  setApartment: (apartment) => dispatch(Operation.setApartment(apartment))
+});
+
+const ApartmentPageWithState = connect(mapStateToProps, mapDispatchToProps)(ApartmentPage);
 
 export {ApartmentPage};
 export {ApartmentPageWithState};
