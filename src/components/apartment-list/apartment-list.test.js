@@ -12,8 +12,9 @@ describe(`ApartmentList`, () => {
   it(`renders component correctly`, () => {
     const tree = renderer.
       create(<ApartmentList
+        className={`cities`}
         apartments={apartments}
-        setActive={jest.fn()}
+        setApartment={jest.fn()}
         onImageClick={jest.fn()}
         onBookmarkClick={jest.fn()}
       />).

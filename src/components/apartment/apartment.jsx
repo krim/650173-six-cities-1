@@ -12,23 +12,28 @@ class Apartment extends PureComponent {
       apartment,
       onImageClick,
       onClick,
-      onBookmarkClick
+      onBookmarkClick,
+      className
     } = this.props;
 
     return (
       <article
-        className="cities__place-card place-card"
+        className={`${this._getArticleClass()} place-card`}
       >
         { apartment.isPremium && <div className="place-card__mark"><span>Premium</span></div> }
-        <div className="cities__image-wrapper place-card__image-wrapper">
+        <div className={`${className}__image-wrapper place-card__image-wrapper`}>
           <a href="#" onClick={onImageClick}>
             <img
-              className="place-card__image" src={apartment.previewImage} width="260" height="200" alt="Place image"
+              className="place-card__image"
+              src={apartment.previewImage}
+              alt="Place image"
+              {...this._getImageSize()}
             />
           </a>
         </div>
-        <div className="place-card__info">
-          <div className="place-card__price-wrapper">
+
+        <div className={`place-card__info${this._getCardClass()}`}>
+          <div className={`place-card__price-wrapper`}>
             <div className="place-card__price">
               <b className="place-card__price-value">&euro;{apartment.price}</b>
               <span className="place-card__price-text">&#47;&nbsp;night</span>
@@ -64,13 +69,30 @@ class Apartment extends PureComponent {
       hotel: `Hotel`
     }[type];
   }
+
+  _getCardClass() {
+    return this._isFavorite() ? ` favorites__card-info` : ``;
+  }
+
+  _getArticleClass() {
+    return this._isFavorite() ? ` favorites__card` : `cities__place-card`;
+  }
+
+  _getImageSize() {
+    return this._isFavorite() ? {width: `150`, height: `110`} : {width: `260`, height: `200`};
+  }
+
+  _isFavorite() {
+    return this.props.className === `favorites`;
+  }
 }
 
 Apartment.propTypes = {
   apartment: apartmentProps,
   onClick: PropTypes.func,
   onImageClick: PropTypes.func,
-  onBookmarkClick: PropTypes.func
+  onBookmarkClick: PropTypes.func,
+  className: PropTypes.string.isRequired
 };
 
 export {Apartment};

@@ -33,6 +33,7 @@ describe(`withActiveItem`, () => {
       const WrappedApartmentList = withActiveItem(ApartmentList);
       const tree = renderer.create(
           <WrappedApartmentList
+            className={`cities`}
             apartments={apartments}
             activeItem={apartment}
             onBookmarkClick={jest.fn()}

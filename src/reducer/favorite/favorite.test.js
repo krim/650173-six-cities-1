@@ -21,7 +21,7 @@ describe(`Operation`, () => {
           expect(dispatch).toHaveBeenCalledTimes(1);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.LOAD_FAVORITES,
-            payload: favorites,
+            payload: [{apartments: [apartment], city: apartment.city.name}],
           });
         });
     });
