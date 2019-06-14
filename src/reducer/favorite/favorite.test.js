@@ -1,7 +1,4 @@
-import {
-  ActionType,
-  Operation
-} from './favorite';
+import {ActionType, Operation} from './favorite';
 import MockAdapter from 'axios-mock-adapter';
 import api from '../../api';
 import apartment from '../../__fixtures__/apartment';
@@ -24,7 +21,7 @@ describe(`Operation`, () => {
           expect(dispatch).toHaveBeenCalledTimes(1);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.LOAD_FAVORITES,
-            payload: favorites,
+            payload: [{apartments: [apartment], city: apartment.city.name}],
           });
         });
     });

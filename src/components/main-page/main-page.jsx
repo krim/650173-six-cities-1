@@ -31,7 +31,12 @@ class MainPage extends PureComponent {
                 <b className="places__found">{apartments.length} places to stay in {city.name}</b>
                 <SortVariants />
                 <div className="cities__places-list places__list tabs__content">
-                  <ApartmentList apartments={apartments} setApartment={setApartment} />
+                  <ApartmentList
+                    apartments={apartments}
+                    setApartment={setApartment}
+                    onImageClick={() => {}}
+                    className={`cities`}
+                  />
                 </div>
               </section>
               <div className="cities__right-section">

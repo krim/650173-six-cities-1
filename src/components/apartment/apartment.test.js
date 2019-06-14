@@ -8,6 +8,7 @@ describe(`Apartment`, () => {
   it(`renders component correctly`, () => {
     const tree = renderer.
       create(<Apartment
+        className={`cities`}
         apartment={apartment}
         onClick={jest.fn()}
         onImageClick={jest.fn()}

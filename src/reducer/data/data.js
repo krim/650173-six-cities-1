@@ -75,16 +75,16 @@ const Operation = {
       }).
       catch((_error) => {});
   },
-  addToFavorites: (hotelId) => (dispatch, _getState, api) => {
-    return api.post(`/favorite/${hotelId}/1`)
+  addToFavorites: (apartmentId) => (dispatch, _getState, api) => {
+    return api.post(`/favorite/${apartmentId}/1`)
       .then((response) => {
         const userData = camelcaseKeys(response.data, {deep: true});
         dispatch(ActionCreator.addToFavorites(userData));
       }).
       catch((_error) => {});
   },
-  removeFromFavorites: (hotelId) => (dispatch, _getState, api) => {
-    return api.post(`/favorite/${hotelId}/0`)
+  removeFromFavorites: (apartmentId) => (dispatch, _getState, api) => {
+    return api.post(`/favorite/${apartmentId}/0`)
       .then((response) => {
         const userData = camelcaseKeys(response.data, {deep: true});
         dispatch(ActionCreator.removeFromFavorites(userData));

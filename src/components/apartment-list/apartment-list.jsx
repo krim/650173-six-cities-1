@@ -8,10 +8,11 @@ import withActiveItem from '../../hocs/with-active-item/with-active-item';
 
 class ApartmentList extends PureComponent {
   render() {
-    const {apartments, onImageClick} = this.props;
+    const {apartments, onImageClick, className} = this.props;
 
     return apartments.map((apartment) => {
       return <Apartment
+        className={className}
         apartment={apartment}
         onClick={(event) => {
           event.preventDefault();
@@ -30,7 +31,8 @@ class ApartmentList extends PureComponent {
 ApartmentList.propTypes = {
   apartments: PropTypes.arrayOf(apartmentProps).isRequired,
   activeItem: apartmentProps,
-  onImageClick: PropTypes.func.isRequired
+  onImageClick: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired
 };
 
 export {ApartmentList};

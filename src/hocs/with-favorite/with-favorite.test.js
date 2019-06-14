@@ -17,7 +17,12 @@ describe(`withFavorite`, () => {
     it(`renders component correctly`, () => {
       const tree = renderer.create(
           <Provider store={store}>
-            <ApartmentList apartments={apartments} />
+            <ApartmentList
+              apartments={apartments}
+              setApartment={jest.fn()}
+              onImageClick={jest.fn()}
+              className={`cities`}
+            />
           </Provider>
       ).toJSON();
 

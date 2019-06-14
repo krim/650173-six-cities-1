@@ -11,7 +11,6 @@ import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 import Map from '../map/map.jsx';
 import withFavorite from '../../hocs/with-favorite/with-favorite';
 import withApartment from '../../hocs/with-apartment/with-apartment';
-import {Operation} from '../../reducer/data/data';
 
 const MAX_IMAGES_COUNT = 6;
 const MAX_NEAR_APARTMENTS_COUNT = 2;
@@ -26,8 +25,7 @@ class ApartmentPage extends PureComponent {
       apartment,
       nearApartments,
       mapSettings,
-      onBookmarkClick,
-      setApartment
+      onBookmarkClick
     } = this.props;
 
     const {host} = apartment;
@@ -143,7 +141,12 @@ class ApartmentPage extends PureComponent {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <ApartmentList apartments={nearApartments} setApartment={setApartment} />
+              <ApartmentList
+                apartments={nearApartments}
+                setApartment={() => {}}
+                onImageClick={() => {}}
+                className={`cities`}
+              />
             </div>
           </section>
         </div>
@@ -156,8 +159,7 @@ ApartmentPage.propTypes = {
   mapSettings: mapSettingsProps,
   apartment: apartmentProps,
   nearApartments: PropTypes.arrayOf(apartmentProps),
-  onBookmarkClick: PropTypes.func,
-  setApartment: PropTypes.func
+  onBookmarkClick: PropTypes.func
 };
 
 const mapStateToProps = (state, props) => {
@@ -166,11 +168,7 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setApartment: (apartment) => dispatch(Operation.setApartment(apartment))
-});
-
-const ApartmentPageWithState = connect(mapStateToProps, mapDispatchToProps)(ApartmentPage);
+const ApartmentPageWithState = connect(mapStateToProps, null)(ApartmentPage);
 
 export {ApartmentPage};
 export {ApartmentPageWithState};

@@ -42,6 +42,7 @@ describe(`withActiveItem`, () => {
       const WrappedApartmentList = withActiveItem(ApartmentList);
       const apartmentList = mount(
           <WrappedApartmentList
+            className={`cities`}
             apartments={[apartment]}
             onBookmarkClick={jest.fn()}
             setApartment={jest.fn()}

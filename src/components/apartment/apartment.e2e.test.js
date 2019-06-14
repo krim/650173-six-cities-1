@@ -13,6 +13,7 @@ describe(`Apartment`, () => {
     const ImageClickHandler = jest.fn();
     const bookmarkClickHandler = jest.fn();
     const app = mount(<Apartment
+      className={`cities`}
       apartment={apartment}
       onClick={onClickHandler}
       onImageClick={ImageClickHandler}
