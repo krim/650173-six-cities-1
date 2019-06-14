@@ -7,6 +7,7 @@ import {Operation} from '../../reducer/data/data';
 import {Operation as UserOperation} from '../../reducer/user/user';
 import Header from '../header/header.jsx';
 import MainPage from '../main-page/main-page.jsx';
+import MainPageEmpty from '../main-page-empty/main-page-empty.jsx';
 import SignIn from '../sing-in/sing-in.jsx';
 import FavoriteList from '../favorite-list/favorite-list.jsx';
 import ApartmentPage from '../apartment-page/apartment-page.jsx';
@@ -48,8 +49,8 @@ class App extends Component {
     const isUserExist = Object.keys(user).length > 0;
 
     const Main = () => {
-      return isCityExist && apartments.length > 0 &&
-        <MainPage
+      if (apartments.length > 0 && isCityExist) {
+        return <MainPage
           cities={cities}
           city={city}
           apartments={apartments}
@@ -58,6 +59,9 @@ class App extends Component {
           activeApartment={activeApartment}
           mapSettings={mapSettings}
         />;
+      } else {
+        return <MainPageEmpty />;
+      }
     };
 
     return <React.Fragment>
