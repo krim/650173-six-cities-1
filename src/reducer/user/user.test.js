@@ -1,7 +1,4 @@
-import {
-  ActionType,
-  Operation
-} from './user';
+import {ActionType, Operation} from './user';
 import MockAdapter from 'axios-mock-adapter';
 import camelcaseKeys from 'camelcase-keys';
 import api from '../../api';

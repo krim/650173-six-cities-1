@@ -1,7 +1,4 @@
-import {
-  ActionType,
-  Operation
-} from './favorite';
+import {ActionType, Operation} from './favorite';
 import MockAdapter from 'axios-mock-adapter';
 import api from '../../api';
 import apartment from '../../__fixtures__/apartment';
