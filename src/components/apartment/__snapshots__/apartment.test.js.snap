@@ -3,8 +3,6 @@
 exports[`Apartment renders component correctly 1`] = `
 <article
   className="cities__place-card place-card"
-  onMouseOut={[Function]}
-  onMouseOver={[Function]}
 >
   <div
     className="place-card__mark"
@@ -18,6 +16,7 @@ exports[`Apartment renders component correctly 1`] = `
   >
     <a
       href="#"
+      onClick={[MockFunction]}
     >
       <img
         alt="Place image"
@@ -51,7 +50,7 @@ exports[`Apartment renders component correctly 1`] = `
       </div>
       <button
         className="place-card__bookmark-button button"
-        onClick={[Function]}
+        onClick={[MockFunction]}
         type="button"
       >
         <svg
@@ -95,7 +94,7 @@ exports[`Apartment renders component correctly 1`] = `
     >
       <a
         href="#"
-        onClick={[Function]}
+        onClick={[MockFunction]}
       >
         Waterfront with extraordinary view
       </a>
@@ -103,7 +102,7 @@ exports[`Apartment renders component correctly 1`] = `
     <p
       className="place-card__type"
     >
-      hotel
+      Hotel
     </p>
   </div>
 </article>

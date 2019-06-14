@@ -5,10 +5,11 @@ const NAME_SPACE = NameSpace.DATA;
 const MAX_CITIES_COUNT = 6;
 
 export const getApartments = (state) => state[NAME_SPACE].apartments;
+export const getActiveApartment = (state) => state[NAME_SPACE].apartment;
 export const getReviews = (state) => state[NAME_SPACE].reviews;
 export const getCity = (state) => state[NAME_SPACE].city;
+export const getActiveSort = (state) => state[NAME_SPACE].activeSort;
 export const getApartmentId = (_, props) => parseInt(props.id, 10);
-export const getCurrentApartment = (state) => state[NAME_SPACE].apartment;
 
 export const getApartmentById = createSelector(
     getApartments,
@@ -16,12 +17,12 @@ export const getApartmentById = createSelector(
     (apartments, id) => apartments.find((apartment) => apartment.id === id)
 );
 
-export const getNearApartmentsById = createSelector(
+export const getNearApartments = createSelector(
     getApartments,
-    getCurrentApartment,
+    getApartmentId,
     getCity,
-    (apartments, сurrentApartment, city) => apartments.filter((apartment) => {
-      return apartment.city.name === city.name && apartment.id !== сurrentApartment.id;
+    (apartments, apartmentId, city) => apartments.filter((apartment) => {
+      return apartment.city.name === city.name && apartment.id !== apartmentId;
     })
 );
 
@@ -34,8 +35,31 @@ export const getCities = createSelector(
       }).slice(0, MAX_CITIES_COUNT)
 );
 
+export const getApartmentsByPrice = (apartments, direction) => {
+  return apartments.sort((first, second) => {
+    if (direction === `asc`) {
+      return (first.price > second.price) ? 1 : -1;
+    } else {
+      return (first.price < second.price) ? 1 : -1;
+    }
+  });
+};
+
+export const getApartmentsByRating = (apartments) => apartments.sort((first, second) => {
+  return (first.rating < second.rating) ? 1 : -1;
+});
+
 export const getCityApartments = createSelector(
     getApartments,
     getCity,
-    (apartments, city) => apartments.filter((apartment) => apartment.city.name === city.name)
+    getActiveSort,
+    (apartments, city, activeSort) => {
+      const cityApartments = apartments.filter((apartment) => apartment.city.name === city.name);
+      switch (activeSort) {
+        case `Price: low to high`: return getApartmentsByPrice(cityApartments, `asc`);
+        case `Price: high to low`: return getApartmentsByPrice(cityApartments, `desc`);
+        case `Top rated first`: return getApartmentsByRating(cityApartments);
+        default: return cityApartments;
+      }
+    }
 );

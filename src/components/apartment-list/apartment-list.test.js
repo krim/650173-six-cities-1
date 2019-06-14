@@ -14,8 +14,7 @@ describe(`ApartmentList`, () => {
       create(<ApartmentList
         apartments={apartments}
         setActive={jest.fn()}
-        onMouseOver={jest.fn()}
-        onMouseOut={jest.fn()}
+        onImageClick={jest.fn()}
         onBookmarkClick={jest.fn()}
       />).
       toJSON();

@@ -9,10 +9,9 @@ describe(`Apartment`, () => {
     const tree = renderer.
       create(<Apartment
         apartment={apartment}
-        onClick={() => {}}
-        onMouseOver={() => {}}
-        onMouseOut={() => {}}
-        onBookmarkClick={() => {}}
+        onClick={jest.fn()}
+        onImageClick={jest.fn()}
+        onBookmarkClick={jest.fn()}
       />).
       toJSON();
 

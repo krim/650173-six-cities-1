@@ -10,21 +10,18 @@ class Apartment extends PureComponent {
   render() {
     const {
       apartment,
+      onImageClick,
       onClick,
-      onMouseOver,
-      onMouseOut,
       onBookmarkClick
     } = this.props;
 
     return (
       <article
-        onMouseOver={onMouseOver}
-        onMouseOut={onMouseOut}
         className="cities__place-card place-card"
       >
         { apartment.isPremium && <div className="place-card__mark"><span>Premium</span></div> }
         <div className="cities__image-wrapper place-card__image-wrapper">
-          <a href="#">
+          <a href="#" onClick={onImageClick}>
             <img
               className="place-card__image" src={apartment.previewImage} width="260" height="200" alt="Place image"
             />
@@ -51,20 +48,28 @@ class Apartment extends PureComponent {
             </div>
           </div>
           <h2 className="place-card__name">
-            <a href="#" onClick={onClick}>{ apartment.title }</a>
+            <a href="#" onClick={onClick}>{apartment.title}</a>
           </h2>
-          <p className="place-card__type">{apartment.type}</p>
+          <p className="place-card__type">{this._getApartmentType(apartment.type)}</p>
         </div>
       </article>
     );
+  }
+
+  _getApartmentType(type) {
+    return {
+      apartment: `Apartment`,
+      room: `Private Room`,
+      house: `House`,
+      hotel: `Hotel`
+    }[type];
   }
 }
 
 Apartment.propTypes = {
   apartment: apartmentProps,
   onClick: PropTypes.func,
-  onMouseOver: PropTypes.func,
-  onMouseOut: PropTypes.func,
+  onImageClick: PropTypes.func,
   onBookmarkClick: PropTypes.func
 };
 

@@ -63,10 +63,11 @@ exports[`MainPage renders component correctly 1`] = `
           <span
             className="places__sorting-caption"
           >
-            Sort by
+            Sort by 
           </span>
           <span
             className="places__sorting-type"
+            onClick={[Function]}
             tabIndex="0"
           >
             Popular
@@ -81,29 +82,33 @@ exports[`MainPage renders component correctly 1`] = `
             </svg>
           </span>
           <ul
-            className="places__options places__options--custom places__options--opened"
+            className="places__options places__options--custom"
           >
             <li
               className="places__option places__option--active"
+              onClick={[Function]}
               tabIndex="0"
             >
               Popular
             </li>
             <li
-              className="places__option"
-              tabIndex="0"
+              className="places__option "
+              onClick={[Function]}
+              tabIndex="1"
             >
               Price: low to high
             </li>
             <li
-              className="places__option"
-              tabIndex="0"
+              className="places__option "
+              onClick={[Function]}
+              tabIndex="2"
             >
               Price: high to low
             </li>
             <li
-              className="places__option"
-              tabIndex="0"
+              className="places__option "
+              onClick={[Function]}
+              tabIndex="3"
             >
               Top rated first
             </li>
@@ -114,8 +119,6 @@ exports[`MainPage renders component correctly 1`] = `
         >
           <article
             className="cities__place-card place-card"
-            onMouseOut={[Function]}
-            onMouseOver={[Function]}
           >
             <div
               className="place-card__mark"
@@ -129,6 +132,7 @@ exports[`MainPage renders component correctly 1`] = `
             >
               <a
                 href="#"
+                onClick={[Function]}
               >
                 <img
                   alt="Place image"
@@ -214,7 +218,7 @@ exports[`MainPage renders component correctly 1`] = `
               <p
                 className="place-card__type"
               >
-                hotel
+                Hotel
               </p>
             </div>
           </article>

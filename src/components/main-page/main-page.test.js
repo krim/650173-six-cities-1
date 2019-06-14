@@ -5,7 +5,8 @@ import configureMockStore from 'redux-mock-store';
 
 import apartment from '../../__fixtures__/apartment';
 import mapBuilder from '../../mocks/map-builder';
-import MainPage from './main-page.jsx';
+import MainPage from './main-page';
+import NameSpace from '../../reducer/name-spaces';
 
 const apartments = [apartment];
 const city = apartment.city;
@@ -13,6 +14,9 @@ const city = apartment.city;
 const middlewares = [];
 const mockStore = configureMockStore(middlewares);
 const initialState = {};
+initialState[NameSpace.DATA] = {
+  activeSort: `Popular`
+};
 const store = mockStore(initialState);
 
 describe(`MainPage`, () => {
@@ -21,6 +25,8 @@ describe(`MainPage`, () => {
         <Provider store={store}>
           <MainPage
             apartments={apartments}
+            activeApartment={{}}
+            setApartment={jest.fn()}
             city={city}
             cities={[city]}
             mapSettings={

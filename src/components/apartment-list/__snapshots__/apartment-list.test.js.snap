@@ -3,8 +3,6 @@
 exports[`ApartmentList renders component correctly 1`] = `
 <article
   className="cities__place-card place-card"
-  onMouseOut={[MockFunction]}
-  onMouseOver={[Function]}
 >
   <div
     className="place-card__mark"
@@ -18,6 +16,7 @@ exports[`ApartmentList renders component correctly 1`] = `
   >
     <a
       href="#"
+      onClick={[Function]}
     >
       <img
         alt="Place image"
@@ -102,7 +101,7 @@ exports[`ApartmentList renders component correctly 1`] = `
     <p
       className="place-card__type"
     >
-      hotel
+      Hotel
     </p>
   </div>
 </article>

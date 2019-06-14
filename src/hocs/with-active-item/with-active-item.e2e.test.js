@@ -19,7 +19,13 @@ describe(`withActiveItem`, () => {
       const cities = [city, city2];
       const WrappedCityList = withActiveItem(CityList);
 
-      const cityList = mount(<WrappedCityList cities={cities} activeItem={city} switchCity={jest.fn()}/>);
+      const cityList = mount(
+          <WrappedCityList
+            cities={cities}
+            activeItem={city}
+            switchCity={jest.fn()}
+          />
+      );
 
       expect(cityList.state(`activeItem`)).toEqual(city);
 
@@ -34,14 +40,17 @@ describe(`withActiveItem`, () => {
   describe(`ApartmentList`, () => {
     it(`correctly renders after relaunch and handles events`, () => {
       const WrappedApartmentList = withActiveItem(ApartmentList);
-      const apartmentList = mount(<WrappedApartmentList apartments={[apartment]} onBookmarkClick={jest.fn()}/>);
+      const apartmentList = mount(
+          <WrappedApartmentList
+            apartments={[apartment]}
+            onBookmarkClick={jest.fn()}
+            setApartment={jest.fn()}
+          />
+      );
 
-      const apartmentCard = apartmentList.find(`.cities__place-card`);
-      apartmentCard.simulate(`mouseover`);
+      const apartmentCard = apartmentList.find(`.cities__place-card > .cities__image-wrapper > a`);
+      apartmentCard.simulate(`click`);
       expect(apartmentList.state(`activeItem`)).toEqual(apartment);
-
-      apartmentCard.simulate(`mouseout`);
-      expect(apartmentList.state(`activeItem`)).toEqual(undefined);
     });
   });
 });

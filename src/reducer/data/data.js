@@ -4,7 +4,8 @@ const initialState = {
   apartments: [],
   apartment: {},
   city: {},
-  reviews: []
+  reviews: [],
+  activeSort: `Popular`
 };
 
 const ActionType = {
@@ -13,17 +14,22 @@ const ActionType = {
   SWITCH_CITY: `SWITCH_CITY`,
   SET_APARTMENT: `SET_APARTMENT`,
   ADD_TO_FAVORITES: `ADD_TO_FAVORITES`,
-  REMOVE_FROM_FAVORITES: `REMOVE_FROM_FAVORITES`
+  REMOVE_FROM_FAVORITES: `REMOVE_FROM_FAVORITES`,
+  SWITCH_SORT: `SWITCH_SORT`
 };
 
 const ActionCreator = {
+  setApartment: (apartment) => ({
+    type: ActionType.SET_APARTMENT,
+    payload: apartment
+  }),
   switchCity: (city) => ({
     type: ActionType.SWITCH_CITY,
     payload: city
   }),
-  setApartment: (apartment) => ({
-    type: ActionType.SET_APARTMENT,
-    payload: apartment
+  switchSort: (data) => ({
+    type: ActionType.SWITCH_SORT,
+    payload: data
   }),
   loadApartments: (apartments) => ({
     type: ActionType.LOAD_APARTMENTS,
@@ -40,15 +46,18 @@ const ActionCreator = {
   removeFromFavorites: (data) => ({
     type: ActionType.REMOVE_FROM_FAVORITES,
     payload: data
-  }),
+  })
 };
 
 const Operation = {
+  setApartment: (apartment) => (dispatch) => {
+    dispatch(ActionCreator.setApartment(apartment));
+  },
   switchCity: (city) => (dispatch) => {
     dispatch(ActionCreator.switchCity(city));
   },
-  setApartment: (apartment) => (dispatch) => {
-    dispatch(ActionCreator.setApartment(apartment));
+  switchSort: (city) => (dispatch) => {
+    dispatch(ActionCreator.switchSort(city));
   },
   loadApartments: () => (dispatch, _getState, api) => {
     return api.get(`/hotels`)
@@ -81,30 +90,26 @@ const Operation = {
         dispatch(ActionCreator.removeFromFavorites(userData));
       }).
       catch((_error) => {});
-  },
+  }
+};
 
+const replaceApartment = (state, newApartment) => {
+  return state.apartments.map((apartment) => {
+    return apartment.id === newApartment.id ? newApartment : apartment;
+  });
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.SWITCH_CITY: return {...state, city: action.payload};
+    case ActionType.SWITCH_SORT: return {...state, activeSort: action.payload};
     case ActionType.LOAD_APARTMENTS: return {...state, apartments: action.payload};
     case ActionType.LOAD_REVIEWS: return {...state, reviews: action.payload};
     case ActionType.SET_APARTMENT: return {...state, apartment: action.payload};
     case ActionType.ADD_TO_FAVORITES:
-      return {
-        ...state,
-        apartments: state.apartments.map((apartment) => {
-          return apartment.id === action.payload.id ? action.payload : apartment;
-        })
-      };
+      return {...state, apartments: replaceApartment(state, action.payload)};
     case ActionType.REMOVE_FROM_FAVORITES:
-      return {
-        ...state,
-        apartments: state.apartments.map((apartment) => {
-          return apartment.id === action.payload.id ? action.payload : apartment;
-        })
-      };
+      return {...state, apartments: replaceApartment(state, action.payload)};
   }
 
   return state;

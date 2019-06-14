@@ -37,7 +37,6 @@ describe(`ApartmentPage`, () => {
             match={{params: {id: apartment.id.toString()}}}
             apartment={apartment}
             nearApartments={apartments}
-            setApartment={jest.fn()}
             mapSettings={
               {builder: mapBuilder, zoomControl: false, marker: true, location: apartment.city.location}
             }

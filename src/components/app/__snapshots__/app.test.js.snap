@@ -159,10 +159,11 @@ Array [
             <span
               className="places__sorting-caption"
             >
-              Sort by
+              Sort by 
             </span>
             <span
               className="places__sorting-type"
+              onClick={[Function]}
               tabIndex="0"
             >
               Popular
@@ -177,29 +178,33 @@ Array [
               </svg>
             </span>
             <ul
-              className="places__options places__options--custom places__options--opened"
+              className="places__options places__options--custom"
             >
               <li
                 className="places__option places__option--active"
+                onClick={[Function]}
                 tabIndex="0"
               >
                 Popular
               </li>
               <li
-                className="places__option"
-                tabIndex="0"
+                className="places__option "
+                onClick={[Function]}
+                tabIndex="1"
               >
                 Price: low to high
               </li>
               <li
-                className="places__option"
-                tabIndex="0"
+                className="places__option "
+                onClick={[Function]}
+                tabIndex="2"
               >
                 Price: high to low
               </li>
               <li
-                className="places__option"
-                tabIndex="0"
+                className="places__option "
+                onClick={[Function]}
+                tabIndex="3"
               >
                 Top rated first
               </li>
@@ -210,8 +215,6 @@ Array [
           >
             <article
               className="cities__place-card place-card"
-              onMouseOut={[Function]}
-              onMouseOver={[Function]}
             >
               <div
                 className="place-card__mark"
@@ -225,6 +228,7 @@ Array [
               >
                 <a
                   href="#"
+                  onClick={[Function]}
                 >
                   <img
                     alt="Place image"
@@ -310,7 +314,7 @@ Array [
                 <p
                   className="place-card__type"
                 >
-                  hotel
+                  Hotel
                 </p>
               </div>
             </article>
