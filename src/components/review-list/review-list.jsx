@@ -19,7 +19,7 @@ class ReviewList extends PureComponent {
   }
 
   render() {
-    const {reviews, apartmentId} = this.props;
+    const {reviews, apartmentId, isUserAuthorized} = this.props;
 
     return (
       <section className="property__reviews reviews">
@@ -36,7 +36,7 @@ class ReviewList extends PureComponent {
           }
         </ul>
 
-        <ReviewForm apartmentId={apartmentId}/>
+        {isUserAuthorized && <ReviewForm apartmentId={apartmentId}/>}
       </section>
     );
   }
@@ -45,7 +45,8 @@ class ReviewList extends PureComponent {
 ReviewList.propTypes = {
   apartmentId: PropTypes.number.isRequired,
   reviews: PropTypes.arrayOf(reviewProps),
-  loadReviews: PropTypes.func.isRequired
+  loadReviews: PropTypes.func.isRequired,
+  isUserAuthorized: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => {

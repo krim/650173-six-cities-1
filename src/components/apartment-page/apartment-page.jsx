@@ -24,7 +24,8 @@ class ApartmentPage extends PureComponent {
       apartment,
       nearApartments,
       mapSettings,
-      onBookmarkClick
+      onBookmarkClick,
+      isUserAuthorized
     } = this.props;
 
     const {host} = apartment;
@@ -121,7 +122,7 @@ class ApartmentPage extends PureComponent {
                   </p>
                 </div>
               </div>
-              <ReviewList apartmentId={apartment.id} />
+              <ReviewList apartmentId={apartment.id} isUserAuthorized={isUserAuthorized} />
             </div>
           </div>
           {
@@ -158,7 +159,8 @@ ApartmentPage.propTypes = {
   mapSettings: mapSettingsProps,
   apartment: apartmentProps,
   nearApartments: PropTypes.arrayOf(apartmentProps),
-  onBookmarkClick: PropTypes.func
+  onBookmarkClick: PropTypes.func,
+  isUserAuthorized: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state, props) => {

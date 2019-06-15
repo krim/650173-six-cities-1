@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ReviewList renders component correctly 1`] = `
+exports[`ReviewList when user is authorized renders component correctly 1`] = `
 <section
   className="property__reviews reviews"
 >
@@ -244,5 +244,85 @@ exports[`ReviewList renders component correctly 1`] = `
       </button>
     </div>
   </form>
+</section>
+`;
+
+exports[`ReviewList when user is not authorized renders component correctly 1`] = `
+<section
+  className="property__reviews reviews"
+>
+  <h2
+    className="reviews__title"
+  >
+    Reviews · 
+    <span
+      className="reviews__amount"
+    >
+      1
+    </span>
+  </h2>
+  <ul
+    className="reviews__list"
+  >
+    <li
+      className="reviews__item"
+    >
+      <div
+        className="reviews__user user"
+      >
+        <div
+          className="reviews__avatar-wrapper user__avatar-wrapper"
+        >
+          <img
+            alt="Reviews avatar"
+            className="reviews__avatar user__avatar"
+            height="54"
+            src="https://es31-server.appspot.com/six-cities/static/avatar/4.jpg"
+            width="54"
+          />
+        </div>
+        <span
+          className="reviews__user-name"
+        >
+          Zak
+        </span>
+      </div>
+      <div
+        className="reviews__info"
+      >
+        <div
+          className="reviews__rating rating"
+        >
+          <div
+            className="reviews__stars rating__stars"
+          >
+            <span
+              style={
+                Object {
+                  "width": "60%",
+                }
+              }
+            />
+            <span
+              className="visually-hidden"
+            >
+              Rating
+            </span>
+          </div>
+        </div>
+        <p
+          className="reviews__text"
+        >
+          The room was spacious and clean. The pool looked nothing like the photos and desparately needs a clean. The sauna and spa were closed for lunar new year holiday.
+        </p>
+        <time
+          className="reviews__time"
+          dateTime="2019-05-21"
+        >
+          May 2019
+        </time>
+      </div>
+    </li>
+  </ul>
 </section>
 `;

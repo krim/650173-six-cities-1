@@ -14,17 +14,37 @@ const initialState = {};
 const store = mockStore(initialState);
 
 describe(`ReviewList`, () => {
-  it(`renders component correctly`, () => {
-    const tree = renderer.create(
-        <Provider store={store}>
-          <ReviewList
-            apartmentId={apartment.id}
-            reviews={reviews}
-            loadReviews={jest.fn()}
-          />
-        </Provider>
-    ).toJSON();
+  describe(`when user is authorized`, () => {
+    it(`renders component correctly`, () => {
+      const tree = renderer.create(
+          <Provider store={store}>
+            <ReviewList
+              apartmentId={apartment.id}
+              reviews={reviews}
+              loadReviews={jest.fn()}
+              isUserAuthorized={true}
+            />
+          </Provider>
+      ).toJSON();
 
-    expect(tree).toMatchSnapshot();
+      expect(tree).toMatchSnapshot();
+    });
+  });
+
+  describe(`when user is not authorized`, () => {
+    it(`renders component correctly`, () => {
+      const tree = renderer.create(
+          <Provider store={store}>
+            <ReviewList
+              apartmentId={apartment.id}
+              reviews={reviews}
+              loadReviews={jest.fn()}
+              isUserAuthorized={false}
+            />
+          </Provider>
+      ).toJSON();
+
+      expect(tree).toMatchSnapshot();
+    });
   });
 });

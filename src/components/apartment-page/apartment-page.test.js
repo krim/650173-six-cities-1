@@ -40,6 +40,7 @@ describe(`ApartmentPage`, () => {
             mapSettings={
               {builder: mapBuilder, zoomControl: false, marker: true, location: apartment.city.location}
             }
+            isUserAuthorized={true}
           />
         </Provider>
     ).toJSON();

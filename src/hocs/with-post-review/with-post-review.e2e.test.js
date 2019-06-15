@@ -1,9 +1,9 @@
 import React from 'react';
 import {mount, configure} from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
 
 import {ReviewForm} from '../../components/review-form/review-form';
 import {withPostReview} from './with-post-review';
-import Adapter from "enzyme-adapter-react-16/build";
 
 configure({adapter: new Adapter()});
 
