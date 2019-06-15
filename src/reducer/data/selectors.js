@@ -4,9 +4,23 @@ import NameSpace from '../name-spaces';
 const NAME_SPACE = NameSpace.DATA;
 const MAX_CITIES_COUNT = 6;
 
+const prepareFavorites = (favorites) => {
+  return favorites.reduce((result, apartment) => {
+    const foundObject = result.find((res) => res.city === apartment.city.name);
+    if (foundObject) {
+      foundObject.apartments.push(apartment);
+    } else {
+      result.push({city: apartment.city.name, apartments: [apartment]});
+    }
+
+    return result;
+  }, []);
+};
+
 export const getApartments = (state) => state[NAME_SPACE].apartments;
 export const getActiveApartment = (state) => state[NAME_SPACE].apartment;
 export const getReviews = (state) => state[NAME_SPACE].reviews;
+export const getFavorites = (state) => prepareFavorites(state[NAME_SPACE].favorites);
 export const getCity = (state) => state[NAME_SPACE].city;
 export const getActiveSort = (state) => state[NAME_SPACE].activeSort;
 export const getApartmentId = (_, props) => parseInt(props.id, 10);

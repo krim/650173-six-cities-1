@@ -3,6 +3,7 @@ import camelcaseKeys from 'camelcase-keys';
 const initialState = {
   apartments: [],
   apartment: {},
+  favorites: [],
   city: {},
   reviews: [],
   activeSort: `Popular`
@@ -15,7 +16,8 @@ const ActionType = {
   SET_APARTMENT: `SET_APARTMENT`,
   ADD_TO_FAVORITES: `ADD_TO_FAVORITES`,
   REMOVE_FROM_FAVORITES: `REMOVE_FROM_FAVORITES`,
-  SWITCH_SORT: `SWITCH_SORT`
+  SWITCH_SORT: `SWITCH_SORT`,
+  LOAD_FAVORITES: `LOAD_FAVORITES`
 };
 
 const ActionCreator = {
@@ -38,6 +40,10 @@ const ActionCreator = {
   loadReviews: (reviews) => ({
     type: ActionType.LOAD_REVIEWS,
     payload: reviews
+  }),
+  loadFavorites: (favorites) => ({
+    type: ActionType.LOAD_FAVORITES,
+    payload: favorites
   }),
   addToFavorites: (data) => ({
     type: ActionType.ADD_TO_FAVORITES,
@@ -75,6 +81,14 @@ const Operation = {
       }).
       catch((_error) => {});
   },
+  loadFavorites: () => (dispatch, _getState, api) => {
+    return api.get(`/favorite`)
+      .then((response) => {
+        const favoritesData = camelcaseKeys(response.data, {deep: true});
+        dispatch(ActionCreator.loadFavorites(favoritesData));
+      }).
+      catch((_error) => {});
+  },
   addToFavorites: (apartmentId) => (dispatch, _getState, api) => {
     return api.post(`/favorite/${apartmentId}/1`)
       .then((response) => {
@@ -106,10 +120,15 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_APARTMENTS: return {...state, apartments: action.payload};
     case ActionType.LOAD_REVIEWS: return {...state, reviews: action.payload};
     case ActionType.SET_APARTMENT: return {...state, apartment: action.payload};
+    case ActionType.LOAD_FAVORITES: return {...state, favorites: action.payload};
     case ActionType.ADD_TO_FAVORITES:
       return {...state, apartments: replaceApartment(state, action.payload)};
     case ActionType.REMOVE_FROM_FAVORITES:
-      return {...state, apartments: replaceApartment(state, action.payload)};
+      return {
+        ...state,
+        apartments: replaceApartment(state, action.payload),
+        favorites: state.favorites.filter((favorite) => favorite.id !== action.payload.id)
+      };
   }
 
   return state;
