@@ -1,8 +1,9 @@
-import {ActionType, Operation} from './data';
+import {ActionType, Operation, reducer} from './data';
 import MockAdapter from 'axios-mock-adapter';
 import api from '../../api';
 import apartment from '../../__fixtures__/apartment';
 import review from '../../__fixtures__/review';
+import city from '../../__fixtures__/city';
 import camelcaseKeys from "../user/user.test";
 
 describe(`Operation.setApartment`, () => {
@@ -174,5 +175,106 @@ describe(`Operation.loadFavorites`, () => {
           payload: favorites
         });
       });
+  });
+});
+
+describe(`Reducer`, () => {
+  describe(`default`, () => {
+    expect(reducer(undefined, {})).toEqual({
+      apartments: [],
+      apartment: {},
+      favorites: [],
+      city: {},
+      reviews: [],
+      activeSort: `Popular`
+    });
+  });
+
+  describe(`SWITCH_CITY`, () => {
+    expect(
+        reducer(
+            {city: {}},
+            {type: ActionType.SWITCH_CITY, payload: city}
+        )
+    ).toEqual({city});
+  });
+
+  describe(`SWITCH_SORT`, () => {
+    const sort = `sort`;
+    expect(
+        reducer(
+            {activeSort: `Popular`},
+            {type: ActionType.SWITCH_SORT, payload: sort}
+        )
+    ).toEqual({activeSort: sort});
+  });
+
+  describe(`LOAD_APARTMENTS`, () => {
+    const apartments = [apartment];
+    expect(
+        reducer(
+            {apartments: []},
+            {type: ActionType.LOAD_APARTMENTS, payload: apartments}
+        )
+    ).toEqual({apartments});
+  });
+
+  describe(`LOAD_REVIEWS`, () => {
+    const reviews = [review];
+    expect(
+        reducer(
+            {reviews: []},
+            {type: ActionType.LOAD_REVIEWS, payload: reviews}
+        )
+    ).toEqual({reviews});
+  });
+
+  describe(`POST_REVIEW`, () => {
+    const reviews = [review];
+    expect(
+        reducer(
+            {reviews: []},
+            {type: ActionType.POST_REVIEW, payload: reviews}
+        )
+    ).toEqual({reviews});
+  });
+
+  describe(`SET_APARTMENT`, () => {
+    expect(
+        reducer(
+            {apartment: []},
+            {type: ActionType.SET_APARTMENT, payload: apartment}
+        )
+    ).toEqual({apartment});
+  });
+
+  describe(`LOAD_FAVORITES`, () => {
+    const favorites = [apartment];
+    expect(
+        reducer(
+            {favorites: []},
+            {type: ActionType.LOAD_FAVORITES, payload: favorites}
+        )
+    ).toEqual({favorites});
+  });
+
+  describe(`ADD_TO_FAVORITES`, () => {
+    const favorites = [apartment];
+    expect(
+        reducer(
+            {apartments: favorites},
+            {type: ActionType.ADD_TO_FAVORITES, payload: apartment}
+        )
+    ).toEqual({apartments: favorites});
+  });
+
+  describe(`REMOVE_FROM_FAVORITES`, () => {
+    const apartments = [apartment];
+    expect(
+        reducer(
+            {favorites: [apartment], apartments},
+            {type: ActionType.REMOVE_FROM_FAVORITES, payload: apartment}
+        )
+    ).toEqual({favorites: [], apartments});
   });
 });

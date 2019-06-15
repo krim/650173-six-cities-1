@@ -1,7 +1,8 @@
-import {ActionType, Operation} from './user';
+import {ActionType, Operation, reducer} from './user';
 import MockAdapter from 'axios-mock-adapter';
 import camelcaseKeys from 'camelcase-keys';
 import api from '../../api';
+import user from '../../__fixtures__/user';
 
 const userResponse = {
   "id": 1,
@@ -52,5 +53,22 @@ describe(`Operation.checkAuthorization`, () => {
           payload: camelcaseKeys(userResponse),
         });
       });
+  });
+});
+
+describe(`Reducer`, () => {
+  describe(`default`, () => {
+    expect(reducer(undefined, {})).toEqual({
+      user: {}
+    });
+  });
+
+  describe(`AUTHORIZATION`, () => {
+    expect(
+        reducer(
+            {user: {}},
+            {type: ActionType.AUTHORIZATION, payload: user}
+        )
+    ).toEqual({user});
   });
 });
