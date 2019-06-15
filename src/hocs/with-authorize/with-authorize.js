@@ -49,7 +49,6 @@ const withAuthorize = (WrappedComponent) => {
     _handlePasswordChange(event) {
       this.setState({password: event.target.value});
     }
-
   }
 
   WithAuthorize.propTypes = {

@@ -18,7 +18,7 @@ describe(`withAuthorize`, () => {
     );
 
     const submitButton = form.find(`.login__submit`);
-    expect(submitButton.props().disabled ).toEqual(true);
+    expect(submitButton.props().disabled).toEqual(true);
 
     expect(form.state(`email`)).toEqual(``);
     expect(form.state(`password`)).toEqual(``);

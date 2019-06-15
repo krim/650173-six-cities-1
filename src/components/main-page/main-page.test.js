@@ -20,23 +20,47 @@ initialState[NameSpace.DATA] = {
 const store = mockStore(initialState);
 
 describe(`MainPage`, () => {
-  it(`renders component correctly`, () => {
-    const tree = renderer.create(
-        <Provider store={store}>
-          <MainPage
-            apartments={apartments}
-            activeApartment={{}}
-            setApartment={jest.fn()}
-            city={city}
-            cities={[city]}
-            mapSettings={
-              {builder: mapBuilder, zoomControl: false, marker: true}
-            }
-            switchCity={jest.fn()}
-          />
-        </Provider>
-    ).toJSON();
+  describe(`without apartments`, () => {
+    it(`renders component correctly`, () => {
+      const tree = renderer.create(
+          <Provider store={store}>
+            <MainPage
+              apartments={apartments}
+              activeApartment={{}}
+              setApartment={jest.fn()}
+              city={city}
+              cities={[city]}
+              mapSettings={
+                {builder: mapBuilder, zoomControl: false, marker: true}
+              }
+              switchCity={jest.fn()}
+            />
+          </Provider>
+      ).toJSON();
 
-    expect(tree).toMatchSnapshot();
+      expect(tree).toMatchSnapshot();
+    });
+  });
+
+  describe(`without apartments`, () => {
+    it(`renders component correctly`, () => {
+      const tree = renderer.create(
+          <Provider store={store}>
+            <MainPage
+              apartments={[]}
+              activeApartment={{}}
+              setApartment={jest.fn()}
+              city={city}
+              cities={[city]}
+              mapSettings={
+                {builder: mapBuilder, zoomControl: false, marker: true}
+              }
+              switchCity={jest.fn()}
+            />
+          </Provider>
+      ).toJSON();
+
+      expect(tree).toMatchSnapshot();
+    });
   });
 });

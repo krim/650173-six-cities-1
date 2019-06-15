@@ -13,6 +13,7 @@ const withSort = (WrappedComponent) => {
 
       this.handleOptionsClick = this.handleOptionsClick.bind(this);
       this.handleOptionClick = this.handleOptionClick.bind(this);
+
       this.state = {opened: false};
     }
 
@@ -43,6 +44,7 @@ const withSort = (WrappedComponent) => {
   }
 
   WithSort.propTypes = {
+    activeSort: PropTypes.string.isRequired,
     switchSort: PropTypes.func.isRequired
   };
 

@@ -39,6 +39,8 @@ describe(`withApartment`, () => {
                 {builder: mapBuilder, zoomControl: false, marker: true}
               }
               isUserAuthorized={true}
+              addToFavorites={jest.fn()}
+              removeFromFavorites={jest.fn()}
             />
           </Provider>
       ).toJSON();

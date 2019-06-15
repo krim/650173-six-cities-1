@@ -8,8 +8,8 @@ const withActiveItem = (WrappedComponent) => {
     constructor(props) {
       super(props);
 
-      this._onClick = this._onClick.bind(this);
-      this._onImageClick = this._onImageClick.bind(this);
+      this._handleClick = this._handleClick.bind(this);
+      this._handleImageClick = this._handleImageClick.bind(this);
       this.state = {
         activeItem: undefined
       };
@@ -23,18 +23,18 @@ const withActiveItem = (WrappedComponent) => {
       return (
         <WrappedComponent
           {...this.props}
-          onImageClick={this._onImageClick}
-          onClick={this._onClick}
+          onImageClick={this._handleImageClick}
+          onClick={this._handleClick}
         />
       );
     }
 
-    _onImageClick(item) {
+    _handleImageClick(item) {
       this.props.setApartment(item);
       this.setState({activeItem: item});
     }
 
-    _onClick(item) {
+    _handleClick(item) {
       this.props.switchCity(item);
       this.setState({activeItem: item});
     }

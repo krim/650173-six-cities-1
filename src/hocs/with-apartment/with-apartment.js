@@ -35,8 +35,8 @@ const withApartment = (WrappedComponent) => {
       })
     }),
     apartment: apartmentProps,
-    addToFavorites: PropTypes.func,
-    removeFromFavorites: PropTypes.func
+    addToFavorites: PropTypes.func.isRequired,
+    removeFromFavorites: PropTypes.func.isRequired
   };
 
   return WithApartment;
