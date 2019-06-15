@@ -2,12 +2,12 @@ import React from 'react';
 import {mount, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-jest.mock(`../../components/header/header.jsx`, () => () => <></>);
-
 import {SignIn} from '../../components/sign-in/sign-in';
 import {withAuthorize} from './with-authorize';
 
 configure({adapter: new Adapter()});
+
+jest.mock(`../../components/header/header.jsx`, () => () => `component`);
 
 describe(`withAuthorize`, () => {
   it(`changes the state and submit form`, () => {
