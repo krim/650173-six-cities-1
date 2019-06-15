@@ -12,6 +12,7 @@ const initialState = {
 const ActionType = {
   LOAD_APARTMENTS: `LOAD_APARTMENTS`,
   LOAD_REVIEWS: `LOAD_REVIEWS`,
+  POST_REVIEW: `POST_REVIEW`,
   SWITCH_CITY: `SWITCH_CITY`,
   SET_APARTMENT: `SET_APARTMENT`,
   ADD_TO_FAVORITES: `ADD_TO_FAVORITES`,
@@ -41,6 +42,10 @@ const ActionCreator = {
     type: ActionType.LOAD_REVIEWS,
     payload: reviews
   }),
+  postReview: (reviews) => ({
+    type: ActionType.POST_REVIEW,
+    payload: reviews
+  }),
   loadFavorites: (favorites) => ({
     type: ActionType.LOAD_FAVORITES,
     payload: favorites
@@ -68,16 +73,27 @@ const Operation = {
   loadApartments: () => (dispatch, _getState, api) => {
     return api.get(`/hotels`)
       .then((response) => {
-        const data = camelcaseKeys(response.data, {deep: true});
-        dispatch(ActionCreator.loadApartments(data));
+        const apartmentsData = camelcaseKeys(response.data, {deep: true});
+        dispatch(ActionCreator.loadApartments(apartmentsData));
       }).
       catch((_error) => {});
   },
   loadReviews: (id) => (dispatch, _getState, api) => {
     return api.get(`/comments/${id}`)
       .then((response) => {
-        const data = camelcaseKeys(response.data, {deep: true});
-        dispatch(ActionCreator.loadReviews(data));
+        const reviewsData = camelcaseKeys(response.data, {deep: true});
+        const preparedReviews = reviewsData.map((review) => {
+          return {...review, date: Date.parse(review.date)};
+        });
+        dispatch(ActionCreator.loadReviews(preparedReviews));
+      }).
+      catch((_error) => {});
+  },
+  postReview: (review, apartmentId) => (dispatch, _getState, api) => {
+    return api.post(`/comments/${apartmentId}`, review)
+      .then((response) => {
+        const reviewsData = camelcaseKeys(response.data, {deep: true});
+        dispatch(ActionCreator.postReview(reviewsData));
       }).
       catch((_error) => {});
   },
@@ -119,6 +135,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.SWITCH_SORT: return {...state, activeSort: action.payload};
     case ActionType.LOAD_APARTMENTS: return {...state, apartments: action.payload};
     case ActionType.LOAD_REVIEWS: return {...state, reviews: action.payload};
+    case ActionType.POST_REVIEW: return {...state, reviews: action.payload};
     case ActionType.SET_APARTMENT: return {...state, apartment: action.payload};
     case ActionType.LOAD_FAVORITES: return {...state, favorites: action.payload};
     case ActionType.ADD_TO_FAVORITES:

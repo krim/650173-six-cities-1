@@ -95,7 +95,11 @@ class App extends Component {
         }} />
         <Route path="/favorites" component={FavoriteList} />
         <Route path="/offer/:id" render={(props) => {
-          return <ApartmentPage {...props} mapSettings={mapSettings} />;
+          return <ApartmentPage
+            {...props}
+            mapSettings={mapSettings}
+            isUserAuthorized={isUserExist}
+          />;
         }} />
         <Redirect to="/" />
       </Switch>

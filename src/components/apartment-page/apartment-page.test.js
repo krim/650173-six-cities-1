@@ -17,7 +17,7 @@ Operation.loadReviews = () => (dispatch) => dispatch(jest.fn());
 
 const NAME_SPACE = NameSpace.DATA;
 const apartments = [apartment];
-const reviews = [review];
+const reviews = [{...review, date: 1558416332222}];
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const initialState = {};
@@ -40,6 +40,7 @@ describe(`ApartmentPage`, () => {
             mapSettings={
               {builder: mapBuilder, zoomControl: false, marker: true, location: apartment.city.location}
             }
+            isUserAuthorized={true}
           />
         </Provider>
     ).toJSON();

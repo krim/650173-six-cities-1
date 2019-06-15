@@ -13,7 +13,6 @@ import withFavorite from '../../hocs/with-favorite/with-favorite';
 import withApartment from '../../hocs/with-apartment/with-apartment';
 
 const MAX_IMAGES_COUNT = 6;
-const MAX_NEAR_APARTMENTS_COUNT = 2;
 
 class ApartmentPage extends PureComponent {
   constructor(props) {
@@ -25,7 +24,8 @@ class ApartmentPage extends PureComponent {
       apartment,
       nearApartments,
       mapSettings,
-      onBookmarkClick
+      onBookmarkClick,
+      isUserAuthorized
     } = this.props;
 
     const {host} = apartment;
@@ -122,13 +122,13 @@ class ApartmentPage extends PureComponent {
                   </p>
                 </div>
               </div>
-              <ReviewList apartmentId={apartment.id} />
+              <ReviewList apartmentId={apartment.id} isUserAuthorized={isUserAuthorized} />
             </div>
           </div>
           {
             nearApartments.length > 0 &&
               <Map
-                apartments={nearApartments.slice(0, MAX_NEAR_APARTMENTS_COUNT).concat(apartment)}
+                apartments={nearApartments.concat(apartment)}
                 activeApartment={apartment}
                 mapSettings={
                   {...mapSettings, location: apartment.city.location}
@@ -159,7 +159,8 @@ ApartmentPage.propTypes = {
   mapSettings: mapSettingsProps,
   apartment: apartmentProps,
   nearApartments: PropTypes.arrayOf(apartmentProps),
-  onBookmarkClick: PropTypes.func
+  onBookmarkClick: PropTypes.func,
+  isUserAuthorized: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state, props) => {
