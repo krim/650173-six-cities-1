@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import EmailValidator from 'email-validator';
 
 import {Operation} from '../../reducer/user/user';
 
@@ -22,7 +23,7 @@ const withAuthorize = (WrappedComponent) => {
 
     render() {
       const {email, password} = this.state;
-      const isSubmitButtonEnabled = email.length > 0 && password.length > 0;
+      const isSubmitButtonEnabled = email.length > 0 && EmailValidator.validate(email) && password.length > 0;
 
       return (
         <WrappedComponent
