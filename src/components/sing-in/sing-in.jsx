@@ -1,41 +1,16 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
 
-import {Operation} from '../../reducer/user/user';
+import withAuthorize from '../../hocs/with-authorize/with-authorize';
 
 class SignIn extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-
-    this.state = {
-      email: ``,
-      password: ``
-    };
-  }
-
-  handleFormSubmit(event) {
-    event.preventDefault();
-    const {email, password} = this.state;
-
-    this.props.authorize({email, password});
-  }
-
-  handleEmailChange(event) {
-    this.setState({email: event.target.value});
-  }
-
-  handlePasswordChange(event) {
-    this.setState({password: event.target.value});
-  }
-
   render() {
-    const {email, password} = this.state;
-    const isSubmitButtonEnabled = email.length > 0 && password.length > 0;
+    const {
+      onPasswordChange,
+      onEmailChange,
+      onFormSubmit,
+      isSubmitButtonDisabled
+    } = this.props;
 
     return (
       <React.Fragment>
@@ -43,7 +18,7 @@ class SignIn extends PureComponent {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" onSubmit={this.handleFormSubmit} method="post">
+              <form className="login__form form" onSubmit={onFormSubmit} method="post">
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
                   <input
@@ -51,9 +26,8 @@ class SignIn extends PureComponent {
                     type="email"
                     name="email"
                     placeholder="Email"
-                    value={this.email}
                     required=""
-                    onChange={this.handleEmailChange}
+                    onChange={onEmailChange}
                   />
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
@@ -63,14 +37,13 @@ class SignIn extends PureComponent {
                     type="password"
                     name="password"
                     placeholder="Password"
-                    value={this.password}
                     required=""
-                    onChange={this.handlePasswordChange}
+                    onChange={onPasswordChange}
                   />
                 </div>
                 <button
                   className='login__submit form__submit button'
-                  disabled={!isSubmitButtonEnabled}
+                  disabled={isSubmitButtonDisabled}
                   type="submit"
                 >Sign in</button>
               </form>
@@ -90,12 +63,11 @@ class SignIn extends PureComponent {
 }
 
 SignIn.propTypes = {
-  authorize: PropTypes.func.isRequired
+  onPasswordChange: PropTypes.func.isRequired,
+  onEmailChange: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
+  isSubmitButtonDisabled: PropTypes.bool.isRequired
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  authorize: (data) => dispatch(Operation.authorize(data, ownProps))
-});
-
 export {SignIn};
-export default connect(null, mapDispatchToProps)(SignIn);
+export default withAuthorize(SignIn);

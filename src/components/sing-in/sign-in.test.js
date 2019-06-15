@@ -7,7 +7,10 @@ describe(`SignIn`, () => {
   it(`renders component correctly`, () => {
     const tree = renderer.create(
         <SignIn
-          authorize={jest.fn()}
+          onPasswordChange={jest.fn()}
+          onEmailChange={jest.fn()}
+          onFormSubmit={jest.fn()}
+          isSubmitButtonDisabled={false}
         />
     ).toJSON();
 
