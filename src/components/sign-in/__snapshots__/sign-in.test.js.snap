@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`withAuthorize renders component correctly 1`] = `
+exports[`SignIn renders component correctly 1`] = `
 <div
   className="page page--gray page--login"
 >
@@ -76,7 +76,7 @@ exports[`withAuthorize renders component correctly 1`] = `
         <form
           className="login__form form"
           method="post"
-          onSubmit={[Function]}
+          onSubmit={[MockFunction]}
         >
           <div
             className="login__input-wrapper form__input-wrapper"
@@ -89,7 +89,7 @@ exports[`withAuthorize renders component correctly 1`] = `
             <input
               className="login__input form__input"
               name="email"
-              onChange={[Function]}
+              onChange={[MockFunction]}
               placeholder="Email"
               required=""
               type="email"
@@ -106,7 +106,7 @@ exports[`withAuthorize renders component correctly 1`] = `
             <input
               className="login__input form__input"
               name="password"
-              onChange={[Function]}
+              onChange={[MockFunction]}
               placeholder="Password"
               required=""
               type="password"
@@ -114,7 +114,7 @@ exports[`withAuthorize renders component correctly 1`] = `
           </div>
           <button
             className="login__submit form__submit button"
-            disabled={true}
+            disabled={false}
             type="submit"
           >
             Sign in

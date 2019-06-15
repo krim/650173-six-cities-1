@@ -2,16 +2,17 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {MemoryRouter as Router} from 'react-router-dom';
 
-import {SignIn} from '../../components/sign-in/sign-in';
-import {withAuthorize} from './with-authorize';
+import {SignIn} from './sign-in';
 
-describe(`withAuthorize`, () => {
+describe(`SignIn`, () => {
   it(`renders component correctly`, () => {
-    const WrappedSignIn = withAuthorize(SignIn);
     const tree = renderer.create(
         <Router>
-          <WrappedSignIn
-            authorize={jest.fn()}
+          <SignIn
+            onPasswordChange={jest.fn()}
+            onEmailChange={jest.fn()}
+            onFormSubmit={jest.fn()}
+            isSubmitButtonDisabled={false}
           />
         </Router>
     ).toJSON();
@@ -19,4 +20,3 @@ describe(`withAuthorize`, () => {
     expect(tree).toMatchSnapshot();
   });
 });
-

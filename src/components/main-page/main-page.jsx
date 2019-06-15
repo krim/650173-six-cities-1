@@ -4,22 +4,24 @@ import CityList from '../city-list/city-list.jsx';
 
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {cityProps, apartmentProps, mapSettingsProps} from '../../props';
+import {userProps, cityProps, apartmentProps, mapSettingsProps} from '../../props';
 import SortVariants from '../sort-variants/sort-variants.jsx';
 import MainPageEmpty from '../main-page-empty/main-page-empty.jsx';
+import Header from '../header/header.jsx';
 
 class MainPage extends PureComponent {
   render() {
-    const {cities, city, switchCity, apartments} = this.props;
+    const {cities, city, switchCity, apartments, user} = this.props;
 
     return (
-      <React.Fragment>
+      <div className="page page--gray page--main">
+        <Header user={user} />
         <main className={`page__main page__main--index${this._getMainPageClass()}`}>
           <h1 className="visually-hidden">Cities</h1>
           <CityList cities={cities} activeItem={city} switchCity={switchCity} />
           { apartments.length === 0 ? <MainPageEmpty /> : this._renderMainFull() }
         </main>
-      </React.Fragment>
+      </div>
     );
   }
 
@@ -69,6 +71,7 @@ class MainPage extends PureComponent {
 }
 
 MainPage.propTypes = {
+  user: userProps,
   apartments: PropTypes.arrayOf(apartmentProps).isRequired,
   activeApartment: PropTypes.oneOfType([
     apartmentProps,

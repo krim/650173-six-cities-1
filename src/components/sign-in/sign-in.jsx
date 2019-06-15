@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import withAuthorize from '../../hocs/with-authorize/with-authorize';
+import Header from '../header/header.jsx';
 
 const SignIn = (props) => {
   const {
@@ -12,7 +13,8 @@ const SignIn = (props) => {
   } = props;
 
   return (
-    <React.Fragment>
+    <div className="page page--gray page--login">
+      <Header user={{}}/>
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
@@ -56,7 +58,7 @@ const SignIn = (props) => {
           </section>
         </div>
       </main>
-    </React.Fragment>
+    </div>
   );
 };
 

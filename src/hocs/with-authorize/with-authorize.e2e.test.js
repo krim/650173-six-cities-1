@@ -2,7 +2,9 @@ import React from 'react';
 import {mount, configure} from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 
-import {SignIn} from '../../components/sing-in/sing-in';
+jest.mock(`../../components/header/header.jsx`, () => () => <></>);
+
+import {SignIn} from '../../components/sign-in/sign-in';
 import {withAuthorize} from './with-authorize';
 
 configure({adapter: new Adapter()});
