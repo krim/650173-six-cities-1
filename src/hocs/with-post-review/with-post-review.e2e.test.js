@@ -20,7 +20,7 @@ describe(`withActiveItem`, () => {
     );
 
     const submitButton = form.find(`.reviews__submit`);
-    expect(submitButton.props().disabled ).toEqual(true);
+    expect(submitButton.props().disabled).toEqual(true);
 
     expect(form.state(`rating`)).toEqual(0);
     expect(form.state(`comment`)).toEqual(``);

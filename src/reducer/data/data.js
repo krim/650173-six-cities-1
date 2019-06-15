@@ -60,6 +60,13 @@ const ActionCreator = {
   })
 };
 
+const prepareReviews = (reviewsData) => {
+  const reviews = camelcaseKeys(reviewsData, {deep: true});
+  return reviews.map((review) => {
+    return {...review, date: Date.parse(review.date)};
+  });
+};
+
 const Operation = {
   setApartment: (apartment) => (dispatch) => {
     dispatch(ActionCreator.setApartment(apartment));
@@ -81,19 +88,16 @@ const Operation = {
   loadReviews: (id) => (dispatch, _getState, api) => {
     return api.get(`/comments/${id}`)
       .then((response) => {
-        const reviewsData = camelcaseKeys(response.data, {deep: true});
-        const preparedReviews = reviewsData.map((review) => {
-          return {...review, date: Date.parse(review.date)};
-        });
+        const preparedReviews = prepareReviews(response.data);
         dispatch(ActionCreator.loadReviews(preparedReviews));
       }).
       catch((_error) => {});
   },
-  postReview: (review, apartmentId) => (dispatch, _getState, api) => {
-    return api.post(`/comments/${apartmentId}`, review)
+  postReview: (reviewData, apartmentId) => (dispatch, _getState, api) => {
+    return api.post(`/comments/${apartmentId}`, reviewData)
       .then((response) => {
-        const reviewsData = camelcaseKeys(response.data, {deep: true});
-        dispatch(ActionCreator.postReview(reviewsData));
+        const preparedReviews = prepareReviews(response.data);
+        dispatch(ActionCreator.postReview(preparedReviews));
       }).
       catch((_error) => {});
   },
