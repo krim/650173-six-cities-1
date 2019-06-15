@@ -130,4 +130,26 @@ describe(`Operation`, () => {
         });
     });
   });
+
+  describe(`loadFavorites`, () => {
+    it(`loads favorites`, () => {
+      const favorites = [apartment];
+      const dispatch = jest.fn();
+      const apiMock = new MockAdapter(api);
+      const favoritesLoader = Operation.loadFavorites();
+
+      apiMock
+        .onGet(`/favorite`)
+        .reply(200, JSON.stringify(favorites));
+
+      favoritesLoader(dispatch, jest.fn(), api)
+        .then(() => {
+          expect(dispatch).toHaveBeenCalledTimes(1);
+          expect(dispatch).toHaveBeenNthCalledWith(1, {
+            type: ActionType.LOAD_FAVORITES,
+            payload: favorites
+          });
+        });
+    });
+  });
 });

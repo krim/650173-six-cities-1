@@ -2,8 +2,8 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {Operation} from '../../reducer/favorite/favorite';
-import {getFavorites} from '../../reducer/favorite/selectors';
+import {Operation} from '../../reducer/data/data';
+import {getFavorites} from '../../reducer/data/selectors';
 import {apartmentProps} from '../../props';
 import FavoriteEmptyList from '../favorite-empty-list/favorite-empty-list.jsx';
 import Footer from '../footer/footer.jsx';
