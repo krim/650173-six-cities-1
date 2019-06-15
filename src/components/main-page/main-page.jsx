@@ -19,13 +19,13 @@ class MainPage extends PureComponent {
         <main className={`page__main page__main--index${this._getMainPageClass()}`}>
           <h1 className="visually-hidden">Cities</h1>
           <CityList cities={cities} activeItem={city} switchCity={switchCity} />
-          { apartments.length === 0 ? <MainPageEmpty /> : this._renderMainFull() }
+          { apartments.length === 0 ? <MainPageEmpty /> : this._renderMainPageFull() }
         </main>
       </div>
     );
   }
 
-  _renderMainFull() {
+  _renderMainPageFull() {
     const {
       city,
       setApartment,

@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, {Component} from 'react';
 
 import {reviewProps} from '../../props';
 import PropTypes from 'prop-types';
@@ -9,13 +9,19 @@ import ReviewForm from '../review-form/review-form.jsx';
 import {Operation} from '../../reducer/data/data';
 import {getSortedReviews} from '../../reducer/data/selectors';
 
-class ReviewList extends PureComponent {
+class ReviewList extends Component {
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
     this.props.loadReviews(this.props.apartmentId);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.apartmentId !== this.props.apartmentId) {
+      this.props.loadReviews(this.props.apartmentId);
+    }
   }
 
   render() {

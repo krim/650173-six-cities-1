@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import withPostReview from '../../hocs/with-post-review/with-post-review';
 
-const ratingsData = [
+const RATINGS = [
   {title: `perfect`, mark: 5},
   {title: `good`, mark: 4},
   {title: `not bad`, mark: 3},
@@ -26,7 +26,7 @@ const ReviewForm = (props) => {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
-          ratingsData.map((ratingData) => {
+          RATINGS.map((ratingData) => {
             return (
               <React.Fragment key={`mark-${ratingData.mark}`}>
                 <input

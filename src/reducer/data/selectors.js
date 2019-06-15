@@ -2,9 +2,11 @@ import {createSelector} from 'reselect';
 import NameSpace from '../name-spaces';
 
 const NAME_SPACE = NameSpace.DATA;
-const MAX_CITIES_COUNT = 6;
-const MAX_REVIEWS_COUNT = 10;
-const MAX_NEAR_APARTMENTS_COUNT = 3;
+const MaxCount = {
+  CITIES: 6,
+  REVIEWS: 10,
+  NEAR_APARTMENTS: 3
+};
 
 const prepareFavorites = (favorites) => {
   return favorites.reduce((result, apartment) => {
@@ -32,7 +34,7 @@ export const getSortedReviews = createSelector(
     getReviews,
     (reviews) => reviews
       .sort((first, second) => first.date < second.date ? 1 : -1)
-      .slice(0, MAX_REVIEWS_COUNT)
+      .slice(0, MaxCount.REVIEWS)
 );
 
 export const getApartmentById = createSelector(
@@ -48,7 +50,7 @@ export const getNearApartments = createSelector(
       .filter((apartment) => {
         return apartment.city.name === currentApartment.city.name && apartment.id !== currentApartment.id;
       })
-      .slice(0, MAX_NEAR_APARTMENTS_COUNT)
+      .slice(0, MaxCount.NEAR_APARTMENTS)
 );
 
 export const getCities = createSelector(
@@ -58,7 +60,7 @@ export const getCities = createSelector(
       .filter((city, index, cities) => {
         return cities.findIndex((value) => value.name === city.name) === index;
       })
-      .slice(0, MAX_CITIES_COUNT)
+      .slice(0, MaxCount.CITIES)
 );
 
 export const getApartmentsByPrice = (apartments, direction) => {
