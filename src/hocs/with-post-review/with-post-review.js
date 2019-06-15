@@ -15,7 +15,7 @@ const withPostReview = (WrappedComponent) => {
       this._handleCommentChange = this._handleCommentChange.bind(this);
 
       this.state = {
-        rating: 0,
+        rating: 1,
         comment: ``
       };
     }
@@ -27,8 +27,8 @@ const withPostReview = (WrappedComponent) => {
       return (
         <WrappedComponent
           {...this.props}
-          rating={this.state.rating}
-          comment={this.state.comment}
+          rating={rating}
+          comment={comment}
           isSubmitButtonDisabled={!isSubmitButtonEnabled}
           onFormSubmit={this._handleFormSubmit}
           onRatingChange={this._handleRatingChange}
@@ -42,6 +42,7 @@ const withPostReview = (WrappedComponent) => {
       const {rating, comment} = this.state;
       const {apartmentId} = this.props;
 
+      this.setState({rating: 1, comment: ``});
       this.props.postReview({rating, comment}, apartmentId);
     }
 

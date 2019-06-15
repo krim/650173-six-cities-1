@@ -13,6 +13,8 @@ const ratingsData = [
 
 const ReviewForm = (props) => {
   const {
+    rating,
+    comment,
     isSubmitButtonDisabled,
     onRatingChange,
     onCommentChange,
@@ -34,6 +36,7 @@ const ReviewForm = (props) => {
                   id={`${ratingData.mark}-stars`}
                   onChange={onRatingChange}
                   type="radio"
+                  checked={rating === ratingData.mark }
                 />
                 <label
                   htmlFor={`${ratingData.mark}-stars`}
@@ -55,7 +58,8 @@ const ReviewForm = (props) => {
         name="review"
         onChange={onCommentChange}
         placeholder="Tell how was your stay, what you like and what can be improved"
-      ></textarea>
+        value={comment}
+      />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and
@@ -72,6 +76,8 @@ const ReviewForm = (props) => {
 };
 
 ReviewForm.propTypes = {
+  rating: PropTypes.number.isRequired,
+  comment: PropTypes.string.isRequired,
   onRatingChange: PropTypes.func.isRequired,
   onCommentChange: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired,

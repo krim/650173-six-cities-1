@@ -4,10 +4,11 @@ import {connect} from 'react-redux';
 
 import {Operation} from '../../reducer/data/data';
 import {getFavorites} from '../../reducer/data/selectors';
-import {apartmentProps} from '../../props';
+import {userProps, apartmentProps} from '../../props';
 import FavoriteEmptyList from '../favorite-empty-list/favorite-empty-list.jsx';
 import Footer from '../footer/footer.jsx';
 import ApartmentList from '../apartment-list/apartment-list.jsx';
+import Header from '../header/header.jsx';
 
 class FavoriteList extends PureComponent {
   componentDidMount() {
@@ -15,14 +16,15 @@ class FavoriteList extends PureComponent {
   }
 
   render() {
-    const {favorites} = this.props;
+    const {favorites, user} = this.props;
 
     if (favorites.length === 0) {
-      return <FavoriteEmptyList />;
+      return <FavoriteEmptyList user={user}/>;
     }
 
     return (
-      <React.Fragment>
+      <div className="page">
+        <Header user={user} />
         <main className="page__main page__main--favorites">
           <div className="page__favorites-container container">
             <section className="favorites">
@@ -56,12 +58,13 @@ class FavoriteList extends PureComponent {
           </div>
         </main>
         <Footer />
-      </React.Fragment>
+      </div>
     );
   }
 }
 
 FavoriteList.propTypes = {
+  user: userProps,
   favorites: PropTypes.arrayOf(
       PropTypes.shape({
         city: PropTypes.string.isRequired,

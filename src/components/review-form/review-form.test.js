@@ -8,6 +8,8 @@ describe(`ReviewForm`, () => {
     const tree = renderer.
       create(
           <ReviewForm
+            rating={1}
+            comment={``}
             onRatingChange={jest.fn()}
             onCommentChange={jest.fn()}
             onFormSubmit={jest.fn()}

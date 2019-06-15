@@ -393,6 +393,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
                 className="reviews__rating-form form__rating"
               >
                 <input
+                  checked={false}
                   className="form__rating-input visually-hidden"
                   id="5-stars"
                   name="rating"
@@ -416,6 +417,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
                   </svg>
                 </label>
                 <input
+                  checked={false}
                   className="form__rating-input visually-hidden"
                   id="4-stars"
                   name="rating"
@@ -439,6 +441,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
                   </svg>
                 </label>
                 <input
+                  checked={false}
                   className="form__rating-input visually-hidden"
                   id="3-stars"
                   name="rating"
@@ -462,6 +465,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
                   </svg>
                 </label>
                 <input
+                  checked={false}
                   className="form__rating-input visually-hidden"
                   id="2-stars"
                   name="rating"
@@ -485,6 +489,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
                   </svg>
                 </label>
                 <input
+                  checked={true}
                   className="form__rating-input visually-hidden"
                   id="1-stars"
                   name="rating"
@@ -514,6 +519,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
                 name="review"
                 onChange={[Function]}
                 placeholder="Tell how was your stay, what you like and what can be improved"
+                value=""
               />
               <div
                 className="reviews__button-wrapper"
