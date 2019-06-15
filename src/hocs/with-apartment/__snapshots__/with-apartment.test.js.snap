@@ -253,20 +253,17 @@ exports[`withApartment ApartmentPage renders component correctly 1`] = `
             <span
               className="reviews__amount"
             >
-              1
+              0
             </span>
           </h2>
           <ul
             className="reviews__list"
-          >
-            <li
-              className="reviews__item"
-            />
-          </ul>
+          />
           <form
             action="#"
             className="reviews__form form"
             method="post"
+            onSubmit={[Function]}
           >
             <label
               className="reviews__label form__label"
@@ -281,6 +278,7 @@ exports[`withApartment ApartmentPage renders component correctly 1`] = `
                 className="form__rating-input visually-hidden"
                 id="5-stars"
                 name="rating"
+                onChange={[Function]}
                 type="radio"
                 value="5"
               />
@@ -303,6 +301,7 @@ exports[`withApartment ApartmentPage renders component correctly 1`] = `
                 className="form__rating-input visually-hidden"
                 id="4-stars"
                 name="rating"
+                onChange={[Function]}
                 type="radio"
                 value="4"
               />
@@ -325,6 +324,7 @@ exports[`withApartment ApartmentPage renders component correctly 1`] = `
                 className="form__rating-input visually-hidden"
                 id="3-stars"
                 name="rating"
+                onChange={[Function]}
                 type="radio"
                 value="3"
               />
@@ -347,6 +347,7 @@ exports[`withApartment ApartmentPage renders component correctly 1`] = `
                 className="form__rating-input visually-hidden"
                 id="2-stars"
                 name="rating"
+                onChange={[Function]}
                 type="radio"
                 value="2"
               />
@@ -367,14 +368,15 @@ exports[`withApartment ApartmentPage renders component correctly 1`] = `
               </label>
               <input
                 className="form__rating-input visually-hidden"
-                id="1-star"
+                id="1-stars"
                 name="rating"
+                onChange={[Function]}
                 type="radio"
                 value="1"
               />
               <label
                 className="reviews__rating-label form__rating-label"
-                htmlFor="1-star"
+                htmlFor="1-stars"
                 title="terribly"
               >
                 <svg
@@ -392,6 +394,7 @@ exports[`withApartment ApartmentPage renders component correctly 1`] = `
               className="reviews__textarea form__textarea"
               id="review"
               name="review"
+              onChange={[Function]}
               placeholder="Tell how was your stay, what you like and what can be improved"
             />
             <div
@@ -416,7 +419,7 @@ exports[`withApartment ApartmentPage renders component correctly 1`] = `
               </p>
               <button
                 className="reviews__submit form__submit button"
-                disabled=""
+                disabled={true}
                 type="submit"
               >
                 Submit

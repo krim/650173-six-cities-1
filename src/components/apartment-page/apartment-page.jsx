@@ -13,7 +13,6 @@ import withFavorite from '../../hocs/with-favorite/with-favorite';
 import withApartment from '../../hocs/with-apartment/with-apartment';
 
 const MAX_IMAGES_COUNT = 6;
-const MAX_NEAR_APARTMENTS_COUNT = 2;
 
 class ApartmentPage extends PureComponent {
   constructor(props) {
@@ -128,7 +127,7 @@ class ApartmentPage extends PureComponent {
           {
             nearApartments.length > 0 &&
               <Map
-                apartments={nearApartments.slice(0, MAX_NEAR_APARTMENTS_COUNT).concat(apartment)}
+                apartments={nearApartments.concat(apartment)}
                 activeApartment={apartment}
                 mapSettings={
                   {...mapSettings, location: apartment.city.location}

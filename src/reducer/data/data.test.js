@@ -69,7 +69,7 @@ describe(`Operation`, () => {
 
   describe(`loadReviews`, () => {
     it(`loads reviews`, () => {
-      const reviews = [review];
+      const reviews = [{...review, date: `2019-05-21T05:25:32.222Z`}];
       const dispatch = jest.fn();
       const apiMock = new MockAdapter(api);
       const apartmentsLoader = Operation.loadReviews(apartment.id);
@@ -83,7 +83,7 @@ describe(`Operation`, () => {
           expect(dispatch).toHaveBeenCalledTimes(1);
           expect(dispatch).toHaveBeenNthCalledWith(1, {
             type: ActionType.LOAD_REVIEWS,
-            payload: reviews
+            payload: [review]
           });
         });
     });

@@ -2,11 +2,12 @@ import React, {PureComponent} from 'react';
 
 import {reviewProps} from '../../props';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+
 import Review from '../review/review.jsx';
 import ReviewForm from '../review-form/review-form.jsx';
 import {Operation} from '../../reducer/data/data';
-import {getReviews} from '../../reducer/data/selectors';
-import {connect} from "react-redux";
+import {getSortedReviews} from '../../reducer/data/selectors';
 
 class ReviewList extends PureComponent {
   constructor(props) {
@@ -18,17 +19,24 @@ class ReviewList extends PureComponent {
   }
 
   render() {
-    const {reviews} = this.props;
+    const {reviews, apartmentId} = this.props;
 
     return (
       <section className="property__reviews reviews">
-        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
+        <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
         <ul className="reviews__list">
-          <li className="reviews__item">
-            { reviews.map((review) => <Review key={`review-${review.id}`} review={review} />) }
-          </li>
+          {
+            reviews.map((review) => {
+              return (
+                <li className="reviews__item" key={`review-${review.id}`}>
+                  <Review review={review} />
+                </li>
+              );
+            })
+          }
         </ul>
-        <ReviewForm />
+
+        <ReviewForm apartmentId={apartmentId}/>
       </section>
     );
   }
@@ -42,7 +50,7 @@ ReviewList.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    reviews: getReviews(state)
+    reviews: getSortedReviews(state)
   };
 };
 

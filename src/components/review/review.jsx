@@ -34,25 +34,21 @@ class Review extends PureComponent {
           <p className="reviews__text">
             {review.comment}
           </p>
-          <time className="reviews__time" dateTime={this._getFormatedDateTime()}>{this._getFormatedDate()}</time>
+          <time className="reviews__time" dateTime={this._getFormatedDateTime(review.date)}>
+            {this._getFormatedDate(review.date)}
+          </time>
         </div>
       </React.Fragment>
     );
   }
 
-  _getFormatedDateTime() {
-    const date = this._getReviewDate();
+  _getFormatedDateTime(date) {
     return new Date(date).toISOString().substr(0, 10);
   }
 
-  _getFormatedDate() {
-    const date = this._getReviewDate();
+  _getFormatedDate(date) {
     const options = {year: `numeric`, month: `long`};
     return new Date(date).toLocaleString(`en-US`, options);
-  }
-
-  _getReviewDate() {
-    return Date.parse(this.props.review.date);
   }
 }
 
