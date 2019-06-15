@@ -1,7 +1,8 @@
-import {ActionType, Operation} from './user';
+import {ActionType, Operation, reducer} from './user';
 import MockAdapter from 'axios-mock-adapter';
 import camelcaseKeys from 'camelcase-keys';
 import api from '../../api';
+import user from '../../__fixtures__/user';
 
 const userResponse = {
   "id": 1,
@@ -11,48 +12,63 @@ const userResponse = {
   "is_pro": true
 };
 
-describe(`Operation`, () => {
-  describe(`authorize`, () => {
-    it(`authorizes a user`, () => {
-      const apiMock = new MockAdapter(api);
-      const dispatch = jest.fn();
-      const history = {push: jest.fn()};
-      const userData = {email: `example@email.com`, password: `password`};
-      const authorize = Operation.authorize(userData, {history});
+describe(`Operation.authorize`, () => {
+  it(`authorizes a user`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const history = {push: jest.fn()};
+    const userData = {email: `example@email.com`, password: `password`};
+    const authorize = Operation.authorize(userData, {history});
 
-      apiMock
-        .onPost(`/login`, userData)
-        .reply(200, JSON.stringify(userResponse));
+    apiMock
+      .onPost(`/login`, userData)
+      .reply(200, JSON.stringify(userResponse));
 
-      authorize(dispatch, jest.fn(), api)
-        .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(1);
-          expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.AUTHORIZATION,
-            payload: camelcaseKeys(userResponse),
-          });
+    authorize(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.AUTHORIZATION,
+          payload: camelcaseKeys(userResponse),
         });
+      });
+  });
+});
+
+describe(`Operation.checkAuthorization`, () => {
+  it(`check user authorization status`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const authorize = Operation.checkAuthorization();
+
+    apiMock
+      .onGet(`/login`)
+      .reply(200, JSON.stringify(userResponse));
+
+    authorize(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.AUTHORIZATION,
+          payload: camelcaseKeys(userResponse),
+        });
+      });
+  });
+});
+
+describe(`Reducer`, () => {
+  describe(`default`, () => {
+    expect(reducer(undefined, {})).toEqual({
+      user: {}
     });
   });
 
-  describe(`checkAuthorization`, () => {
-    it(`check user authorization status`, () => {
-      const apiMock = new MockAdapter(api);
-      const dispatch = jest.fn();
-      const authorize = Operation.checkAuthorization();
-
-      apiMock
-        .onGet(`/login`)
-        .reply(200, JSON.stringify(userResponse));
-
-      authorize(dispatch, jest.fn(), api)
-        .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(1);
-          expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.AUTHORIZATION,
-            payload: camelcaseKeys(userResponse),
-          });
-        });
-    });
+  describe(`AUTHORIZATION`, () => {
+    expect(
+        reducer(
+            {user: {}},
+            {type: ActionType.AUTHORIZATION, payload: user}
+        )
+    ).toEqual({user});
   });
 });

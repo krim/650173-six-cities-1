@@ -24,57 +24,28 @@ initialState[NameSpace.DATA] = {
 const store = mockStore(initialState);
 
 describe(`App`, () => {
-  describe(`with apartments`, () => {
-    it(`renders component correctly`, () => {
-      const tree = renderer.create(
-          <Router>
-            <Provider store={store}>
-              <App
-                apartments={apartments}
-                activeApartment={{}}
-                city={city}
-                cities={[city]}
-                user={user}
-                mapSettings={
-                  {builder: mapBuilder, zoomControl: false, marker: true}
-                }
-                loadApartments={jest.fn()}
-                switchCity={jest.fn()}
-                setApartment={jest.fn()}
-                checkAuthorization={jest.fn()}
-              />
-            </Provider>
-          </Router>
-      ).toJSON();
+  it(`renders component correctly`, () => {
+    const tree = renderer.create(
+        <Router>
+          <Provider store={store}>
+            <App
+              apartments={apartments}
+              activeApartment={{}}
+              city={city}
+              cities={[city]}
+              user={user}
+              mapSettings={
+                {builder: mapBuilder, zoomControl: false, marker: true}
+              }
+              loadApartments={jest.fn()}
+              switchCity={jest.fn()}
+              setApartment={jest.fn()}
+              checkAuthorization={jest.fn()}
+            />
+          </Provider>
+        </Router>
+    ).toJSON();
 
-      expect(tree).toMatchSnapshot();
-    });
-  });
-
-  describe(`without apartments`, () => {
-    it(`renders component correctly`, () => {
-      const tree = renderer.create(
-          <Router>
-            <Provider store={store}>
-              <App
-                apartments={[]}
-                activeApartment={{}}
-                city={city}
-                cities={[city]}
-                user={user}
-                mapSettings={
-                  {builder: mapBuilder, zoomControl: false, marker: true}
-                }
-                loadApartments={jest.fn()}
-                switchCity={jest.fn()}
-                setApartment={jest.fn()}
-                checkAuthorization={jest.fn()}
-              />
-            </Provider>
-          </Router>
-      ).toJSON();
-
-      expect(tree).toMatchSnapshot();
-    });
+    expect(tree).toMatchSnapshot();
   });
 });

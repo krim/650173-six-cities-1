@@ -3,18 +3,14 @@ import PropTypes from 'prop-types';
 
 import withSort from '../../hocs/with-sort/with-sort';
 
+const SORT_VARIANTS = [
+  `Popular`,
+  `Price: low to high`,
+  `Price: high to low`,
+  `Top rated first`
+];
+
 class SortVariants extends PureComponent {
-  constructor(props) {
-    super(props);
-
-    this._sorts = [
-      `Popular`,
-      `Price: low to high`,
-      `Price: high to low`,
-      `Top rated first`
-    ];
-  }
-
   render() {
     const {onOptionClick, onOptionsClick, opened, activeSort} = this.props;
 
@@ -29,7 +25,7 @@ class SortVariants extends PureComponent {
         </span>
         <ul className={`places__options places__options--custom${this._getOptionsClass(opened)}`}>
           {
-            this._sorts.map((sort, index) => {
+            SORT_VARIANTS.map((sort, index) => {
               return <li
                 key={`option-${index}`}
                 className={`places__option ${this._getOptionClass(sort)}`}

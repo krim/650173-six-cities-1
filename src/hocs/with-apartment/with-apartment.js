@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {apartmentProps} from '../../props';
-import {getApartmentById} from "../../reducer/data/selectors";
+import {getApartmentById} from '../../reducer/data/selectors';
 
 const withApartment = (WrappedComponent) => {
   class WithApartment extends PureComponent {
@@ -34,9 +34,7 @@ const withApartment = (WrappedComponent) => {
         id: PropTypes.string.isRequired
       })
     }),
-    apartment: apartmentProps,
-    addToFavorites: PropTypes.func,
-    removeFromFavorites: PropTypes.func
+    apartment: apartmentProps
   };
 
   return WithApartment;

@@ -3,6 +3,7 @@ import renderer from 'react-test-renderer';
 import {Provider} from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import {MemoryRouter as Router} from 'react-router-dom';
 
 import apartment from '../../__fixtures__/apartment';
 import {ApartmentPageWithState} from '../../components/apartment-page/apartment-page';
@@ -33,13 +34,16 @@ describe(`withApartment`, () => {
       const WrappedApartmentPage = withApartment(ApartmentPageWithState);
       const tree = renderer.create(
           <Provider store={store}>
-            <WrappedApartmentPage
-              match={{params: {id: apartment.id.toString()}}}
-              mapSettings={
-                {builder: mapBuilder, zoomControl: false, marker: true}
-              }
-              isUserAuthorized={true}
-            />
+            <Router>
+              <WrappedApartmentPage
+                user={{}}
+                match={{params: {id: apartment.id.toString()}}}
+                mapSettings={
+                  {builder: mapBuilder, zoomControl: false, marker: true}
+                }
+                isUserAuthorized={true}
+              />
+            </Router>
           </Provider>
       ).toJSON();
 

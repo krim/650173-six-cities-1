@@ -20,9 +20,9 @@ describe(`withActiveItem`, () => {
     );
 
     const submitButton = form.find(`.reviews__submit`);
-    expect(submitButton.props().disabled ).toEqual(true);
+    expect(submitButton.props().disabled).toEqual(true);
 
-    expect(form.state(`rating`)).toEqual(0);
+    expect(form.state(`rating`)).toEqual(1);
     expect(form.state(`comment`)).toEqual(``);
 
     const ratingRadio = form.find(`input.form__rating-input`).first();

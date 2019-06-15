@@ -1,10 +1,15 @@
 import React from 'react';
 
 import Footer from '../footer/footer.jsx';
+import Header from '../header/header.jsx';
+import {userProps} from '../../props';
 
-const FavoriteEmptyList = () => {
+const FavoriteEmptyList = (props) => {
+  const {user} = props;
+
   return (
-    <React.Fragment>
+    <div className="page">
+      <Header user={user} />
       <main className="page__main page__main--favorites page__main--favorites-empty">
         <div className="page__favorites-container container">
           <section className="favorites favorites--empty">
@@ -18,8 +23,12 @@ const FavoriteEmptyList = () => {
         </div>
       </main>
       <Footer />
-    </React.Fragment>
+    </div>
   );
+};
+
+FavoriteEmptyList.propTypes = {
+  user: userProps
 };
 
 export default FavoriteEmptyList;

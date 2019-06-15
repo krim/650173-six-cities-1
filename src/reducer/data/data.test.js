@@ -1,155 +1,280 @@
-import {ActionType, Operation} from './data';
+import {ActionType, Operation, reducer} from './data';
 import MockAdapter from 'axios-mock-adapter';
 import api from '../../api';
 import apartment from '../../__fixtures__/apartment';
 import review from '../../__fixtures__/review';
+import city from '../../__fixtures__/city';
 import camelcaseKeys from "../user/user.test";
 
-describe(`Operation`, () => {
-  describe(`setApartment`, () => {
-    it(`sets apartments`, () => {
-      const dispatch = jest.fn();
-      Operation.setApartment(apartment)(dispatch);
+describe(`Operation.setApartment`, () => {
+  it(`sets apartments`, () => {
+    const dispatch = jest.fn();
+    Operation.setApartment(apartment)(dispatch);
 
-      expect(dispatch).toHaveBeenCalledTimes(1);
-      expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: ActionType.SET_APARTMENT,
-        payload: apartment
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch).toHaveBeenNthCalledWith(1, {
+      type: ActionType.SET_APARTMENT,
+      payload: apartment
+    });
+  });
+});
+
+describe(`Operation.switchCity`, () => {
+  it(`switches the city to the new one`, () => {
+    const dispatch = jest.fn();
+    Operation.switchCity({name: `Amsterdam`})(dispatch);
+
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch).toHaveBeenNthCalledWith(1, {
+      type: ActionType.SWITCH_CITY,
+      payload: {name: `Amsterdam`}
+    });
+  });
+});
+
+describe(`Operation.switchSort`, () => {
+  it(`switches the sort to the new one`, () => {
+    const dispatch = jest.fn();
+    Operation.switchSort(`test`)(dispatch);
+
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(dispatch).toHaveBeenNthCalledWith(1, {
+      type: ActionType.SWITCH_SORT,
+      payload: `test`
+    });
+  });
+});
+
+describe(`Operation.loadApartments`, () => {
+  it(`loads apartments`, () => {
+    const apartments = [apartment];
+    const dispatch = jest.fn();
+    const apiMock = new MockAdapter(api);
+    const apartmentsLoader = Operation.loadApartments();
+
+    apiMock
+      .onGet(`/hotels`)
+      .reply(200, JSON.stringify(apartments));
+
+    apartmentsLoader(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_APARTMENTS,
+          payload: apartments
+        });
       });
-    });
   });
+});
 
-  describe(`switchCity`, () => {
-    it(`switches the city to the new one`, () => {
-      const dispatch = jest.fn();
-      Operation.switchCity({name: `Amsterdam`})(dispatch);
+describe(`Operation.postReview`, () => {
+  it(`posts review for apartment`, () => {
+    const reviews = [{...review, date: `2019-05-21T05:25:32.222Z`}];
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const reviewData = {rating: review.rating, comment: review.comment};
+    const postReview = Operation.postReview(reviewData, apartment.id);
 
-      expect(dispatch).toHaveBeenCalledTimes(1);
-      expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: ActionType.SWITCH_CITY,
-        payload: {name: `Amsterdam`}
+    apiMock
+      .onPost(`/comments/${apartment.id}`, reviewData)
+      .reply(200, JSON.stringify(reviews));
+
+    postReview(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.POST_REVIEW,
+          payload: [review]
+        });
       });
-    });
   });
+});
 
-  describe(`switchSort`, () => {
-    it(`switches the sort to the new one`, () => {
-      const dispatch = jest.fn();
-      Operation.switchSort(`test`)(dispatch);
+describe(`Operation.loadReviews`, () => {
+  it(`loads reviews`, () => {
+    const reviews = [{...review, date: `2019-05-21T05:25:32.222Z`}];
+    const dispatch = jest.fn();
+    const apiMock = new MockAdapter(api);
+    const apartmentsLoader = Operation.loadReviews(apartment.id);
 
-      expect(dispatch).toHaveBeenCalledTimes(1);
-      expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: ActionType.SWITCH_SORT,
-        payload: `test`
+    apiMock
+      .onGet(`/comments/${apartment.id}`)
+      .reply(200, JSON.stringify(reviews));
+
+    apartmentsLoader(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_REVIEWS,
+          payload: [review]
+        });
       });
+  });
+});
+
+describe(`Operation.addToFavorites`, () => {
+  it(`adds an apartment to favorites`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const addToFavorites = Operation.addToFavorites(apartment.id);
+
+    apiMock
+      .onPost(`/favorite/${apartment.id}/1`)
+      .reply(200, JSON.stringify(apartment));
+
+    addToFavorites(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.ADD_TO_FAVORITES,
+          payload: camelcaseKeys(apartment),
+        });
+      }).
+      catch((_error) => {});
+  });
+});
+
+describe(`Operation.removeFromFavorites`, () => {
+  it(`removes an apartment from favorites`, () => {
+    const apiMock = new MockAdapter(api);
+    const dispatch = jest.fn();
+    const removeFromFavorites = Operation.removeFromFavorites(apartment.id);
+
+    apiMock
+      .onPost(`/favorite/${apartment.id}/0`)
+      .reply(200, JSON.stringify(apartment));
+
+    removeFromFavorites(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.REMOVE_FROM_FAVORITES,
+          payload: camelcaseKeys(apartment),
+        });
+      }).
+      catch((_error) => {});
+  });
+});
+
+describe(`Operation.loadFavorites`, () => {
+  it(`loads favorites`, () => {
+    const favorites = [apartment];
+    const dispatch = jest.fn();
+    const apiMock = new MockAdapter(api);
+    const favoritesLoader = Operation.loadFavorites();
+
+    apiMock
+      .onGet(`/favorite`)
+      .reply(200, JSON.stringify(favorites));
+
+    favoritesLoader(dispatch, jest.fn(), api)
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.LOAD_FAVORITES,
+          payload: favorites
+        });
+      });
+  });
+});
+
+describe(`Reducer`, () => {
+  describe(`default`, () => {
+    expect(reducer(undefined, {})).toEqual({
+      apartments: [],
+      apartment: {},
+      favorites: [],
+      city: {},
+      reviews: [],
+      activeSort: `Popular`
     });
   });
 
-  describe(`loadApartments`, () => {
-    it(`loads apartments`, () => {
-      const apartments = [apartment];
-      const dispatch = jest.fn();
-      const apiMock = new MockAdapter(api);
-      const apartmentsLoader = Operation.loadApartments();
-
-      apiMock
-        .onGet(`/hotels`)
-        .reply(200, JSON.stringify(apartments));
-
-      apartmentsLoader(dispatch, jest.fn(), api)
-        .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(1);
-          expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.LOAD_APARTMENTS,
-            payload: apartments
-          });
-        });
-    });
+  describe(`SWITCH_CITY`, () => {
+    expect(
+        reducer(
+            {city: {}},
+            {type: ActionType.SWITCH_CITY, payload: city}
+        )
+    ).toEqual({city});
   });
 
-  describe(`loadReviews`, () => {
-    it(`loads reviews`, () => {
-      const reviews = [{...review, date: `2019-05-21T05:25:32.222Z`}];
-      const dispatch = jest.fn();
-      const apiMock = new MockAdapter(api);
-      const apartmentsLoader = Operation.loadReviews(apartment.id);
-
-      apiMock
-        .onGet(`/comments/${apartment.id}`)
-        .reply(200, JSON.stringify(reviews));
-
-      apartmentsLoader(dispatch, jest.fn(), api)
-        .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(1);
-          expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.LOAD_REVIEWS,
-            payload: [review]
-          });
-        });
-    });
+  describe(`SWITCH_SORT`, () => {
+    const sort = `sort`;
+    expect(
+        reducer(
+            {activeSort: `Popular`},
+            {type: ActionType.SWITCH_SORT, payload: sort}
+        )
+    ).toEqual({activeSort: sort});
   });
 
-  describe(`addToFavorites`, () => {
-    it(`adds an apartment to favorites`, () => {
-      const apiMock = new MockAdapter(api);
-      const dispatch = jest.fn();
-      const addToFavoritesAction = Operation.addToFavorites(apartment.id);
-
-      apiMock
-        .onPost(`/favorite/${apartment.id}/1`)
-        .reply(200, JSON.stringify(apartment));
-
-      addToFavoritesAction(dispatch, jest.fn(), api)
-        .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(1);
-          expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.ADD_TO_FAVORITES,
-            payload: camelcaseKeys(apartment),
-          });
-        });
-    });
+  describe(`LOAD_APARTMENTS`, () => {
+    const apartments = [apartment];
+    expect(
+        reducer(
+            {apartments: []},
+            {type: ActionType.LOAD_APARTMENTS, payload: apartments}
+        )
+    ).toEqual({apartments});
   });
 
-  describe(`removeFromFavorites`, () => {
-    it(`removes an apartment from favorites`, () => {
-      const apiMock = new MockAdapter(api);
-      const dispatch = jest.fn();
-      const removeFromFavoritesAction = Operation.removeFromFavorites(apartment.id);
-
-      apiMock
-        .onPost(`/favorite/${apartment.id}/0`)
-        .reply(200, JSON.stringify(apartment));
-
-      removeFromFavoritesAction(dispatch, jest.fn(), api)
-        .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(1);
-          expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.REMOVE_FROM_FAVORITES,
-            payload: camelcaseKeys(apartment),
-          });
-        });
-    });
+  describe(`LOAD_REVIEWS`, () => {
+    const reviews = [review];
+    expect(
+        reducer(
+            {reviews: []},
+            {type: ActionType.LOAD_REVIEWS, payload: reviews}
+        )
+    ).toEqual({reviews});
   });
 
-  describe(`loadFavorites`, () => {
-    it(`loads favorites`, () => {
-      const favorites = [apartment];
-      const dispatch = jest.fn();
-      const apiMock = new MockAdapter(api);
-      const favoritesLoader = Operation.loadFavorites();
+  describe(`POST_REVIEW`, () => {
+    const reviews = [review];
+    expect(
+        reducer(
+            {reviews: []},
+            {type: ActionType.POST_REVIEW, payload: reviews}
+        )
+    ).toEqual({reviews});
+  });
 
-      apiMock
-        .onGet(`/favorite`)
-        .reply(200, JSON.stringify(favorites));
+  describe(`SET_APARTMENT`, () => {
+    expect(
+        reducer(
+            {apartment: []},
+            {type: ActionType.SET_APARTMENT, payload: apartment}
+        )
+    ).toEqual({apartment});
+  });
 
-      favoritesLoader(dispatch, jest.fn(), api)
-        .then(() => {
-          expect(dispatch).toHaveBeenCalledTimes(1);
-          expect(dispatch).toHaveBeenNthCalledWith(1, {
-            type: ActionType.LOAD_FAVORITES,
-            payload: favorites
-          });
-        });
-    });
+  describe(`LOAD_FAVORITES`, () => {
+    const favorites = [apartment];
+    expect(
+        reducer(
+            {favorites: []},
+            {type: ActionType.LOAD_FAVORITES, payload: favorites}
+        )
+    ).toEqual({favorites});
+  });
+
+  describe(`ADD_TO_FAVORITES`, () => {
+    const favorites = [apartment];
+    expect(
+        reducer(
+            {apartments: favorites},
+            {type: ActionType.ADD_TO_FAVORITES, payload: apartment}
+        )
+    ).toEqual({apartments: favorites});
+  });
+
+  describe(`REMOVE_FROM_FAVORITES`, () => {
+    const apartments = [apartment];
+    expect(
+        reducer(
+            {favorites: [apartment], apartments},
+            {type: ActionType.REMOVE_FROM_FAVORITES, payload: apartment}
+        )
+    ).toEqual({favorites: [], apartments});
   });
 });

@@ -1,9 +1,9 @@
-import React, {PureComponent} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import getRating from '../../libs/get-rating';
-import {apartmentProps, mapSettingsProps} from '../../props';
+import {userProps, apartmentProps, mapSettingsProps} from '../../props';
 import {getNearApartments} from '../../reducer/data/selectors';
 import ReviewList from '../review-list/review-list.jsx';
 import ApartmentList from '../apartment-list/apartment-list.jsx';
@@ -11,26 +11,25 @@ import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 import Map from '../map/map.jsx';
 import withFavorite from '../../hocs/with-favorite/with-favorite';
 import withApartment from '../../hocs/with-apartment/with-apartment';
+import Header from '../header/header.jsx';
 
 const MAX_IMAGES_COUNT = 6;
 
-class ApartmentPage extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+const ApartmentPage = (props) => {
+  const {
+    user,
+    apartment,
+    nearApartments,
+    mapSettings,
+    onBookmarkClick,
+    isUserAuthorized
+  } = props;
 
-  render() {
-    const {
-      apartment,
-      nearApartments,
-      mapSettings,
-      onBookmarkClick,
-      isUserAuthorized
-    } = this.props;
+  const {host} = apartment;
 
-    const {host} = apartment;
-
-    return (
+  return (
+    <div className="page">
+      <Header user={user} />
       <main className="page__main page__main--property">
         <section className="property">
           <div className="property__gallery-container container">
@@ -48,9 +47,7 @@ class ApartmentPage extends PureComponent {
           </div>
           <div className="property__container container">
             <div className="property__wrapper">
-              <div className="property__mark">
-                <span>Premium</span>
-              </div>
+              { apartment.isPremium && <div className="property__mark"><span>Premium</span></div> }
               <div className="property__name-wrapper">
                 <h1 className="property__name">
                   {apartment.title}
@@ -151,11 +148,12 @@ class ApartmentPage extends PureComponent {
           </section>
         </div>
       </main>
-    );
-  }
-}
+    </div>
+  );
+};
 
 ApartmentPage.propTypes = {
+  user: userProps,
   mapSettings: mapSettingsProps,
   apartment: apartmentProps,
   nearApartments: PropTypes.arrayOf(apartmentProps),
