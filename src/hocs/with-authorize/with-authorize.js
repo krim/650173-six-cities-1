@@ -27,7 +27,6 @@ const withAuthorize = (WrappedComponent) => {
       const {email, password} = this.state;
       const {error} = this.props;
       const isSubmitButtonEnabled = email.length > 0 && EmailValidator.validate(email) && password.length > 0;
-      // const isSubmitButtonEnabled = true;
 
       return (
         <WrappedComponent
@@ -48,9 +47,7 @@ const withAuthorize = (WrappedComponent) => {
 
       authorize({email, password})
         .then(() => setError(null))
-        .catch((error) => {
-          setError(error.response.data.error);
-        });
+        .catch((error) => setError(error.response.data.error));
     }
 
     _handleEmailChange(event) {

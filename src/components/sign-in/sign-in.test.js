@@ -20,7 +20,7 @@ describe(`SignIn`, () => {
     expect(tree).toMatchSnapshot();
   });
 
-  describe(`with error`, () => {
+  describe(`with an error`, () => {
     it(`renders component correctly`, () => {
       const tree = renderer.create(
           <Router>

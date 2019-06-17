@@ -142,7 +142,7 @@ exports[`SignIn renders component correctly 1`] = `
 </div>
 `;
 
-exports[`SignIn with error renders component correctly 1`] = `
+exports[`SignIn with an error renders component correctly 1`] = `
 <div
   className="page page--gray page--login"
 >

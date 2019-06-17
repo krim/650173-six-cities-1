@@ -11,6 +11,7 @@ describe(`withActiveItem`, () => {
         <WrappedReviewForm
           apartmentId={1}
           postReview={jest.fn()}
+          setError={jest.fn()}
         />
     ).toJSON();
 

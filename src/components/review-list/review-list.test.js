@@ -6,11 +6,13 @@ import configureMockStore from 'redux-mock-store';
 import {ReviewList} from './review-list';
 import apartment from '../../__fixtures__/apartment';
 import review from '../../__fixtures__/review';
+import NameSpace from '../../reducer/name-spaces';
 
 const reviews = [review];
 const middlewares = [];
 const mockStore = configureMockStore(middlewares);
 const initialState = {};
+initialState[NameSpace.DATA] = {error: null};
 const store = mockStore(initialState);
 
 describe(`ReviewList`, () => {

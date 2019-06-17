@@ -3,7 +3,8 @@ import {compose} from 'redux';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {Operation} from '../../reducer/data/data';
+import {Operation as DataOperation, Operation} from '../../reducer/data/data';
+import {getError} from '../../reducer/data/selectors';
 
 const withPostReview = (WrappedComponent) => {
   class WithPostReview extends PureComponent {
@@ -13,6 +14,8 @@ const withPostReview = (WrappedComponent) => {
       this._handleFormSubmit = this._handleFormSubmit.bind(this);
       this._handleRatingChange = this._handleRatingChange.bind(this);
       this._handleCommentChange = this._handleCommentChange.bind(this);
+      this.postReview = this.props.postReview.bind(this);
+      this.setError = this.props.setError.bind(this);
 
       this.state = {
         rating: 0,
@@ -22,11 +25,13 @@ const withPostReview = (WrappedComponent) => {
 
     render() {
       const {rating, comment} = this.state;
+      const {error} = this.props;
       const isSubmitButtonEnabled = rating > 0 && comment.length > 50 && comment.length < 300;
 
       return (
         <WrappedComponent
           {...this.props}
+          error={error}
           rating={rating}
           comment={comment}
           isSubmitButtonDisabled={!isSubmitButtonEnabled}
@@ -42,8 +47,14 @@ const withPostReview = (WrappedComponent) => {
       const {rating, comment} = this.state;
       const {apartmentId} = this.props;
 
-      this.setState({rating: 0, comment: ``});
-      this.props.postReview({rating, comment}, apartmentId);
+      this.postReview({rating, comment}, apartmentId)
+        .then(() => {
+          this.setError(null);
+          this.setState({rating: 0, comment: ``});
+        })
+        .catch((error) => {
+          this.setError(error.response.data.error);
+        });
     }
 
     _handleRatingChange(event) {
@@ -56,19 +67,28 @@ const withPostReview = (WrappedComponent) => {
   }
 
   WithPostReview.propTypes = {
+    error: PropTypes.string,
     apartmentId: PropTypes.number.isRequired,
-    postReview: PropTypes.func.isRequired
+    postReview: PropTypes.func.isRequired,
+    setError: PropTypes.func.isRequired
   };
 
   return WithPostReview;
 };
 
+const mapStateToProps = (state) => {
+  return {
+    error: getError(state)
+  };
+};
+
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  postReview: (data) => dispatch(Operation.postReview(data, ownProps.apartmentId))
+  postReview: (data) => dispatch(Operation.postReview(data, ownProps.apartmentId)),
+  setError: (error) => dispatch(DataOperation.setError(error))
 });
 
 const composedWithPostReview = compose(
-    connect(null, mapDispatchToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     withPostReview
 );
 

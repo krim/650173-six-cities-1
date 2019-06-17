@@ -12,7 +12,6 @@ export const SORT_VARIANTS = [
   `Top rated first`
 ];
 
-
 export const RATINGS = [
   {title: `perfect`, mark: 5},
   {title: `good`, mark: 4},

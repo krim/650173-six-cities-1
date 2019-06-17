@@ -107,8 +107,7 @@ const Operation = {
       .then((response) => {
         const preparedReviews = prepareReviews(response.data);
         dispatch(ActionCreator.postReview(preparedReviews));
-      }).
-      catch((_error) => {});
+      });
   },
   loadFavorites: () => (dispatch, _getState, api) => {
     return api.get(`/favorite`)

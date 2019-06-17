@@ -47,6 +47,7 @@ describe(`withAuthorize`, () => {
     authorizeForm.simulate(`submit`);
     expect(authorizeHandler).toHaveBeenCalledTimes(1);
     expect(authorizeHandler).toHaveBeenNthCalledWith(1, {email, password});
+
     process.nextTick(() => {
       expect(setErrorHandler).toHaveBeenCalledTimes(1);
       expect(setErrorHandler).toHaveBeenNthCalledWith(1, null);
@@ -54,7 +55,7 @@ describe(`withAuthorize`, () => {
   });
 
   describe(`when server responds with an error`, () => {
-    it(`changes the state and submit form`, () => {
+    it(`changes the state with an error and submit form`, () => {
       const errorMessage = `errorMessage`;
       const responseWithError = {response: {data: {error: errorMessage}}};
       const errorResponse = () => Promise.reject(responseWithError);
@@ -80,9 +81,10 @@ describe(`withAuthorize`, () => {
 
       const authorizeForm = form.find(`form.login__form`);
       authorizeForm.simulate(`submit`);
+
       process.nextTick(() => {
         expect(setErrorHandler).toHaveBeenCalledTimes(1);
-        expect(setErrorHandler).toHaveBeenNthCalledWith(1, `errorMessage`);
+        expect(setErrorHandler).toHaveBeenNthCalledWith(1, errorMessage);
       });
     });
   });

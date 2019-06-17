@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 
 import withPostReview from '../../hocs/with-post-review/with-post-review';
 import {RATINGS} from '../../constants';
+import Error from '../error/error.jsx';
 
 const ReviewForm = (props) => {
   const {
+    error,
     rating,
     comment,
     isSubmitButtonDisabled,
@@ -53,6 +55,7 @@ const ReviewForm = (props) => {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={comment}
       />
+      { error && <Error message={error} />}
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and
@@ -69,6 +72,7 @@ const ReviewForm = (props) => {
 };
 
 ReviewForm.propTypes = {
+  error: PropTypes.string,
   rating: PropTypes.number.isRequired,
   comment: PropTypes.string.isRequired,
   onRatingChange: PropTypes.func.isRequired,
