@@ -7,6 +7,7 @@ import {userProps, apartmentProps, mapSettingsProps} from '../../props';
 import {getNearApartments} from '../../reducer/data/selectors';
 import ReviewList from '../review-list/review-list.jsx';
 import ApartmentList from '../apartment-list/apartment-list.jsx';
+import {ApartmentTypes} from '../apartment/apartment.jsx';
 import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 import Map from '../map/map.jsx';
 import withFavorite from '../../hocs/with-favorite/with-favorite';
@@ -69,7 +70,7 @@ const ApartmentPage = (props) => {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  Entire place
+                  {ApartmentTypes[apartment.type]}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {apartment.bedrooms} Bedrooms
@@ -169,8 +170,7 @@ const mapStateToProps = (state, props) => {
 
 const ApartmentPageWithState = connect(mapStateToProps, null)(ApartmentPage);
 
-export {ApartmentPage};
-export {ApartmentPageWithState};
+export {ApartmentPage, ApartmentPageWithState};
 export default withApartment(
     withFavorite(ApartmentPageWithState)
 );

@@ -15,7 +15,7 @@ const withPostReview = (WrappedComponent) => {
       this._handleCommentChange = this._handleCommentChange.bind(this);
 
       this.state = {
-        rating: 1,
+        rating: 0,
         comment: ``
       };
     }
@@ -42,7 +42,7 @@ const withPostReview = (WrappedComponent) => {
       const {rating, comment} = this.state;
       const {apartmentId} = this.props;
 
-      this.setState({rating: 1, comment: ``});
+      this.setState({rating: 0, comment: ``});
       this.props.postReview({rating, comment}, apartmentId);
     }
 

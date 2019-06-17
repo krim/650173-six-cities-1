@@ -11,8 +11,8 @@ const withSort = (WrappedComponent) => {
     constructor(props) {
       super(props);
 
-      this.handleOptionsClick = this.handleOptionsClick.bind(this);
-      this.handleOptionClick = this.handleOptionClick.bind(this);
+      this._handleOptionsClick = this._handleOptionsClick.bind(this);
+      this._handleOptionClick = this._handleOptionClick.bind(this);
 
       this.state = {opened: false};
     }
@@ -22,19 +22,19 @@ const withSort = (WrappedComponent) => {
         <WrappedComponent
           {...this.props}
           opened={this.state.opened}
-          onOptionsClick={this.handleOptionsClick}
-          onOptionClick={this.handleOptionClick}
+          onOptionsClick={this._handleOptionsClick}
+          onOptionClick={this._handleOptionClick}
         />
       );
     }
 
 
-    handleOptionClick(sort) {
+    _handleOptionClick(sort) {
       this.setState({opened: false});
       this.props.switchSort(sort);
     }
 
-    handleOptionsClick() {
+    _handleOptionsClick() {
       if (this.state.opened) {
         this.setState({opened: false});
       } else {

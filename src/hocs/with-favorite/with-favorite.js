@@ -11,19 +11,19 @@ const withFavorite = (WrappedComponent) => {
     constructor(props) {
       super(props);
 
-      this._onBookmarkClick = this._onBookmarkClick.bind(this);
+      this._handleBookmarkClick = this._handleBookmarkClick.bind(this);
     }
 
     render() {
       return (
         <WrappedComponent
           {...this.props}
-          onBookmarkClick={this._onBookmarkClick}
+          onBookmarkClick={this._handleBookmarkClick}
         />
       );
     }
 
-    _onBookmarkClick() {
+    _handleBookmarkClick() {
       const {addToFavorites, removeFromFavorites, apartment} = this.props;
 
       if (apartment.isFavorite) {

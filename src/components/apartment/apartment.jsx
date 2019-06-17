@@ -6,6 +6,13 @@ import getRating from '../../libs/get-rating';
 import withFavorite from '../../hocs/with-favorite/with-favorite';
 import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 
+const ApartmentTypes = {
+  apartment: `Apartment`,
+  room: `Private Room`,
+  house: `House`,
+  hotel: `Hotel`
+};
+
 class Apartment extends PureComponent {
   render() {
     const {
@@ -55,19 +62,10 @@ class Apartment extends PureComponent {
           <h2 className="place-card__name">
             <a href="#" onClick={onClick}>{apartment.title}</a>
           </h2>
-          <p className="place-card__type">{this._getApartmentType(apartment.type)}</p>
+          <p className="place-card__type">{ApartmentTypes[apartment.type]}</p>
         </div>
       </article>
     );
-  }
-
-  _getApartmentType(type) {
-    return {
-      apartment: `Apartment`,
-      room: `Private Room`,
-      house: `House`,
-      hotel: `Hotel`
-    }[type];
   }
 
   _getCardClass() {
@@ -95,6 +93,6 @@ Apartment.propTypes = {
   className: PropTypes.string.isRequired
 };
 
-export {Apartment};
+export {Apartment, ApartmentTypes};
 export default withFavorite(Apartment);
 

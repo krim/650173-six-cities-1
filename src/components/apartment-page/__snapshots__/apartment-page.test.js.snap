@@ -199,7 +199,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
             <li
               className="property__feature property__feature--entire"
             >
-              Entire place
+              Hotel
             </li>
             <li
               className="property__feature property__feature--bedrooms"
@@ -489,7 +489,7 @@ exports[`ApartmentPage renders component correctly 1`] = `
                   </svg>
                 </label>
                 <input
-                  checked={true}
+                  checked={false}
                   className="form__rating-input visually-hidden"
                   id="1-stars"
                   name="rating"

@@ -189,7 +189,7 @@ exports[`ReviewList when user is authorized renders component correctly 1`] = `
         </svg>
       </label>
       <input
-        checked={true}
+        checked={false}
         className="form__rating-input visually-hidden"
         id="1-stars"
         name="rating"
