@@ -186,7 +186,8 @@ describe(`Reducer`, () => {
       favorites: [],
       city: {},
       reviews: [],
-      activeSort: `Popular`
+      activeSort: `Popular`,
+      error: null
     });
   });
 
@@ -248,6 +249,16 @@ describe(`Reducer`, () => {
     ).toEqual({apartment});
   });
 
+  describe(`SET_ERROR`, () => {
+    const error = `error`;
+    expect(
+        reducer(
+            {error: ``},
+            {type: ActionType.SET_ERROR, payload: error}
+        )
+    ).toEqual({error});
+  });
+
   describe(`LOAD_FAVORITES`, () => {
     const favorites = [apartment];
     expect(
@@ -260,12 +271,13 @@ describe(`Reducer`, () => {
 
   describe(`ADD_TO_FAVORITES`, () => {
     const favorites = [apartment];
+    const favoriteApartment = {...apartment, isFavorite: true};
     expect(
         reducer(
             {apartments: favorites},
-            {type: ActionType.ADD_TO_FAVORITES, payload: apartment}
+            {type: ActionType.ADD_TO_FAVORITES, payload: favoriteApartment}
         )
-    ).toEqual({apartments: favorites});
+    ).toEqual({apartments: [favoriteApartment]});
   });
 
   describe(`REMOVE_FROM_FAVORITES`, () => {

@@ -6,7 +6,8 @@ const initialState = {
   favorites: [],
   city: {},
   reviews: [],
-  activeSort: `Popular`
+  activeSort: `Popular`,
+  error: null
 };
 
 const ActionType = {
@@ -18,13 +19,18 @@ const ActionType = {
   ADD_TO_FAVORITES: `ADD_TO_FAVORITES`,
   REMOVE_FROM_FAVORITES: `REMOVE_FROM_FAVORITES`,
   SWITCH_SORT: `SWITCH_SORT`,
-  LOAD_FAVORITES: `LOAD_FAVORITES`
+  LOAD_FAVORITES: `LOAD_FAVORITES`,
+  SET_ERROR: `SET_ERROR`
 };
 
 const ActionCreator = {
   setApartment: (apartment) => ({
     type: ActionType.SET_APARTMENT,
     payload: apartment
+  }),
+  setError: (error) => ({
+    type: ActionType.SET_ERROR,
+    payload: error
   }),
   switchCity: (city) => ({
     type: ActionType.SWITCH_CITY,
@@ -70,6 +76,9 @@ const prepareReviews = (reviewsData) => {
 const Operation = {
   setApartment: (apartment) => (dispatch) => {
     dispatch(ActionCreator.setApartment(apartment));
+  },
+  setError: (apartment) => (dispatch) => {
+    dispatch(ActionCreator.setError(apartment));
   },
   switchCity: (city) => (dispatch) => {
     dispatch(ActionCreator.switchCity(city));
@@ -141,6 +150,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_REVIEWS: return {...state, reviews: action.payload};
     case ActionType.POST_REVIEW: return {...state, reviews: action.payload};
     case ActionType.SET_APARTMENT: return {...state, apartment: action.payload};
+    case ActionType.SET_ERROR: return {...state, error: action.payload};
     case ActionType.LOAD_FAVORITES: return {...state, favorites: action.payload};
     case ActionType.ADD_TO_FAVORITES:
       return {...state, apartments: replaceApartment(state, action.payload)};
@@ -159,5 +169,5 @@ export {
   ActionCreator,
   ActionType,
   Operation,
-  reducer,
+  reducer
 };

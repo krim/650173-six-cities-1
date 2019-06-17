@@ -23,8 +23,7 @@ const Operation = {
         const userData = camelcaseKeys(response.data);
         dispatch(ActionCreator.authorize(userData));
         ownProps.history.push(`/`);
-      }).
-      catch((_error) => {});
+      });
   },
   checkAuthorization: () => (dispatch, _getState, api) => {
     return api.get(`/login`)

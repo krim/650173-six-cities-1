@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Error renders component correctly 1`] = `
+<div
+  style={
+    Object {
+      "color": "#FF0000",
+      "marginBottom": "1em",
+    }
+  }
+>
+  text
+</div>
+`;

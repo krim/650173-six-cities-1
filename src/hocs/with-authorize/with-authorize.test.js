@@ -12,6 +12,7 @@ describe(`withAuthorize`, () => {
         <Router>
           <WrappedSignIn
             authorize={jest.fn()}
+            setError={jest.fn()}
           />
         </Router>
     ).toJSON();

@@ -19,4 +19,22 @@ describe(`SignIn`, () => {
 
     expect(tree).toMatchSnapshot();
   });
+
+  describe(`with error`, () => {
+    it(`renders component correctly`, () => {
+      const tree = renderer.create(
+          <Router>
+            <SignIn
+              error={`error message`}
+              onPasswordChange={jest.fn()}
+              onEmailChange={jest.fn()}
+              onFormSubmit={jest.fn()}
+              isSubmitButtonDisabled={false}
+            />
+          </Router>
+      ).toJSON();
+
+      expect(tree).toMatchSnapshot();
+    });
+  });
 });

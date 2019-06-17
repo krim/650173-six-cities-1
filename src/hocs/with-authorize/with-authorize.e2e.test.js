@@ -11,11 +11,13 @@ jest.mock(`../../components/header/header.jsx`, () => () => `component`);
 
 describe(`withAuthorize`, () => {
   it(`changes the state and submit form`, () => {
-    const authorizeHandler = jest.fn();
+    const authorizeHandler = jest.fn(() => Promise.resolve());
+    const setErrorHandler = jest.fn();
     const WrappedSignIn = withAuthorize(SignIn);
     const form = mount(
         <WrappedSignIn
           authorize={authorizeHandler}
+          setError={setErrorHandler}
         />
     );
 
@@ -45,6 +47,43 @@ describe(`withAuthorize`, () => {
     authorizeForm.simulate(`submit`);
     expect(authorizeHandler).toHaveBeenCalledTimes(1);
     expect(authorizeHandler).toHaveBeenNthCalledWith(1, {email, password});
+    process.nextTick(() => {
+      expect(setErrorHandler).toHaveBeenCalledTimes(1);
+      expect(setErrorHandler).toHaveBeenNthCalledWith(1, null);
+    });
+  });
+
+  describe(`when server responds with an error`, () => {
+    it(`changes the state and submit form`, () => {
+      const errorMessage = `errorMessage`;
+      const responseWithError = {response: {data: {error: errorMessage}}};
+      const errorResponse = () => Promise.reject(responseWithError);
+      const authorizeHandler = jest.fn(errorResponse);
+      const setErrorHandler = jest.fn();
+      const WrappedSignIn = withAuthorize(SignIn);
+      const form = mount(
+          <WrappedSignIn
+            authorize={authorizeHandler}
+            setError={setErrorHandler}
+          />
+      );
+
+      const email = `admin@example.com`;
+      const emailField = form.find(`input.login__input`).first();
+      emailField.instance().value = email;
+      emailField.simulate(`change`);
+
+      const password = `password`;
+      const passwordField = form.find(`input.login__input`).last();
+      passwordField.instance().value = password;
+      passwordField.simulate(`change`);
+
+      const authorizeForm = form.find(`form.login__form`);
+      authorizeForm.simulate(`submit`);
+      process.nextTick(() => {
+        expect(setErrorHandler).toHaveBeenCalledTimes(1);
+        expect(setErrorHandler).toHaveBeenNthCalledWith(1, `errorMessage`);
+      });
+    });
   });
 });
-

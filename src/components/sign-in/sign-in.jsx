@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 
 import withAuthorize from '../../hocs/with-authorize/with-authorize';
 import Header from '../header/header.jsx';
+import Error from '../error/error.jsx';
 
 const SignIn = (props) => {
   const {
+    error,
     onPasswordChange,
     onEmailChange,
     onFormSubmit,
@@ -42,6 +44,7 @@ const SignIn = (props) => {
                   onChange={onPasswordChange}
                 />
               </div>
+              { error && <Error message={error} />}
               <button
                 className='login__submit form__submit button'
                 disabled={isSubmitButtonDisabled}
@@ -63,6 +66,7 @@ const SignIn = (props) => {
 };
 
 SignIn.propTypes = {
+  error: PropTypes.string,
   onPasswordChange: PropTypes.func.isRequired,
   onEmailChange: PropTypes.func.isRequired,
   onFormSubmit: PropTypes.func.isRequired,

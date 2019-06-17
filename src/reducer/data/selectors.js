@@ -20,6 +20,7 @@ const prepareFavorites = (favorites) => {
 };
 
 export const getApartments = (state) => state[NAME_SPACE].apartments;
+export const getError = (state) => state[NAME_SPACE].error;
 export const getActiveApartment = (state) => state[NAME_SPACE].apartment;
 export const getReviews = (state) => state[NAME_SPACE].reviews;
 export const getFavorites = (state) => prepareFavorites(state[NAME_SPACE].favorites);
