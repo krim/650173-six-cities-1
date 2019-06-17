@@ -9,6 +9,7 @@ import MainPage from '../main-page/main-page.jsx';
 import SignIn from '../sign-in/sign-in.jsx';
 import FavoriteList from '../favorite-list/favorite-list.jsx';
 import ApartmentPage from '../apartment-page/apartment-page.jsx';
+import ErrorPage from '../error-page/error-page.jsx';
 import {getCities, getCity, getCityApartments, getActiveApartment} from '../../reducer/data/selectors';
 import {getUser} from '../../reducer/user/selectors';
 import {apartmentProps, mapSettingsProps, userProps, cityProps} from '../../props';
@@ -66,6 +67,7 @@ class App extends Component {
     return <React.Fragment>
       <Switch>
         <Route path="/" exact component={Main}/>
+        <Route path="/error" component={ErrorPage}/>
         <Route path="/login" render={() => {
           if (isUserExist) {
             return <Redirect to="/" />;

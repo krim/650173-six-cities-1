@@ -7,14 +7,12 @@ import {userProps, apartmentProps, mapSettingsProps} from '../../props';
 import {getNearApartments} from '../../reducer/data/selectors';
 import ReviewList from '../review-list/review-list.jsx';
 import ApartmentList from '../apartment-list/apartment-list.jsx';
-import {ApartmentTypes} from '../apartment/apartment.jsx';
+import {ApartmentTypes, MaxCount} from '../../constants';
 import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
 import Map from '../map/map.jsx';
 import withFavorite from '../../hocs/with-favorite/with-favorite';
 import withApartment from '../../hocs/with-apartment/with-apartment';
 import Header from '../header/header.jsx';
-
-const MAX_IMAGES_COUNT = 6;
 
 const ApartmentPage = (props) => {
   const {
@@ -36,7 +34,7 @@ const ApartmentPage = (props) => {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               {
-                apartment.images.slice(0, MAX_IMAGES_COUNT).map((image, index) => {
+                apartment.images.slice(0, MaxCount.APARTMENT_IMAGES).map((image, index) => {
                   return (
                     <div key={`image-${index}`} className="property__image-wrapper">
                       <img className="property__image" src={image} alt="Photo studio" />

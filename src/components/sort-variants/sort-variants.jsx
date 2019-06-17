@@ -1,14 +1,8 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
+import {SORT_VARIANTS} from '../../constants';
 import withSort from '../../hocs/with-sort/with-sort';
-
-const SORT_VARIANTS = [
-  `Popular`,
-  `Price: low to high`,
-  `Price: high to low`,
-  `Top rated first`
-];
 
 class SortVariants extends PureComponent {
   render() {

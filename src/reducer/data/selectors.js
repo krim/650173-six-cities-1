@@ -1,12 +1,9 @@
 import {createSelector} from 'reselect';
+
 import NameSpace from '../name-spaces';
+import {MaxCount} from '../../constants';
 
 const NAME_SPACE = NameSpace.DATA;
-const MaxCount = {
-  CITIES: 6,
-  REVIEWS: 10,
-  NEAR_APARTMENTS: 3
-};
 
 const prepareFavorites = (favorites) => {
   return favorites.reduce((result, apartment) => {

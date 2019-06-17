@@ -2,14 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import withPostReview from '../../hocs/with-post-review/with-post-review';
-
-const RATINGS = [
-  {title: `perfect`, mark: 5},
-  {title: `good`, mark: 4},
-  {title: `not bad`, mark: 3},
-  {title: `badly`, mark: 2},
-  {title: `terribly`, mark: 1}
-];
+import {RATINGS} from '../../constants';
 
 const ReviewForm = (props) => {
   const {

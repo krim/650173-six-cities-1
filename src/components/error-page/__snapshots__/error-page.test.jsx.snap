@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorPage renders component correctly 1`] = `
+<div
+  style={
+    Object {
+      "color": "#FF0000",
+      "fontSize": "2em",
+      "marginTop": "10em",
+      "textAlign": "center",
+    }
+  }
+>
+  Something goes wrong. Please try again later.
+  <br />
+  <a
+    href="/"
+    onClick={[Function]}
+    style={
+      Object {
+        "color": "#000000",
+        "textDecoration": "underline",
+      }
+    }
+  >
+    Return to the main page
+  </a>
+</div>
+`;

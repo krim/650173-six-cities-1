@@ -2,16 +2,10 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import {apartmentProps} from '../../props';
+import {ApartmentTypes} from '../../constants';
 import getRating from '../../libs/get-rating';
 import withFavorite from '../../hocs/with-favorite/with-favorite';
 import BookmarkButton from '../bookmark-button/bookmark-button.jsx';
-
-const ApartmentTypes = {
-  apartment: `Apartment`,
-  room: `Private Room`,
-  house: `House`,
-  hotel: `Hotel`
-};
 
 class Apartment extends PureComponent {
   render() {
