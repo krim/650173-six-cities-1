@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 
 const errorDivStyle = {
   color: `#FF0000`,
@@ -18,7 +17,7 @@ const ErrorPage = () => {
     <div style={errorDivStyle}>
       Something goes wrong. Please try again later.
       <br />
-      <Link to={`/`} style={errorLinkStyle}>Return to the main page</Link>
+      <a href={`/`} style={errorLinkStyle}>Return to the main page</a>
     </div>
   );
 };

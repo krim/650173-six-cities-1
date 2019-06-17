@@ -15,7 +15,6 @@ exports[`ErrorPage renders component correctly 1`] = `
   <br />
   <a
     href="/"
-    onClick={[Function]}
     style={
       Object {
         "color": "#000000",

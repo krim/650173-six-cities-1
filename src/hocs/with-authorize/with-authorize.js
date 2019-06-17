@@ -47,7 +47,7 @@ const withAuthorize = (WrappedComponent) => {
 
       authorize({email, password})
         .then(() => setError(null))
-        .catch((error) => setError(error.response.data.error));
+        .catch((error) => error.response && setError(error.response.data.error));
     }
 
     _handleEmailChange(event) {

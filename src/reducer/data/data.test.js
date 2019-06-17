@@ -4,7 +4,7 @@ import api from '../../api';
 import apartment from '../../__fixtures__/apartment';
 import review from '../../__fixtures__/review';
 import city from '../../__fixtures__/city';
-import camelcaseKeys from "../user/user.test";
+import camelcaseKeys from 'camelcase-keys';
 
 describe(`Operation.setApartment`, () => {
   it(`sets apartments`, () => {
@@ -180,113 +180,135 @@ describe(`Operation.loadFavorites`, () => {
 
 describe(`Reducer`, () => {
   describe(`default`, () => {
-    expect(reducer(undefined, {})).toEqual({
-      apartments: [],
-      apartment: {},
-      favorites: [],
-      city: {},
-      reviews: [],
-      activeSort: `Popular`,
-      error: null
+    it(`changes the state`, () => {
+      expect(reducer(undefined, {})).toEqual({
+        apartments: [],
+        apartment: {},
+        favorites: [],
+        city: {},
+        reviews: [],
+        activeSort: `Popular`,
+        error: null
+      });
     });
   });
 
   describe(`SWITCH_CITY`, () => {
-    expect(
-        reducer(
-            {city: {}},
-            {type: ActionType.SWITCH_CITY, payload: city}
-        )
-    ).toEqual({city});
+    it(`changes the state`, () => {
+      expect(
+          reducer(
+              {city: {}},
+              {type: ActionType.SWITCH_CITY, payload: city}
+          )
+      ).toEqual({city});
+    });
   });
 
   describe(`SWITCH_SORT`, () => {
-    const sort = `sort`;
-    expect(
-        reducer(
-            {activeSort: `Popular`},
-            {type: ActionType.SWITCH_SORT, payload: sort}
-        )
-    ).toEqual({activeSort: sort});
+    it(`changes the state`, () => {
+      const sort = `sort`;
+      expect(
+          reducer(
+              {activeSort: `Popular`},
+              {type: ActionType.SWITCH_SORT, payload: sort}
+          )
+      ).toEqual({activeSort: sort});
+    });
   });
 
   describe(`LOAD_APARTMENTS`, () => {
-    const apartments = [apartment];
-    expect(
-        reducer(
-            {apartments: []},
-            {type: ActionType.LOAD_APARTMENTS, payload: apartments}
-        )
-    ).toEqual({apartments});
+    it(`changes the state`, () => {
+      const apartments = [apartment];
+      expect(
+          reducer(
+              {apartments: []},
+              {type: ActionType.LOAD_APARTMENTS, payload: apartments}
+          )
+      ).toEqual({apartments});
+    });
   });
 
   describe(`LOAD_REVIEWS`, () => {
-    const reviews = [review];
-    expect(
-        reducer(
-            {reviews: []},
-            {type: ActionType.LOAD_REVIEWS, payload: reviews}
-        )
-    ).toEqual({reviews});
+    it(`changes the state`, () => {
+      const reviews = [review];
+      expect(
+          reducer(
+              {reviews: []},
+              {type: ActionType.LOAD_REVIEWS, payload: reviews}
+          )
+      ).toEqual({reviews});
+    });
   });
 
   describe(`POST_REVIEW`, () => {
-    const reviews = [review];
-    expect(
-        reducer(
-            {reviews: []},
-            {type: ActionType.POST_REVIEW, payload: reviews}
-        )
-    ).toEqual({reviews});
+    it(`changes the state`, () => {
+      const reviews = [review];
+      expect(
+          reducer(
+              {reviews: []},
+              {type: ActionType.POST_REVIEW, payload: reviews}
+          )
+      ).toEqual({reviews});
+    });
   });
 
   describe(`SET_APARTMENT`, () => {
-    expect(
-        reducer(
-            {apartment: []},
-            {type: ActionType.SET_APARTMENT, payload: apartment}
-        )
-    ).toEqual({apartment});
+    it(`changes the state`, () => {
+      expect(
+          reducer(
+              {apartment: []},
+              {type: ActionType.SET_APARTMENT, payload: apartment}
+          )
+      ).toEqual({apartment});
+    });
   });
 
   describe(`SET_ERROR`, () => {
-    const error = `error`;
-    expect(
-        reducer(
-            {error: ``},
-            {type: ActionType.SET_ERROR, payload: error}
-        )
-    ).toEqual({error});
+    it(`changes the state`, () => {
+      const error = `error`;
+      expect(
+          reducer(
+              {error: ``},
+              {type: ActionType.SET_ERROR, payload: error}
+          )
+      ).toEqual({error});
+    });
   });
 
   describe(`LOAD_FAVORITES`, () => {
-    const favorites = [apartment];
-    expect(
-        reducer(
-            {favorites: []},
-            {type: ActionType.LOAD_FAVORITES, payload: favorites}
-        )
-    ).toEqual({favorites});
+    it(`changes the state`, () => {
+      const favorites = [apartment];
+      expect(
+          reducer(
+              {favorites: []},
+              {type: ActionType.LOAD_FAVORITES, payload: favorites}
+          )
+      ).toEqual({favorites});
+    });
   });
 
   describe(`ADD_TO_FAVORITES`, () => {
-    const favorites = [apartment];
-    const favoriteApartment = {...apartment, isFavorite: true};
-    expect(
-        reducer(
-            {apartments: favorites},
-            {type: ActionType.ADD_TO_FAVORITES, payload: favoriteApartment}
-        )
-    ).toEqual({apartments: [favoriteApartment]});
+    it(`changes the state`, () => {
+      const favorites = [apartment];
+      const favoriteApartment = {...apartment, isFavorite: true};
+      expect(
+          reducer(
+              {apartments: favorites},
+              {type: ActionType.ADD_TO_FAVORITES, payload: favoriteApartment}
+          )
+      ).toEqual({apartments: [favoriteApartment]});
+    });
   });
 
   describe(`REMOVE_FROM_FAVORITES`, () => {
-    const apartments = [apartment];
-    expect(
-        reducer(
-            {favorites: [apartment], apartments},
-            {type: ActionType.REMOVE_FROM_FAVORITES, payload: apartment}
-        )
-    ).toEqual({favorites: [], apartments});
+    it(`changes the state`, () => {
+      const apartments = [apartment];
+      expect(
+          reducer(
+              {favorites: [apartment], apartments},
+              {type: ActionType.REMOVE_FROM_FAVORITES, payload: apartment}
+          )
+      ).toEqual({favorites: [], apartments});
+    });
   });
 });

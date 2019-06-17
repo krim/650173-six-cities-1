@@ -52,9 +52,7 @@ const withPostReview = (WrappedComponent) => {
           this.setError(null);
           this.setState({rating: 0, comment: ``});
         })
-        .catch((error) => {
-          this.setError(error.response.data.error);
-        });
+        .catch((error) => error.response && this.setError(error.response.data.error));
     }
 
     _handleRatingChange(event) {

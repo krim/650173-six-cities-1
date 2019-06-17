@@ -58,17 +58,21 @@ describe(`Operation.checkAuthorization`, () => {
 
 describe(`Reducer`, () => {
   describe(`default`, () => {
-    expect(reducer(undefined, {})).toEqual({
-      user: {}
+    it(`changes the state`, () => {
+      expect(reducer(undefined, {})).toEqual({
+        user: {}
+      });
     });
   });
 
   describe(`AUTHORIZATION`, () => {
-    expect(
-        reducer(
-            {user: {}},
-            {type: ActionType.AUTHORIZATION, payload: user}
-        )
-    ).toEqual({user});
+    it(`changes the state`, () => {
+      expect(
+          reducer(
+              {user: {}},
+              {type: ActionType.AUTHORIZATION, payload: user}
+          )
+      ).toEqual({user});
+    });
   });
 });
